@@ -1,0 +1,45 @@
+<!DOCTYPE html> 
+
+<html lang="en"> 
+
+<head> 
+
+<meta charset="UTF-8"> 
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+<title>Calculadora financeira</title> 
+
+</head> 
+
+<body style="background-color: #503324;"> 
+
+<h1 style="color: whitesmoke;">lagotto</h1> 
+<h3 style="color: whitesmoke;"></h3>
+<center> 
+
+<h2 style="color: whitesmoke;">Calculadora financeira</h2> 
+
+<input type="number" placeholder="Área de cultivo (hec)" id="ipt_areaCULTIVO"> 
+<p>
+ <input type="number" placeholder="Quantidade de árvores" id="ipt_qtdArvore">
+</p>
+ <button onclick="calcular_preco()">Calcular preço </button>
+<div id="div_exibir" style="color: whitesmoke;"></div>
+</center>  
+
+</body> 
+</html> 
+<script>
+    function calcular_preco(){
+        var arvore = Number(ipt_qtdArvore.value)
+        var hectare = Number(ipt_areaCULTIVO.value)
+        var trufa = arvore * 0.3
+        var hecARVORE = hectare * arvore
+        var lucro = hecARVORE * trufa
+        var total = lucro * 2
+
+        div_exibir.innerHTML = "Seu lucro será de R$" + lucro + " se tiver uma truficultura , e se seguirem de acordo com o nosso projeto, podem chegar até: R$" + total 
+
+    }
+</script>

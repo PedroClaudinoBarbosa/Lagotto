@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora financeira</title>
+    <style>
+        .flex_container{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+            
+        }
+        body{
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex_container">
+        <h1> <img src=`` ></h1>
+
+        <h1>Caso não tenha nenhuma árvore plantada</h1>
+        Insira o número de hectares do terreno: <input id="ipt_hectare1" type="number">
+        <p><button onclick="hectare()">Calcule o financiamento</button></p>
+        <div id="div_exibirHec"></div>
+        
+        <h1>Caso tenha árvores plantadas</h1>
+        Insira o número de árvores: <input id="ipt_arvores1" type="number">
+        <p><button onclick="arvore()">Calcule o financiamento</button></p>
+        <div id="div_exibirArv"></div>
+    </div>
+    
+</body>
+</html>
+<script>
+    function hectare (){
+        var hectare = ipt_hectare1.value
+        var arvoresHec = hectare * 450
+        var KgPorAno = arvoresHec * 0.006
+        var valorHec = KgPorAno * 10000
+        var arduinoHec = arvoresHec * 40
+        var sensorHec = arvoresHec * 7
+        var kitUmid = sensorHec + arduinoHec
+        var instalacao = kitUmid + 1500
+
+            div_exibirHec.innerHTML = `Com a instalação de nossos produtos para ${hectare} hectares, você teria ${arvoresHec} árvores o que resultaria em: ${KgPorAno} kg/ano, ou seja
+            R$${valorHec} em trufas negras.
+            <br> O custo da instalação seria R$${instalacao} (taxa de serviço e kit de Sensor incluído).
+            <br> OBS: A instalação é uma única vez`
+    }
+            function arvore(){
+                var arvores = ipt_arvores1.value
+                var kgPorAnoAr = arvores * 0.006
+                var valorAR = kgPorAnoAr * 10000
+                var arduinoAr = arvores * 40
+                var sensorAR = arvores * 7
+                var instalacaoAR = sensorAR + arduinoAr + 1500
+
+                div_exibirArv.innerHTML = `Com a instalação de nossos produtos para ${arvores} árvores, resultadir em : ${kgPorAnoAr} kg/ano, ou seja R$${valorAR} em trufas negras
+                <br> O custo de instalação seria de R$${instalacaoAR} (taxa de serviço e kit de Sensor incluído).
+                <br> OBS: A instalação é uma única vez`
+            }
+</script>
