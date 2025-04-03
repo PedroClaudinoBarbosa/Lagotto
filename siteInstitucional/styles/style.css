@@ -11,7 +11,6 @@
     margin: auto;
 }
 
-
 .header {
     width: 100vw;
     height: 100vh;
@@ -70,5 +69,37 @@
 
 .setaConteudo img {
     width: 60px;
-    
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+}
+
+.card span {
+    color: #8F5D46;
+    font-weight: bold;
+}
+
+.card .conteudo {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card .conteudo .texto {
+    width: 51%;
+}
+
+.card h1 {
+    font-size: 60px;
+}
+
+.card p {
+    font-size: 21px;
+}
+
+.card img {
+    width: 480px;
 }
