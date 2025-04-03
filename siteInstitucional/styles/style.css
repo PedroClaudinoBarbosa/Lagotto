@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.container {
+    width: 85%;
+    margin: auto;
+}
+
+
+.header {
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../assets/img/bannerSobreNos.png);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.navbar {
+    display: flex;
+    color: #FFFFFF;
+    padding: 30px 0px 30px 40px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbarLinks {
+    display: flex;
+    justify-content: space-evenly;
+    width: 45%;
+}
+
+.navbarLinks button {
+    background: transparent;
+    border: 1px solid #FFFFFF;
+    margin-top: -5px;
+    padding: 4px 15px 4px 15px;
+    color: inherit;
+    border-radius: 4px;
+}
+
+.headerMain {
+    color: #FFFFFF;
+    width: 46%;
+    justify-self: flex-start;
+}
+
+.headerMain h1 {
+    font-size: 80px;
+}
+
+.headerMain p {
+    font-size: 20px;
+}
+
+.setaConteudo {
+    align-self: center;
+}
+
+.setaConteudo img {
+    width: 60px;
+    
+}
