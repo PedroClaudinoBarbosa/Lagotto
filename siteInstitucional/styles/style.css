@@ -13,6 +13,10 @@
     margin: auto;
 }
 
+.spacing {
+    height: 100px;
+}
+
 .header {
     width: 100vw;
     height: 100vh;
@@ -117,6 +121,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+    padding-bottom: 10px;
 }
 
 .cards .card {
@@ -145,5 +150,54 @@
     font-weight: bold;
 }
 
-/* VISÃO DE NEGÓCIOS */
+/* VISÃO DE NEGÓCIO */
 
+.container-visao {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container-visao h1{
+    font-size: 50px;
+}
+
+.container-visao img{
+    width: inherit;
+}
+
+/* FOOTER */
+
+.footer {
+    background-color: #503324;
+    color: #FFFFFF;
+}
+
+.footer .container {
+    height: 240px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer .container h4{
+    font-weight: 500;
+}
+
+.footer .container .lista{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.footer .container span{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.footer .container .lista li{
+    padding: 4px;
+    font-weight: 200;
+}
