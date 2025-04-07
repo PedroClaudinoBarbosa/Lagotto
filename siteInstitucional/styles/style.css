@@ -4,6 +4,8 @@
     margin: 0px;
     padding: 0px;
     font-family: 'DM Sans', sans-serif;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 .container {
@@ -43,7 +45,6 @@
 .navbarLinks button {
     background: transparent;
     border: 1px solid #FFFFFF;
-    margin-top: -5px;
     padding: 4px 15px 4px 15px;
     color: inherit;
     border-radius: 4px;
@@ -71,35 +72,78 @@
     width: 60px;
 }
 
-.card {
+/* INTRODUCAO */
+
+.introducao {
     display: flex;
     flex-direction: column;
 }
 
-.card span {
+.introducao span {
     color: #8F5D46;
     font-weight: bold;
 }
 
-.card .conteudo {
+.introducao .conteudo {
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: space-between;
 }
 
-.card .conteudo .texto {
+.introducao .conteudo .texto {
     width: 51%;
 }
 
-.card h1 {
-    font-size: 60px;
+.introducao h1 {
+    font-size: 50px;
 }
 
-.card p {
+.introducao p {
     font-size: 21px;
 }
 
-.card img {
+.introducao img {
     width: 480px;
 }
+
+/* CARDS */
+
+.container-cards h1{
+    font-size: 50px;
+}
+
+.cards {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.cards .card {
+    width: 30%;
+    border-radius: 16px;
+    border: 1px solid #dfdede;
+    box-shadow: 0 4px 12px #00000066;
+}
+
+.cards .card img{
+    width: 100%;
+}
+
+.cards .card h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.cards .card .texto{
+    padding: 20px;
+    text-align: center;
+}
+
+.cards .card .texto span{
+    color: #8F5D46;
+    font-weight: bold;
+}
+
+/* VISÃO DE NEGÓCIOS */
+
