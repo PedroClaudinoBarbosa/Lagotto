@@ -17,14 +17,29 @@
     height: 100px;
 }
 
+/* HEADER */
+
 .header {
     width: 100vw;
     height: 100vh;
-    background-image: url(../assets/img/bannerSobreNos.png);
     background-size: cover;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+}
+
+.sobreNos {
+    background-image: url(../assets/img/bannerSobreNos.png);
+}
+
+.index {
+    background-image: url(../assets/img/bannerIndex.png);
+}
+
+.index .container .headerMain {
+    justify-self: flex-end;
+    text-align: right;
+    width: 40%;
 }
 
 .navbar {
@@ -143,6 +158,10 @@
 .cards .card .texto{
     padding: 20px;
     text-align: center;
+}
+
+.cards .card .texto h4 span{
+    color: #149D80;
 }
 
 .cards .card .texto span{
