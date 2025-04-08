@@ -1,0 +1,397 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
+*{
+    font-family: DM Sans, sans-serif;
+}
+
+body {
+    background-color: #F8F8EE;
+    margin: 0;
+}
+
+.bannerSobreNos {
+    height: 100vh;
+    background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.726), rgba(255, 255, 255, 0)), /* branco de baixo pra cima */
+    linear-gradient(to top, #f8f8ee 0%, rgba(0, 0, 0, 0) 20%),          /* preto de cima pra baixo */
+    url('../assets/ImageSobreNos.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.navBar {
+    background-color: rgba(0, 0, 0, 0.500);
+    height: 100px;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-left: 60%;
+
+    background-image: url('../assets/logo.png');
+    background-repeat: no-repeat;
+    background-size: 10%;
+    background-position: 5% center;
+
+}
+
+.navBar a{
+
+    color: white;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+.navBar a:hover{
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: larger;
+    background-color: #503324;
+}
+
+.bannerSobreNos .container .sobreNos {
+    
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10%;
+    margin-top: 5%;
+}
+
+.bannerSobreNos .container .sobreNos h1{
+    max-width: 100px;
+    font-size: 80px;
+}
+
+.bannerSobreNos .container .sobreNos p{
+    max-width: 690px;
+    font-size: 30px;
+    border-radius: 20px;
+}
+
+.quemSomos{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10%;
+    margin-top: 5%;
+
+    background-image: url('../assets/image\ 10.png');
+    background-repeat: no-repeat;
+    background-position: 80% 80%;
+}
+
+.quemSomos h1{
+    max-width: 100px;
+    font-size: 50px;
+}
+
+.quemSomos p{
+    max-width: 690px;
+    font-size: 30px;
+    border-radius: 20px;
+    text-align: justify;
+}
+
+.comoImplantamos h1{
+    margin-top: 100px;
+    margin-left: 10%;
+    max-width: 100px;
+    font-size: 50px;
+}
+
+.cardsImplantamos {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.cardsImplantamos .card{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    width: 400px;
+    height: 500px;
+}
+
+.cardsImplantamos .card img{
+    object-fit: cover;
+    width: 100%;
+    height: 300px;
+
+}
+
+.cardsImplantamos .card #texto{
+    text-align: center;
+    padding: 10px;
+}
+
+
+/* Visão de Negócio */
+.visaoNegocio{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.visaoNegocio h1{
+    margin-top: 100px;
+    font-size: 50px;
+}
+
+.visaoNegocio img{
+    width: 80%;
+    height: auto;
+}
+
+/* Roda Pé */
+.entreContato{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #503324;
+    color: white;
+    height: 100%;
+}
+
+.entreContato h1{
+    font-size: 50px;
+}
+
+.entreContato #textoContato{
+    width: 400px;
+    text-align: justify;
+}
+
+.entreContato #contato{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.entreContato #contato input{
+    width: 500px;
+    height: 50px;
+    border: none;
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
+
+.entreContato #contato button{
+    width: 500px;
+    height: 50px;
+    background-color: #6b4b3b;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 20px;
+    transition: 0.3s ease-in-out;
+}
+
+.entreContato #contato button:hover{
+    background-color: #000000;
+    color: #503324;
+    cursor: pointer;
+}
+.entreContato #contato #mensagem{
+    height: 100px !important;
+}
+
+/* Roda Pé */
+.rodaPe{
+    padding-top: 50px;
+    padding-bottom: 20px;
+    display: flex;
+    background-color: #503324;
+    color: white;
+    justify-content: space-around;
+}
+
+.rodaPe p{
+    font-size: 20px;
+}
+
+/* Index */
+.bannerIndex {
+    height: 100vh;
+    background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.726), rgba(255, 255, 255, 0)), /* branco de baixo pra cima */
+    linear-gradient(to top, #f8f8ee 0%, rgba(0, 0, 0, 0) 20%),          /* preto de cima pra baixo */
+    url('../assets/bannerIndex.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.bannerIndex .container .sobreNos {
+    
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    text-align: right;
+    margin-right: 10%;
+    margin-top: 5%;
+}
+
+.bannerIndex .container .sobreNos h1{
+    font-size: 80px;
+}
+
+.bannerIndex .container .sobreNos p{
+    max-width: 690px;
+    font-size: 30px;
+    border-radius: 20px;
+}
+
+.oqueSao{
+    justify-content: center;
+    margin-left: 10%;
+    margin-top: 5%;
+}
+
+.oqueSao .textoOqueSao{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+.oqueSao .textoOqueSao img{
+    margin-right: 200px;
+}
+
+.oqueSao h1{
+    font-size: 50px;
+}
+
+.oqueSao p{
+    max-width: 690px;
+    font-size: 30px;
+    border-radius: 20px;
+    text-align: justify;
+}
+
+/* Finalidade */
+.finalidade h1{
+    margin-top: 100px;
+    margin-left: 10%;
+    font-size: 50px;
+}
+
+.cardsfinalidade {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.cardsfinalidade h2{
+    color: #6b4b3b;
+}
+
+.cardsfinalidade .card{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    width: 400px;
+    height: 520px;
+}
+
+.cardsfinalidade .card img{
+    object-fit: cover;
+    width: 100%;
+    height: 300px;
+    border-radius: 20px;
+
+}
+
+.cardsfinalidade .card #texto{
+    text-align: center;
+    padding: 20px;
+}
+
+/* Sobre a Truficultura */
+.truficultura {
+    margin-top: 100px;
+}
+
+.truficultura .backgroundCultivo{
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    background-image: linear-gradient(to top, #f8f8ee 0%, rgba(0, 0, 0, 0) 10%), linear-gradient(to bottom, #f8f8ee 0%, rgba(0, 0, 0, 0) 10%),
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../assets/image 6.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+
+.truficultura h2{
+    margin-right: 100px;
+    color: white;
+    font-size: 80px;
+}
+
+.truficultura p{
+    margin-right: 100px;
+    color: white;
+    font-size: 20px;
+}
+
+.truficultura .cultivoTexto{
+    max-width: 60%;
+}
+
+.solucoes {
+    margin: 50px;
+}
+
+.solucoes h1 {
+    font-size: 60px;
+    color: #8F5D46;
+}
+
+.solucoes p {
+    font-size: 30px;
+}
+
+.solucoes h1 {
+    text-align: center;
+    font-size: 90px;
+    color: #36693d;
+}
+
+.solucoes h2 {
+    font-size: 60px;
+    color: #8F5D46;
+}
+
+.solucoes #solucoesTexto1  {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+.solucoes .texto {
+    width: 50%;
+}
+
+.solucoes h3 {
+    font-size: 60px;
+}
+
+.solucoes imagem100porcento {
+    align-self: center;
+}
