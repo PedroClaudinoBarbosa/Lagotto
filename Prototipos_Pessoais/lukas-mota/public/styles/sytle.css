@@ -91,7 +91,7 @@ body {
 .conteudo-div-1 {
 display: flex;
   width: 90%;
-  height: 50%;
+  height: 30%;
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
@@ -132,12 +132,12 @@ width: 54%;
 }
 
 .conteudo-div-2 {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+      display: flex;
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
 }
 
 .conteudo-div-2 h1 {
@@ -159,15 +159,319 @@ width: 54%;
 }
 
 .card-cada-imagem {
+      display: flex;
+        flex-direction: column;
+        margin: 20px;
+        width: 25.8%;
+        background-color: #BEB396;
+        border-radius: 20px;
+        height: 76vh;
+        justify-content: flex-start;
+        align-items: center;
+
+
+}
+
+.card-cada-imagem h3{
+  color: #3D4431;
+  font-size: 45px;
+  font-weight: 300;
+}
+
+.card-cada-imagem p{
+  color: #fff;
+  font-size: 30px;
+  font-weight: 300;
+  margin: 0px 20px;
+}
+.card-cada-imagem button {
+  color: #fff;
+  background-color: #3D4431;
+  width: 200px;
+  height: 65px;
+font-size: 30px;
+font-weight: 300;
+border-radius: 20px;
+margin-top: 15px;
+cursor: pointer;
+}
+
+.btn-img-segunda{
+  margin-top: 50px !important;
+}
+
+
+.terceiro-conteudo{
+    display: flex;
+      width: 100%;
+      height: auto;
+      flex-direction: column;
+      align-items: stretch;
+}
+
+.terceiro-conteudo h1{
+font-family: "Merriweather";
+  font-size: 160px;
+  font-weight: 900;
+  font-style: italic;
+  color: #3D4431;
+  align-self: flex-start;
+  margin: 45px;
+  padding: 50px;
+  order: 0;
+
+}
+
+.terceiro-conteudo h2{
+font-family: "Merriweather";
+  font-size: 80px;
+  font-weight: 600;
+  font-style: italic;
+  color: #695142;
+  align-self: center;
+ 
+}
+
+.terceiro-conteudo img{
+  width: 100%;
+}
+
+.conteudo-div-3{
+  width:100%;
   display: flex;
   flex-direction: column;
-  margin: 20px;
-  width: 25.8%;
-  background-color: #BEB396;
   align-items: center;
-  border-radius: 20px;
-  height: 74vh;
-  justify-content: space-between;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.conteudo-div-3 h1{
+  font-family: "Merriweather";
+  font-size: 160px;
+  font-weight: 900;
+  font-style: italic;
+  color: #3D4431;
+  align-self: flex-start;
+  margin: 45px;
+  padding: 50px;
+  order: 0;
+}
+
+.conteudo-div-3 {
+  display: flex;
+
+}
+
+.img-conteudo-3{
+  width: 100%;
+    display: flex
+  ;
+    flex-direction: row;
+    margin-top: 0;
+  
+}
+.img-conteudo-3 img{
+  width: 30%;
+  height:auto;
+  align-self: flex-start;
+  margin: 50px;
+}
+
+.img-conteudo-3 h2{
+  font-family: "Merriweather";
+  font-size: 100px;
+  font-weight: 600;
+  font-style: italic;
+  color: #695142;
+  align-self: center;
+
+ 
+
+}
+.img-conteudo-3 p{
+  font-family: "Merriweather";
+  font-size: 40px;
+  font-weight: 300;
+  font-style: italic;
+  color: #695142;
+  align-self: center;
+  width: 80%;
+
+}
+
+.conteudo-4 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.img-conteudo-4 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 0;
+}
+
+.img-conteudo-4 img {
+width: 100%;
+  height: auto;
+  align-self: flex-start;
+  margin: 50px;
+  order: 2;
+}
+
+.img-conteudo-4 div {
+  display: flex;
+  flex-direction: column;
+  order: 1;
+}
+
+.img-conteudo-4 h2 {
+font-family: "Merriweather";
+  font-size: 100px;
+  font-weight: 600;
+  font-style: italic;
+  color: #695142;
+  margin-top: 80px;
+  margin-left: 80px;
+  width: 50%;
+}
+
+.img-conteudo-4 p {
+    font-family: "Merriweather";
+      font-size: 40px;
+      font-weight: 300;
+      font-style: italic;
+      color: #695142;
+      width: 80%;
+      margin-left: 100px;
+}
 
 
+.conteudo-5 {
+      display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+}
+.conteudo-5 h2{
+    font-family: "Merriweather";
+      font-size: 100px;
+      font-weight: 600;
+      font-style: italic;
+      color: #695142;
+      width: 85%;
+      margin: 72px 0px 0px 70px;
+      align-self: start;
+    
+}
+
+.container-conteudo-5{
+    display: flex;
+      flex-direction: row;
+      width: 90%;
+      margin: 50px;
+      justify-content: space-between;
+      box-shadow: #3D4431 0px 0px 10px 0px;
+      border-radius: 5px;
+      border: solid #695142 1px;
+      background-color: #fff;
+      
+
+}
+.container-conteudo-5 h3{
+font-family: "Merriweather";
+  font-size: 110px;
+  font-weight: 600;
+  font-style: italic;
+  color: #3D4431;
+  margin: 30px;
+  width: 90%;
+}
+.container-conteudo-5 p{
+font-family: "Merriweather";
+  font-size: 40px;
+  font-weight: 100;
+  font-style: italic;
+  color: #3D4431;
+  margin: 30px;
+  width: 90%;
+  align-self: flex-end !important;
+}
+.sobreposta{
+  width: 100%;
+  margin-left: -50px;
+  margin-right: 50px ;
+  margin-bottom: 50px;
+  margin-top: -20px;
+  box-shadow: #3D4431 0px 0px 10px 0px;
+    border-radius: 5px;
+    border: solid #695142 1px;
+    background-color: #fff;
+
+}
+main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  align-items: center;
+  margin: 20px 20px 20px 0px;
+}
+
+
+.footer {
+      display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        background-color: #503324;
+        color: #fff;
+        width: auto;
+        height: 41%;
+        align-items: flex-start;
+}
+.footer-logo{
+  display: flex;
+  flex-direction: column;
+  align-self:center;
+  width: 25%;
+
+}
+.footer-logo p {
+  align-self: center;
+  font-family:  "Merriweather";
+  font-weight: 300;
+  font-size: 15px;
+}
+.footer-categorias{
+  display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 80%;
+  
+}
+.footer-categoria-recursos{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  
+}
+
+.footer-categoria-recursos h3{
+font-family: "Merriweather";
+  font-weight: 500;
+  font-size: 40px;
+  align-self: inherit;
+  margin-bottom: 0;
+  margin-left: 45px;
+}
+.footer-categoria-recursos ul{
+ align-self: center;
+    font-family: "Merriweather";
+      font-weight: 100;
+      font-size: 25px;
+      list-style-type:none;
 }
