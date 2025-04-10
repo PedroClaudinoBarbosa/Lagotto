@@ -241,6 +241,7 @@
     display: flex;
     flex-direction: row;
     width: 92%;
+    align-items: center;
 }
 
 .solucoes .container img {
@@ -259,10 +260,20 @@
 
 .solucoes .cardSolucoes .textos {
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.solucoes .cardSolucoes .textos h4{
+    font-size: 60px;
+    justify-self: flex-end;
+    margin-top: 90px;
 }
 
 .solucoes .cardSolucoes .textos p {
-    width: 60%;
+    width: 80%;
+    font-size: 20px;
 }
 
 .solucoes .card1 {
@@ -271,7 +282,7 @@
 
 .solucoes .card1 img{
     height: 120%;
-    width: 120%;
+    width: 150%;
 }
 
 .solucoes .card1 .textos {
