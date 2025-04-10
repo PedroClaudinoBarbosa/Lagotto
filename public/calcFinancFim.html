@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora financeira | lagotto</title>
+</head>
+<body>
+
+    <center>
+        <h1> 
+            <img width="200px" src = 'lagottomarrom.png'>
+        </h1>
+    
+        <h2>
+            Orçamento do produto
+        </h2>
+    
+        <h3>
+            Insira as informações:
+        </h3>
+            
+        Quantidade de árvores:
+        
+        <p>
+            <input type="number" id="ipt_arv">
+        </p>
+
+        Quantos hectares:
+
+        <p>
+            <input type="number" id="ipt_hectare">
+        </p>
+
+        <button onclick="calculo()">Calcular Orçamento</button>
+
+        <p>
+            <div id="div_exibirMsg"></div>
+        </p>
+    </center>
+</body>
+    
+</html>
+<script>
+    function calculo(){
+
+        var arvore = Number(ipt_arv.value)
+        var hectare = Number(ipt_hectare.value)
+        var sensor = 8 * arvore
+        var arduino = (arvore / 6) * 42.9  
+        var instalacao = arvore * 8.50
+        var sistema = 1350
+        var valorGeral = sensor + arduino + instalacao + sistema
+        var desconto = arvore >=1000 ? valorGeral * 0.10: 0    
+        var valorTotal = valorGeral - desconto
+        var kgporano = arvore * 0.006
+        var kg12anos = arvore *0.55
+        var avisomax = 800
+        var avisomin = 300
+        var precotrufa = 12000 * kgporano
+        var roiAno =((precotrufa - valorTotal) / valorTotal) *100
+        var Lucro = precotrufa - valorTotal
+
+        div_exibirMsg.innerHTML = `Com ${arvore} árvores e ${hectare} hectares você terá um gasto de:
+        <br> Sensores (1:1): R$${sensor.toFixed(2)}
+        <br> Arduínos (1:6): R$${arduino.toFixed(2)}
+        <br> Instalação: R$${instalacao.toFixed(2)}
+        <br> Sistema: R$${sistema.toFixed(2)}
+        <br> Total: R$${valorTotal.toFixed(2)}
+        <br> Você produzirá ${kgporano.toFixed(2)}kg/ano de trufas negras
+        <br> Com ${kgporano.toFixed(2)}kg/ano você terá o preço de venda de R$${precotrufa.toFixed(2)}
+        <br> Lucro: R$${Lucro.toFixed(2)}
+        <br> ROI (Retorno no investimento): ${roiAno.toFixed(2)}%
+        <br> A partir do 12° ano a sua produção de trufas negras irá aumentar em até ${kg12anos.toFixed(2)}kg/ano
+        <br> A partir do 12° ano a sua produção irá ter um retorno de R$${(kg12anos*12000).toFixed(2)}/ano`
+        
+
+
+        if(avisomin * hectare > arvore){div_exibirMsg.innerHTML += `<p>Poucas árvores por hectare! O recomendado é de: ${avisomin *hectare} até ${avisomax * hectare}`}
+        if (avisomax * hectare < arvore){div_exibirMsg.innerHTML += `<p>Muitas árvores por hectare! O recomendado é de: ${avisomin * hectare} até ${avisomax * hectare}`}
+         
+         
+         
+
+    }
+</script>
