@@ -4,9 +4,9 @@
 ***Fabrizzio Puttini, João Carlos, Luiz Souza, Lukas da Mota, Pedro Barbosa e  Vinícius Rocha***
 
 
-# protótipos do site feito no figma
+ **protótipos do site feito no figma**
 
-### Página Home, Sobre nós e a truficultura                 
+***Página Home, Sobre nós e a truficultura***                 
 ![Página Home](https://raw.githubusercontent.com/PedroClaudinoBarbosa/Lagotto/refs/heads/lukas-mota/prototipo-site/home-lagotto.png)   ![Página Sobre nós](https://raw.githubusercontent.com/PedroClaudinoBarbosa/Lagotto/refs/heads/lukas-mota/prototipo-site/sobre-nos-lagotto.png)    ![Página truficultura](https://raw.githubusercontent.com/PedroClaudinoBarbosa/Lagotto/refs/heads/lukas-mota/prototipo-site/truficultura.png)
 
 
