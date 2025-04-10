@@ -144,9 +144,12 @@
     border-radius: 16px;
     border: 1px solid #dfdede;
     box-shadow: 0 4px 12px #00000066;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.cards .card img{
+.cards .card .imgCard{
     width: 100%;
 }
 
@@ -167,6 +170,134 @@
 .cards .card .texto span{
     color: #8F5D46;
     font-weight: bold;
+}
+
+.saibaMais {
+    background-color: #8F5D46;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: row;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    gap: 10px;
+    width: 150px;
+    margin-bottom: 10px;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    align-items: center;
+}
+
+.cards .card .saibaMais {
+    justify-self: flex-end;
+}
+
+.saibaMais img{
+    height: 15px;
+    width: 15px;
+}
+
+/* TRUFICULTURA */
+
+.truficultura {
+    text-align: right;
+}
+
+.truficultura h1 {
+    font-size: 50px;
+}
+
+.truficulturaBox {
+    background-image: url(../assets/img/imgTruficultura.png);
+    background-size: cover;
+    padding: 50px 0px 50px 0px;
+    color: #FFFFFF;
+}
+
+.truficulturaBox .container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.truficulturaBox .container h2 {
+    font-size: 60px;
+}
+
+.truficulturaBox .container .truficulturaTexto {
+    width: 500px;
+}
+
+.truficulturaBox .container .truficulturaTexto span{
+    color: #D7B09E;
+    font-weight: bold;
+}
+
+/* SOLUÇÕES */
+
+.solucoes .cardSolucoes {
+    display: flex;
+    flex-direction: row;
+    width: 92%;
+}
+
+.solucoes .container img {
+    width: 95%;
+}
+
+.solucoes .cardSolucoes .textos h2 {
+    font-size: 50px;
+    color: #8F5D46;
+    width: 400px;
+}
+
+.solucoes .container h1 {
+    font-size: 50px;
+}
+
+.solucoes .cardSolucoes .textos {
+    height: 100%;
+}
+
+.solucoes .cardSolucoes .textos p {
+    width: 60%;
+}
+
+.solucoes .card1 {
+    gap: 300px;
+}
+
+.solucoes .card1 img{
+    height: 120%;
+    width: 120%;
+}
+
+.solucoes .card1 .textos {
+    justify-self: flex-end;
+}
+
+.solucoes .card2 {
+    justify-self: flex-end;
+    align-items: center;
+}
+
+.solucoes .card2 img{
+    height: 120%;
+    width: 150%;
+}
+
+.solucoes .card2 .textos h1{
+    align-self: flex-end;
+}
+
+.solucoes .img100 {
+    display: flex;
+    width: 95%;
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 /* VISÃO DE NEGÓCIO */
