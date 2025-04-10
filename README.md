@@ -1,12 +1,8 @@
 # Monitoramento de Umidade do Solo para Cultivo de Trufas Negras
 
-## Lagotto - Grupo 05:
-#### Fabrizzio Puttini
-#### João Carlos
-#### Luiz Souza
-#### Lukas da Mota
-#### Pedro Barbosa
-#### Vinícius Rocha
+## Equipe de desenvolvimento Lagotto - Grupo 05:
+***Fabrizzio Puttini, João Carlos, Luiz Souza, Lukas da Mota, Pedro Barbosa e  Vinícius Rocha***
+
 
 # protótipos do site feito no figma
 
