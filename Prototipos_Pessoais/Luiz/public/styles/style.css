@@ -1,0 +1,65 @@
+/* INDEX */
+body{
+    margin: 0;
+}
+.conteiner {
+    background-image: url("../assets/imgs/imagem-inicial.png");
+    height: 936px;
+}
+ul{
+    margin: 0;
+}
+.logo-navbar{
+    width:250px;
+    height: 85px;
+    display: flex;
+    margin-right: 900px;
+}
+.navbar a{
+    text-decoration: none;
+    color: white;
+
+}
+
+.header .conteiner .navbar {
+    height: 100px;
+    width: 1861px;
+    list-style-type: none;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+.header .conteiner .navbar .login{
+    border: solid white 1px ;
+    border-radius: 5px;
+    padding: 5px;
+    width: 60px;
+
+    display: flex;
+    justify-content: center;
+}
+.header .conteiner h2{
+    color: aliceblue;
+    font-size: 120px;
+    width: 20%;
+    margin-bottom: 5px;
+    margin-top: 200px;
+    margin-right: 89px;
+
+    display: flex;
+    justify-self: flex-end;
+    text-align: end;
+}
+.header .conteiner p{
+    color: aliceblue;
+    width: 34%;
+    font-size: 35px;
+    margin-right: 89px;
+
+    display: flex;
+    justify-self: flex-end;
+    text-align: end;
+}
