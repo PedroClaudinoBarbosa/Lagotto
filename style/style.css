@@ -1,0 +1,29 @@
+.container{
+    display: flex;
+    width: 80%;
+    margin: auto;
+}
+
+.header .container{
+    display: flex;
+    justify-content: space-between;
+}
+    .header .container .logo img{
+        height: 80px;
+    }
+    .header .navbar {
+    color: yellow;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 500px;
+}
+.navbar a {
+    text-decoration: none;
+    color: white;
+    }
+    .background{
+    height: 500px;
+    background-image: url("../imgs/pagina_principal/background1.png");
+}
