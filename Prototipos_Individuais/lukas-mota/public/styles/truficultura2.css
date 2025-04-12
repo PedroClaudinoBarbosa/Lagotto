@@ -1,0 +1,388 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap");
+
+body {
+    margin: 0;
+
+    background-color: #E6E8DB;
+
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.truficultura-banner {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    flex-direction: column;
+}
+
+.truficultura-banner img {
+    width: 100%;
+}
+
+.nav-bar-truficultura {
+    display: flex;
+    width: 89%;
+    height: 100px;
+    position: absolute;
+    color: white;
+
+    align-self: flex-start;
+    margin-top: 80px;
+
+
+}
+
+.truficultura-nav {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.041);
+    backdrop-filter: blur(15px);
+    border-radius: 55px;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+.img-logo {
+    width: 35%;
+    display: flex;
+    flex-direction: row;
+    margin-left: 20px;
+}
+
+.img-logo img {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0px 0px 20;
+}
+
+.nav-bar-links {
+    display: flex;
+    width: 60%;
+    height: auto;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.nav-bar-links a {
+
+    color: white;
+    text-decoration: none;
+    margin-top: 24px;
+    margin-right: 101px !important;
+    display: flex;
+    font-size: 37px;
+    font-weight: bold;
+    font-family: "arial";
+
+}
+
+.container-pagina {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+
+.container-1 {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    justify-content: space-evenly;
+    margin-top: 20px;
+
+}
+
+
+.container-1-texto {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    justify-content: space-around;
+    margin-left: 43px;
+}
+
+.container-1-texto h1 {
+    font-size: 100px;
+    font-family: "Merriweather";
+    font-weight: 900;
+    color: #3D4431;
+    align-self: first baseline;
+}
+
+.container-1-texto p {
+    font-size: 40px;
+    font-family: "arial";
+    font-style: italic;
+    color: #695142;
+}
+
+.container-1-img {
+    align-self: end;
+    width: 100%;
+    height: auto;
+}
+
+.container-1-img img {
+    width: 50rem;
+    height: auto;
+}
+
+
+.container-2 {
+display: flex;
+padding-top:100px ;
+    flex-direction: column;
+    width: 95%;
+    height: auto;
+    margin: 20px;
+}
+
+.container-2-texto-div-img{
+display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    justify-content: space-evenly;
+    margin-top: 20px;
+    padding-bottom: 75px;
+}
+.container-2-texto-div-img h1{
+
+    font-size: 74px;
+        font-family: "Merriweather";
+        font-weight: 900;
+        color: #3D4431;
+}
+.container-2-texto-div-img video{
+ 
+    width: 55%;
+    border-radius: 20%;
+    overflow: hidden;
+}
+
+.card-cada-imagem-arduino-div{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.card-cada-imagem-arduino{
+
+ display: flex;
+ flex-direction: column;
+ margin: 20px;
+ width: 25.8%;
+ background-color: #BEB396;
+ border-radius: 20px;
+ height: 90vh;
+ justify-content: flex-end;
+ align-items: center;
+ padding: 20px;
+}
+
+.card-cada-imagem-arduino h3 {
+    color: #3D4431;
+    font-size: 40px;
+    font-weight: 300;
+    align-self: center;
+    margin: 20px;
+}
+
+.card-cada-imagem-arduino  p {
+     color: #fff;
+     font-size: 30px;
+     font-weight: 300;
+     margin:40px;
+ }
+ .card-cada-imagem-arduino img {
+    width: 90%;
+    height: 90%;
+    border-radius: 20%;
+    overflow: hidden;
+}
+
+.container-3{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    margin: 20px;
+    padding-bottom: 100px;
+    justify-content:space-between ;
+
+}
+
+.container-3 h1{
+    align-self: center;
+    padding: 25px;
+    color: #3D4431;
+        font-size: 100px;
+        font-weight: 700;
+}
+
+
+.container-4{
+    display: flex;
+    flex-direction: row;
+    width: 98.5%;
+    height: 100%;
+    padding: 10px;
+    justify-content: space-around;
+    background-color: #503324;
+    border-radius: 20px;
+    
+
+}
+.container-4-text{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: auto;
+    justify-content: space-around;
+    margin-left: 43px;
+}
+.container-4-text h1{
+    font-size: 70px;
+    font-family: "Merriweather";
+    font-weight: 800;
+    color: #7caa2d;
+    align-self: first baseline;
+}
+.container-4-text p{
+    font-size: 30px;
+    font-family: "arial";
+    font-style: italic;
+    color: #fff;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: 100%;
+    justify-content: space-around;
+ 
+}
+
+.form input{
+    display: flex;
+    flex-direction: column;
+    /* padding-top: 0px; */
+    margin: 10px;
+    margin-left:19px;
+    width: 90%;
+    height: 55px;
+    border-radius: 10px;
+    border: none;
+    background-color: #E6E8DB;
+}
+.input-mensagem{
+    align-self: center !important;
+margin: 15px;
+padding: 15px;
+    border-radius: 10px;
+
+    width: 90% !important;
+    height: 130px !important;
+}
+
+.form button{
+    font-family: "Merriweather";
+    font-size: 25px;
+    font-weight: 700;
+    align-self: center;
+    width: 20%;
+    height: 7vh;
+    border-radius: 10px;
+    background-color:#607e2d ;
+    color: #fff;
+}
+
+
+input::placeholder {
+    color: #000000;
+    font-style: italic;
+    font-size: 14px;
+    margin-right:50px;
+}
+
+
+
+
+
+/* ----- ------------------ */
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: #503324;
+    color: #fff;
+    width: auto;
+    height: 41%;
+    align-items: flex-start;
+}
+
+.footer-logo {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 25%;
+
+}
+
+.footer-logo p {
+    align-self: center;
+    font-family: "Merriweather";
+    font-weight: 300;
+    font-size: 15px;
+}
+
+.footer-categorias {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 80%;
+
+}
+
+.footer-categoria-recursos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+}
+
+.footer-categoria-recursos h3 {
+    font-family: "Merriweather";
+    font-weight: 500;
+    font-size: 40px;
+    align-self: inherit;
+    margin-bottom: 0;
+    margin-left: 45px;
+}
+
+.footer-categoria-recursos ul {
+    align-self: center;
+    font-family: "Merriweather";
+    font-weight: 100;
+    font-size: 25px;
+    list-style-type: none;
+}
