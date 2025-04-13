@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lagotto Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff;
+      color: #815a48;
+    }
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 100%;
+      background-color: #5f422c;
+      padding: 20px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #fffefd;
+    }
+    .nav {
+      margin-top: 40px;
+    }
+    .nav div {
+      margin: 20px 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+    .content {
+      margin-left: 240px;
+      padding: 30px;
+    }
+    .section {
+      margin-bottom: 40px;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+    .alert {
+      color: #e53935;
+      font-weight: bold;
+    }
+    .card-container {
+      display: flex;
+      gap: 20px;
+    }
+    .card {
+      flex: 1;
+      border: 1px dashed #bbb;
+      padding: 15px;
+      border-radius: 10px;
+    }
+    .card h3 {
+      text-align: right;
+      color: #a3643f;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .calendar-chart {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+    .chart-box {
+      width: 500px;
+    }
+    .calendar-box {
+      border: 1px dashed #bbb;
+      padding: 15px;
+      border-radius: 10px;
+    }
+    .profile-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background-color: #ccc;
+      border-radius: 50%;
+    }
+
+    .logo img {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo"><img src="../public/assets/logo.png" alt="Imagem"></div>
+    <div class="nav">
+      <div>
+        <span>📊</span>
+        Gráficos
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="profile-icon"></div>
+
+    <div class="section">
+      <h2>Hectares com Crescimento <span class="alert">Comprometido</span></h2>
+      <p><small>(*Fora do limite de 30 a 40% de umidade do solo)</small></p>
+      <div class="card-container">
+        <div class="card">
+          <canvas id="graficoHectar8"></canvas>
+          <h3>Hectar 8</h3>
+        </div>
+        <div class="card">
+          <canvas id="graficoHectar5"></canvas>
+          <h3>Hectar 5</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Hectares em Estado de <span class="alert" style="color: #f48fb1;">Alerta</span></h2>
+      <p><small>(*Perto do limite de 30 a 40% de umidade do solo)</small></p>
+      <div class="card-container">
+        <div class="card">
+          <canvas id="graficoHectar1"></canvas>
+          <h3>Hectar 1</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Estatísticas Gerais</h2>
+      <div class="calendar-chart">
+        <div class="calendar-box">
+          <h4>Período</h4>
+          <input type="month" value="2025-04">
+        </div>
+        <div class="chart-box">
+          <canvas id="graficoProblemas"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const labels = ['13:00', '14:00', '15:00', '16:00', '17:00'];
+    const data = [20, 35, 15, 10, 25];
+
+    const config = (ctxId) => ({
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Umidade (%)',
+          data,
+          borderColor: '#a3643f',
+          backgroundColor: 'rgba(163, 100, 63, 0.2)',
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        }
+      }
+    });
+
+    new Chart(document.getElementById('graficoHectar8'), config());
+    new Chart(document.getElementById('graficoHectar5'), config());
+    new Chart(document.getElementById('graficoHectar1'), config());
+
+    new Chart(document.getElementById('graficoProblemas'), {
+      type: 'bar',
+      data: {
+        labels: ['Plantio 1', 'Plantio 2', 'Plantio 3', 'Plantio 4', 'Plantio 5', 'Plantio 6', 'Plantio 7', 'Plantio 8', 'Plantio 9'],
+        datasets: [{
+          label: 'Problemas (%)',
+          data: [30, 15, 10, 35, 25, 10, 12, 8, 6],
+          backgroundColor: '#a3643f'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 40
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

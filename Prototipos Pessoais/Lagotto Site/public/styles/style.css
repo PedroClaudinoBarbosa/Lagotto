@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 
-*{
+* {
     font-family: DM Sans, sans-serif;
 }
 
@@ -12,10 +12,12 @@ body {
 
 .bannerSobreNos {
     height: 100vh;
-    background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.726), rgba(255, 255, 255, 0)), /* branco de baixo pra cima */
-    linear-gradient(to top, #f8f8ee 0%, rgba(0, 0, 0, 0) 20%),          /* preto de cima pra baixo */
-    url('../assets/ImageSobreNos.png');
+    background-image:
+        linear-gradient(to right, rgba(0, 0, 0, 0.726), rgba(255, 255, 255, 0)),
+        /* branco de baixo pra cima */
+        linear-gradient(to top, #f8f8ee 0%, rgba(0, 0, 0, 0) 20%),
+        /* preto de cima pra baixo */
+        url('../assets/ImageSobreNos.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -37,14 +39,14 @@ body {
 
 }
 
-.navBar a{
+.navBar a {
 
     color: white;
     text-decoration: none;
     transition: 0.3s ease-in-out;
 }
 
-.navBar a:hover{
+.navBar a:hover {
     padding: 10px 20px;
     border-radius: 20px;
     font-size: larger;
@@ -52,7 +54,7 @@ body {
 }
 
 .bannerSobreNos .container .sobreNos {
-    
+
     color: white;
 
     display: flex;
@@ -62,19 +64,19 @@ body {
     margin-top: 5%;
 }
 
-.bannerSobreNos .container .sobreNos h1{
+.bannerSobreNos .container .sobreNos h1 {
     max-width: 100px;
     font-size: 80px;
 }
 
-.bannerSobreNos .container .sobreNos p{
+.bannerSobreNos .container .sobreNos p {
     max-width: 690px;
     font-size: 30px;
     border-radius: 20px;
 }
 
-.quemSomos{
-    
+.quemSomos {
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -86,19 +88,19 @@ body {
     background-position: 80% 80%;
 }
 
-.quemSomos h1{
+.quemSomos h1 {
     max-width: 100px;
     font-size: 50px;
 }
 
-.quemSomos p{
+.quemSomos p {
     max-width: 690px;
     font-size: 30px;
     border-radius: 20px;
     text-align: justify;
 }
 
-.comoImplantamos h1{
+.comoImplantamos h1 {
     margin-top: 100px;
     margin-left: 10%;
     max-width: 100px;
@@ -110,46 +112,46 @@ body {
     justify-content: space-evenly;
 }
 
-.cardsImplantamos .card{
+.cardsImplantamos .card {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     border-radius: 20px;
     width: 400px;
     height: 500px;
 }
 
-.cardsImplantamos .card img{
+.cardsImplantamos .card img {
     object-fit: cover;
     width: 100%;
     height: 300px;
 
 }
 
-.cardsImplantamos .card #texto{
+.cardsImplantamos .card #texto {
     text-align: center;
     padding: 10px;
 }
 
 
 /* Visão de Negócio */
-.visaoNegocio{
+.visaoNegocio {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
 }
 
-.visaoNegocio h1{
+.visaoNegocio h1 {
     margin-top: 100px;
     font-size: 50px;
 }
 
-.visaoNegocio img{
+.visaoNegocio img {
     width: 80%;
     height: auto;
 }
 
 /* Roda Pé */
-.entreContato{
+.entreContato {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -158,23 +160,23 @@ body {
     height: 100%;
 }
 
-.entreContato h1{
+.entreContato h1 {
     font-size: 50px;
 }
 
-.entreContato #textoContato{
+.entreContato #textoContato {
     width: 400px;
     text-align: justify;
 }
 
-.entreContato #contato{
+.entreContato #contato {
     margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.entreContato #contato input{
+.entreContato #contato input {
     width: 500px;
     height: 50px;
     border: none;
@@ -182,7 +184,7 @@ body {
     margin-bottom: 10px;
 }
 
-.entreContato #contato button{
+.entreContato #contato button {
     width: 500px;
     height: 50px;
     background-color: #6b4b3b;
@@ -193,17 +195,18 @@ body {
     transition: 0.3s ease-in-out;
 }
 
-.entreContato #contato button:hover{
+.entreContato #contato button:hover {
     background-color: #000000;
     color: #503324;
     cursor: pointer;
 }
-.entreContato #contato #mensagem{
+
+.entreContato #contato #mensagem {
     height: 100px !important;
 }
 
 /* Roda Pé */
-.rodaPe{
+.rodaPe {
     padding-top: 50px;
     padding-bottom: 20px;
     display: flex;
@@ -212,17 +215,19 @@ body {
     justify-content: space-around;
 }
 
-.rodaPe p{
+.rodaPe p {
     font-size: 20px;
 }
 
 /* Index */
 .bannerIndex {
     height: 100vh;
-    background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.726), rgba(255, 255, 255, 0)), /* branco de baixo pra cima */
-    linear-gradient(to top, #f8f8ee 0%, rgba(0, 0, 0, 0) 20%),          /* preto de cima pra baixo */
-    url('../assets/bannerIndex.png');
+    background-image:
+        linear-gradient(to right, rgba(0, 0, 0, 0.726), rgba(255, 255, 255, 0)),
+        /* branco de baixo pra cima */
+        linear-gradient(to top, #f8f8ee 0%, rgba(0, 0, 0, 0) 20%),
+        /* preto de cima pra baixo */
+        url('../assets/bannerIndex.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -230,7 +235,7 @@ body {
 
 
 .bannerIndex .container .sobreNos {
-    
+
     color: white;
 
     display: flex;
@@ -242,38 +247,38 @@ body {
     margin-top: 5%;
 }
 
-.bannerIndex .container .sobreNos h1{
+.bannerIndex .container .sobreNos h1 {
     font-size: 80px;
 }
 
-.bannerIndex .container .sobreNos p{
+.bannerIndex .container .sobreNos p {
     max-width: 690px;
     font-size: 30px;
     border-radius: 20px;
 }
 
-.oqueSao{
+.oqueSao {
     justify-content: center;
     margin-left: 10%;
     margin-top: 5%;
 }
 
-.oqueSao .textoOqueSao{
+.oqueSao .textoOqueSao {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
 }
 
-.oqueSao .textoOqueSao img{
+.oqueSao .textoOqueSao img {
     margin-right: 200px;
 }
 
-.oqueSao h1{
+.oqueSao h1 {
     font-size: 50px;
 }
 
-.oqueSao p{
+.oqueSao p {
     max-width: 690px;
     font-size: 30px;
     border-radius: 20px;
@@ -281,7 +286,7 @@ body {
 }
 
 /* Finalidade */
-.finalidade h1{
+.finalidade h1 {
     margin-top: 100px;
     margin-left: 10%;
     font-size: 50px;
@@ -292,18 +297,18 @@ body {
     justify-content: space-evenly;
 }
 
-.cardsfinalidade h2{
+.cardsfinalidade h2 {
     color: #6b4b3b;
 }
 
-.cardsfinalidade .card{
+.cardsfinalidade .card {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     border-radius: 20px;
     width: 400px;
     height: 520px;
 }
 
-.cardsfinalidade .card img{
+.cardsfinalidade .card img {
     object-fit: cover;
     width: 100%;
     height: 300px;
@@ -311,7 +316,7 @@ body {
 
 }
 
-.cardsfinalidade .card #texto{
+.cardsfinalidade .card #texto {
     text-align: center;
     padding: 20px;
 }
@@ -321,7 +326,7 @@ body {
     margin-top: 100px;
 }
 
-.truficultura .backgroundCultivo{
+.truficultura .backgroundCultivo {
     padding: 100px;
     display: flex;
     flex-direction: column;
@@ -329,26 +334,26 @@ body {
     text-align: center;
 
     background-image: linear-gradient(to top, #f8f8ee 0%, rgba(0, 0, 0, 0) 10%), linear-gradient(to bottom, #f8f8ee 0%, rgba(0, 0, 0, 0) 10%),
-    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../assets/image 6.png');
+        linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../assets/image 6.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
 
 
-.truficultura h2{
+.truficultura h2 {
     margin-right: 100px;
     color: white;
     font-size: 80px;
 }
 
-.truficultura p{
+.truficultura p {
     margin-right: 100px;
     color: white;
     font-size: 20px;
 }
 
-.truficultura .cultivoTexto{
+.truficultura .cultivoTexto {
     max-width: 60%;
 }
 
@@ -376,7 +381,7 @@ body {
     color: #8F5D46;
 }
 
-.solucoes #solucoesTexto1  {
+.solucoes #solucoesTexto1 {
 
     display: flex;
     justify-content: space-between;
@@ -394,4 +399,196 @@ body {
 
 .solucoes imagem100porcento {
     align-self: center;
+}
+
+/* <><><><><><><><><> Truficultura <><><><><><><><><>*/
+.bannerTruficultura {
+    height: 100vh;
+    background-image:
+        linear-gradient(to right, rgba(0, 0, 0, 0.726), rgba(255, 255, 255, 0)),
+        /* branco de baixo pra cima */
+        linear-gradient(to top, #f8f8ee 0%, rgba(0, 0, 0, 0) 20%),
+        /* preto de cima pra baixo */
+        url('../assets/image\ 14.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+
+.bannerTruficultura .container .truficultura {
+
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10%;
+    margin-top: 5%;
+}
+
+.bannerTruficultura .container .truficultura h1 {
+    max-width: 100px;
+    font-size: 80px;
+}
+
+.bannerTruficultura .container .truficultura p {
+    max-width: 690px;
+    font-size: 30px;
+    border-radius: 20px;
+}
+
+.oqueSaoTruficultura {
+    margin-left: 10%;
+    margin-top: 5%;
+}
+
+.oqueSaoTruficultura h1 {
+    color: #8F5D46;
+    max-width: 150px;
+    font-size: 50px;
+}
+
+.oqueSaoTruficultura p {
+    max-width: 690px;
+    font-size: 30px;
+    border-radius: 20px;
+    
+}
+
+.oqueSaoTruficultura .textoOqueSaoTruficultura {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.oqueSaoTruficultura .textoOqueSaoTruficultura img {
+    width: 40%;
+    height: auto;
+    margin-left: 5%;
+    margin-right: 10%;
+}
+
+.comoCultivar .textoComoCultivar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comoCultivar {
+    margin-left: 10%;
+    margin-top: 5%;
+}
+
+.comoCultivar h1 {
+    max-width: 300px;
+    font-size: 50px;
+    color: #8F5D46;
+}
+
+.comoCultivar h2 {
+    font-size: 30px;
+    color: #664a3d;
+}
+
+
+.comoCultivar .textoComoCultivar p {
+    max-width: 690px;
+    font-size: 20px;
+    text-align: justify;
+}
+
+.comoCultivar .textoComoCultivar img {
+    width: 40%;
+    height: auto;
+    margin-left: 5%;
+    margin-right: 10%;
+}
+
+.comoCultivar #textoReto {
+    display: flex;
+    flex-direction: column;
+}
+
+.comoCultivar #textoReto p {
+    font-size: 20px;
+    text-align: justify;
+    margin-right: 10%;
+}
+
+/* Login */
+.bannerLogin {
+    height: 100vh;
+    background-image:
+        linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(255, 255, 255, 0)),
+        url('../assets/telaLogin.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.login {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-self: center;
+    background-color: rgba(0, 0, 0, 0.712);
+    border-radius: 50px;
+    width: 40%;
+    padding: 50px 25px;
+    height: auto;
+    flex-direction: column;
+    text-align: center;
+    
+}
+
+.login img {
+    width: 25%;
+    height: auto;
+    align-self: center;
+}
+
+.login h1 {
+    color:#8F5D46;
+    font-size: 40px;
+}
+
+.login p {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.login input{
+    background-color: rgba(0, 0, 0, 0.87);
+    padding: 10px 20px;
+    border: solid 1px white;
+    border-radius: 30px;
+    color: white;
+}
+
+.login button {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: #8F5D46;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 20px;
+    padding: 10px 30px;
+    transition: 0.3s ease-in-out;
+}
+
+.login button:hover {
+    background-color: #000000;
+    color: #8F5D46;
+    cursor: pointer;
+    padding: 12px 32px;
+    font-size: 22px;
+}
+
+#clicavel {
+    cursor: pointer;
+    color: #8F5D46;
 }
