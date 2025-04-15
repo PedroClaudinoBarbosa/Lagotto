@@ -81,13 +81,15 @@ body {
 }
 
 .formulario .campo input {
-    width: 100%;
+    width: 100% -5;
     border: 0.1px solid #8692A6;
     border-radius: 4px;
+    padding-left: 5px;
 }
 
 .formulario .campo input::placeholder {
     font-weight: 500;
+    font-size: 16px;
 }
 
 .formulario .campo p {
@@ -113,6 +115,11 @@ body {
     margin: 10px 0px 10px 0px;
 }
 
+.formulario #esqueceuSenha {
+    margin-top: 10px;
+    font-weight: 400;
+}
+
 .conteudo h3 {
     align-self: center;
     margin-top: auto;
@@ -124,4 +131,8 @@ body {
 .conteudo h3 span {
     color: #8F5D46;
     font-weight: 600;
+}
+
+.conteudo span, button, .checkbox {
+    cursor: pointer;
 }

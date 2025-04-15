@@ -10,24 +10,70 @@
     <div class="logo">
         <img src="assets/img/logoLagotto2.png" alt="Lagotto">
     </div>
-    <div class="conteudo">
-        <div class="formulario">
-            <div class="campo">
-                <p>Endereço de Email</p>
-                <input type="text" id="iptEmail" placeholder="Email *">
-            </div>
-            <div class="campo">
-                <p>Senha</p>
-                <input type="password" id="iptSenha" placeholder="Senha *">
-            </div>
-            <div class="checkbox">
-                <input type="checkbox" value="true">
-                <p>Lembre-se de Mim</p>
-            </div>
-            <button onclick="login()">Entrar</button>
-            <p>Esqueceu a Senha?</p>      
-        </div>
-        <h3>Ainda não é um cliente? <span>Cadastre-se</span></h3>
+    <div class="conteudo" id="div_conteudo">
+        
     </div>
 </body>
 </html>
+<script>
+    telaLogin();
+    function telaLogin() {
+        div_conteudo.innerHTML = `
+            <div class="formulario">
+                <div class="campo">
+                    <p>Endereço de Email</p>
+                    <input type="text" id="iptEmail" placeholder="Email *">
+                </div>
+                <div class="campo">
+                    <p>Senha</p>
+                    <input type="password" id="iptSenha" placeholder="Senha *">
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" value="true">
+                    <p>Lembre-se de Mim</p>
+                </div>
+                <button onclick="login()">Entrar</button>
+                <p id="esqueceuSenha">Esqueceu a Senha?</p>      
+            </div>
+            <h3 onclick="telaCadastroEmpresa()">Ainda não é um cliente?<span> Cadastre-se</span></h3>
+        `;
+    }
+
+    function telaCadastroEmpresa() {
+        div_conteudo.innerHTML = `
+            <div class="formulario">
+                <div class="campo">
+                    <p>Nome da Empresa</p>
+                    <input type="text" id="iptNomeEmpresa" placeholder="Nome da Empresa *">
+                </div>
+                <div class="campo">
+                    <p>CNPJ</p>
+                    <input type="number" id="iptCNPJ" placeholder="CNPJ *">
+                </div>
+                <button onclick="telaCadastroUsuario()">Avançar</button>   
+            </div>
+            <h3 onclick="telaLogin()">Já possui cadastro?<span> Entrar</span></h3>
+        `;
+    }
+
+    function telaCadastroUsuario() {
+        div_conteudo.innerHTML = `
+            <div class="formulario">
+                <div class="campo">
+                    <p>Endereço de Email</p>
+                    <input type="text" id="iptEmail" placeholder="Email *">
+                </div>
+                <div class="campo">
+                    <p>Senha</p>
+                    <input type="password" id="iptSenha" placeholder="Senha *">
+                </div>
+                <div class="campo">
+                    <p>Senha</p>
+                    <input type="password" id="iptConfirmarSenha" placeholder="Confirmar Senha *">
+                </div>
+                <button onclick="cadastrar()">Cadastrar</button>    
+            </div>
+            <h3 onclick="telaLogin()">Já possui cadastro?<span> Entrar</span></h3>
+        `;
+    }
+</script>
