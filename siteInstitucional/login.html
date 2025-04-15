@@ -27,10 +27,12 @@
                 <div class="campo">
                     <p>Endereço de Email</p>
                     <input type="text" id="iptEmail" placeholder="Email *">
+                    <div id="avisoEmail" class="aviso"></div> 
                 </div>
                 <div class="campo">
                     <p>Senha</p>
                     <input type="password" id="iptSenha" placeholder="Senha *">
+                    <div id="avisoSenha" class="aviso"></div> 
                 </div>
                 <div class="checkbox">
                     <input type="checkbox" value="true">
@@ -141,5 +143,43 @@
         emailUsuarios.push(usuarioEmail);
         senhaUsuarios.push(usuarioSenha);
         confirmacaoCadastro.innerHTML = `Cadastro concluído com sucesso!`;
+    }
+
+    function login() {
+        avisoEmail.innerHTML = ``;
+        avisoSenha.innerHTML = ``;
+        
+        console.log(emailUsuarios);
+        console.log(senhaUsuarios);
+        let usuarioEmail = iptEmail.value;
+        let usuarioSenha = iptSenha.value;
+
+        let camposVazios = false;
+        if(usuarioEmail == '') { 
+            avisoEmail.innerHTML = `Insira um Email!`;
+            camposVazios = true;
+        }
+
+        if(usuarioSenha == '') {
+            avisoSenha.innerHTML = `Insira uma senha!`;
+            camposVazios = true;
+        }
+
+        if(camposVazios) {
+            return;
+        }
+
+        if(emailUsuarios.indexOf(usuarioEmail) == -1) {
+            avisoEmail.innerHTML = `Email não cadastrado!`;
+            return;
+        }
+
+        let emailIndice = emailUsuarios.indexOf(usuarioEmail);
+        if(senhaUsuarios[emailIndice] != usuarioSenha) {
+            avisoSenha.innerHTML = `Senha incorreta!`;
+            return;
+        }
+
+        window.location.href = "dashboard.html";
     }
 </script>
