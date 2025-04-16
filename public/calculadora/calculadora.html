@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Luxberry</title>
+    <link rel="stylesheet" href="/public/calculadora/style-calculadora.css">
+    <link href="https://fonts.googleapis.com/css?family=Kanit:900" rel="stylesheet">
+</head>
+<body>
+    
+    <div class="calculadora">
+        <div class="container">
+            <div class="caixa-branca">
+                <div class="calculator-image-direita"></div>
+                <div class="calculadora-header">
+                    <h1 class="titulo">
+                        Calculadora
+                        <span class="lagotto">Lagotto</span>
+                        <span class="exclamacao">!</span>
+                    </h1>
+                </div>
+                
+                <div class="calculator-content">
+                    <div class="input-class">
+                        <input type="text" class="input" placeholder="">
+                        <input type="text" class="input" placeholder="">
+                    </div>
+                    
+                    <button onclick="calcular()" class="calcular-btn">Calcular</button>
+                    <!-- modal html vai aqui -->
+                     <div class="modal">
+                        <div id="output"></div>
+                     </div>
+                </div>
+            </div>
+            
+            <div class="calculator-image-esquerda"></div>
+            
+        </div>
+    </div>
+</body>
+</html>
+<script src="/public/calculadora/script-calculadora.js"></script>
+
+</script>
