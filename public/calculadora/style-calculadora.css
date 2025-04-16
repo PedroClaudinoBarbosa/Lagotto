@@ -98,6 +98,10 @@ body {
     font-size: 18px;
     position: relative;
 }
+.output{
+    color: #3b4f3bb8;
+    font-size: 18px;
+}
 
 
 .calcular-btn {
@@ -142,3 +146,6 @@ body {
 }
 
 
+input::placeholder{
+    color: white;
+}
