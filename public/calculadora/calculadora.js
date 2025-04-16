@@ -9,12 +9,6 @@ function calcular() {
     
 
 
-    output.innerHTML += `Com o preço da trufa de ${precoTrufakg}  você teria um retorno com o nosso investimento no valor de ${precoTotal}`
-    modal.style.display = 'block';
-    
-}
-    window.onclick = function (event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-    }
+    prompt = (  `Com o preço da trufa de ${precoTrufakg}  você teria um retorno com o nosso investimento no valor de ${precoTotal}`
+    )
 }
