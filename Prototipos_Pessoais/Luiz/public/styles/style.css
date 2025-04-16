@@ -1,6 +1,10 @@
 /* INDEX */
+/* PARTE INICIAL DO SITE */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 body{
     margin: 0;
+    background-color: #F8F8EE;
+    font-family: 'DM sans', sans-serif;
 }
 .conteiner {
     background-image: url("../assets/imgs/imagem-inicial.png");
@@ -23,7 +27,7 @@ ul{
 
 .header .conteiner .navbar {
     height: 100px;
-    width: 1861px;
+    width: 1855px;
     list-style-type: none;
 
     display: flex;
@@ -62,4 +66,308 @@ ul{
     display: flex;
     justify-self: flex-end;
     text-align: end;
+}
+
+/* O QUE SÃO */
+
+
+.header .conteudo {
+    margin-top: 80px;
+    
+    display: flex;
+}
+
+.header .conteudo .titulo {
+    margin-left: 70px;
+    width: 15%;
+}
+.header .conteudo .texto h1 {
+    font-size: 80px;
+}
+.header .conteudo .box-text {
+    margin-left: 70px;
+    display: flex;
+    flex-direction: row;
+}
+
+.header .conteudo .primeiro-paragrafo {
+    width: 40%;
+    display: flex;
+    text-align: left;
+    align-items: center;
+    margin-right: 450px;
+    font-size: 26px;
+
+}
+
+.header .conteudo .box-text .Imagem-inicial{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header .conteudo .box-text .Imagem-inicial img{
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    box-shadow:  5px 5px 5px 6px rgb(0,0,0,0.1);
+
+}
+/* FINALIDADE */
+.header .conteudo .texto .finalidade .titulo{
+    width: 40%;
+    margin-left: 70px;
+}
+
+.header .conteudo .texto .finalidade .conteiner-box{ 
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+}
+.header .conteudo .texto .finalidade .box{
+    width: 490px;
+    height: 650px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    box-shadow:  5px 5px 5px 6px rgb(0,0,0,0.1);
+
+}
+.header .conteudo .texto .finalidade .box img {
+    width: 100%;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+
+.header .conteudo .texto .finalidade .box h2{
+    font-size: 20px;
+    font-weight: bold;
+}
+.header .conteudo .texto .finalidade .box span{
+    color: rgb(96, 190, 159);
+}
+.header .conteudo .texto .finalidade .box p {
+    margin-top: 0;
+    font-size: 22px;
+    width: 90%;
+    text-align: center;
+}
+.header .conteudo .texto .finalidade .box button {
+    width: 237px;
+    height: 71px;
+    border-radius: 10px;
+    background-color: #8F5D46;
+    border: 0;
+
+    font-size: 22px;
+    font-weight: bold;
+    color: aliceblue;
+    cursor: pointer;
+}
+.header .conteudo .texto .finalidade .box2{
+    width: 490px;
+    height: 650px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    box-shadow:  5px 5px 5px 6px rgb(0,0,0,0.1);
+}
+.header .conteudo .texto .finalidade .box2 h2{
+    font-size: 20px;
+    font-weight: bold;
+}
+.header .conteudo .texto .finalidade .box2 p {
+    margin-top: 0;
+    font-size: 22px;
+    width: 85%;
+    text-align: center;
+}
+.header .conteudo .texto .finalidade .box2 button {
+    width: 237px;
+    height: 71px;
+    border-radius: 10px;
+    background-color: #8F5D46;
+    border: 0;
+
+    font-size: 22px;
+    font-weight: bold;
+    color: aliceblue;
+    cursor: pointer;
+}
+.header .conteudo .texto .finalidade .box2 img {
+    width: 100%;
+    height: 330px;
+
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+.header .conteudo .texto .finalidade .box3{
+    width: 490px;
+    height: 650px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    box-shadow:  5px 5px 5px 6px rgb(0,0,0,0.1);
+}
+.header .conteudo .texto .finalidade .box3 h2{
+    font-size: 20px;
+    font-weight: bold;
+}
+.header .conteudo .texto .finalidade .box3 p {
+    margin-top: 0;
+    font-size: 22px;
+    width: 90%;
+    text-align: center;
+}
+.header .conteudo .texto .finalidade .box3 button {
+    width: 237px;
+    height: 71px;
+    border-radius: 10px;
+    background-color: #8F5D46;
+    border: 0;
+
+    font-size: 22px;
+    font-weight: bold;
+    color: aliceblue;
+    cursor: pointer;
+}
+.header .conteudo .texto .finalidade .box3 img {
+    width: 100%;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+/* Sobre a truficultura */
+.header .conteudo .truficultura h1{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 100px;
+    margin-bottom: 20px;
+    margin-top: 200px;
+}
+.header .conteudo .truficultura .imagem-fundo2 {
+    background-image: url('../assets/imgs/truficultura.png');
+    height: 640px;
+    width: 100%;
+}
+.header .conteudo .truficultura .imagem-fundo2 h2{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 80px;
+    color: aliceblue;
+    margin-right: 100px;
+    margin-top: 20px;
+}
+.header .conteudo .truficultura .imagem-fundo2 p{
+    display: flex;
+    justify-self: flex-end;
+    font-size: 22px;
+    color: aliceblue;
+    margin-right: 100px;
+    text-align: end;
+    width: 50%;
+}
+
+/* Nossas soluções. */
+.header .conteudo .solucao h1{
+    margin-left: 70px;
+}
+
+.header .conteudo .solucao h2{
+    font-size: 80px;
+    color:#8F5D46;
+    display: flex;
+    justify-self: flex-end;
+    margin-right: 480px;
+    margin-bottom: 20px;
+
+}
+.header .conteudo .solucao .text-imagem{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+}
+.header .conteudo .solucao .medicao .imagem2 img{
+    width: 400px;
+    height: 300px;
+}
+.header .conteudo .solucao .medicao{
+    display: flex;
+    justify-self: flex-end;
+    font-size: 32px;
+    width: 50%;
+    margin-right: 540px;
+}
+
+.header .conteudo .solucao h3{
+    font-size: 80px;
+    color:#8F5D46;
+    display: flex;
+    justify-self: flex-start;
+    margin-bottom: 20px;
+    margin-left: 150px;
+    width: 35%;
+}
+.header .conteudo .solucao .monitoramento p{
+    display: flex;
+    justify-self: flex-start;
+    font-size: 32px;
+    width: 40%;
+    margin-left: 150px;
+}
+.header .conteudo .solucao .imagem3{
+    display: flex;
+    justify-content: flex-end;
+}
+.header .conteudo .solucao .imagem3 img{
+    width: 800px;
+    height: 400px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 60px;
+
+}
+
+/* E consequentemente... */
+
+.header .conteudo .consequentemente{
+    margin-left: 70px;
+}
+
+/* footer */
+
+.footer .conteiner-footer {
+    height: 120x;
+    width: 1905px;
+    background-color: #503324;
+}
+.footer .conteiner-footer img {
+    width:250px;
+    height: 85px;
+    display: flex;
+    margin-right: 900px;
+}
+.footer .conteiner-footer .text-footer .box {
+    
 }
