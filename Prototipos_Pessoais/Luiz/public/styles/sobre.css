@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+body{
+    margin: 0;
+    background-color: #F8F8EE;
+    font-family: 'DM sans', sans-serif;
+}
+.conteiner {
+    background-image: url("/assets/imgs/imagem-sobrenos.jpg");
+    height: 936px;
+}
+ul{
+    margin: 0;
+}
+.logo-navbar{
+    width:250px;
+    height: 85px;
+    display: flex;
+    margin-right: 900px;
+}
+.navbar a{
+    text-decoration: none;
+    color: white;
+
+}
+
+.header .conteiner .navbar {
+    height: 100px;
+    width: 1855px;
+    list-style-type: none;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+.header .conteiner .navbar .login{
+    border: solid white 1px ;
+    border-radius: 5px;
+    padding: 5px;
+    width: 60px;
+
+    display: flex;
+    justify-content: center;
+}
+.header .conteiner h2{
+    color: aliceblue;
+    font-size: 120px;
+    width: 20%;
+    margin-bottom: 5px;
+    margin-top: 200px;
+    margin-right: 89px;
+
+    display: flex;
+    justify-self: flex-end;
+    text-align: end;
+}
+.header .conteiner p{
+    color: aliceblue;
+    width: 34%;
+    font-size: 35px;
+    margin-right: 89px;
+
+    display: flex;
+    justify-self: flex-end;
+    text-align: end;
+}
+/* quem somos */
+.header .conteudo {
+    margin-top: 80px;
+    display: flex;
+}
+
+.header .conteudo .titulo {
+    margin-left: 70px;
+    width: 15%;
+}
+.header .conteudo .texto h1 {
+    font-size: 80px;
+    margin-bottom: 0;
+}
+.header .conteudo .box-text {
+    margin-left: 70px;
+    display: flex;
+    flex-direction: row;
+}
+
+.header .conteudo .primeiro-paragrafo {
+    width: 40%;
+    display: flex;
+    text-align: left;
+    align-items: center;
+    margin-right: 450px;
+    font-size: 26px;
+}
+
+.header .conteudo .box-text .Imagem-inicial{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header .conteudo .box-text .Imagem-inicial img{
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    box-shadow:  5px 5px 5px 6px rgb(0,0,0,0.1);
+
+}
+
+/* como implantamos */
+
+.header .conteudo .texto .implantamos .titulo{
+    width: 40%;
+    margin-left: 70px;
+}
+
+.header .conteudo .texto .implantamos .conteiner-box{ 
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+}
+.header .conteudo .texto .implantamos .box{
+    width: 490px;
+    height: 650px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    box-shadow:  5px 5px 5px 6px rgb(0,0,0,0.1);
+
+}
+.header .conteudo .texto .implantamos .box img {
+    width: 100%;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+
+.header .conteudo .texto .implantamos .box h2{
+    font-size: 25px;
+    font-weight: bold;
+}
+.header .conteudo .texto .implantamos .box p {
+    margin-top: 0;
+    font-size: 22px;
+    width: 90%;
+    text-align: center;
+}
+.header .conteudo .texto .implantamos .box2{
+    width: 490px;
+    height: 650px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    box-shadow:  5px 5px 5px 6px rgb(0,0,0,0.1);
+}
+.header .conteudo .texto .implantamos .box2 h2{
+    font-size: 25px;
+    font-weight: bold;
+    width: 60%;
+    text-align: center;
+}
+.header .conteudo .texto .implantamos .box2 p {
+    margin-top: 0;
+    font-size: 22px;
+    width: 85%;
+    text-align: center;
+}
+.header .conteudo .texto .implantamos .box2 img {
+    width: 100%;
+
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+.header .conteudo .texto .implantamos .box3{
+    width: 490px;
+    height: 650px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    box-shadow:  5px 5px 5px 6px rgb(0,0,0,0.1);
+}
+.header .conteudo .texto .implantamos .box3 h2{
+    font-size: 25px;
+    font-weight: bold;
+}
+.header .conteudo .texto .implantamos .box3 p {
+    margin-top: 0;
+    font-size: 22px;
+    width: 90%;
+    text-align: center;
+}
+.header .conteudo .texto .implantamos .box3 img {
+    width: 100%;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* footer */
+
+.footer .conteiner-footer {
+    height: 100x;
+    width: 1905px;
+    background-color: #503324;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-around;
+}
+.footer .conteiner-footer img {
+    width:250px;
+    height: 85px;
+    display: flex;
+}
+.footer .conteiner-footer .text-footer {
+    display: flex;
+    flex-direction: row;
+}
+.footer .conteiner-footer .text-footer h4{
+    font-size: 24px;
+}
+.footer .conteiner-footer .text-footer p{
+    font-size: 16px;
+}
+.footer .conteiner-footer .text-footer .box {
+    margin-right: 100px;
+}
+.footer .conteiner-footer .text-footer .box2 {
+    margin-right: 70px;
+}
