@@ -49,21 +49,22 @@ ul{
     width: 20%;
     margin-bottom: 5px;
     margin-top: 200px;
-    margin-right: 89px;
+    margin-left: 100px;
 
     display: flex;
-    justify-self: flex-end;
-    text-align: end;
+    justify-self: flex-start;
+    text-align: start;
+    
 }
 .header .conteiner p{
     color: aliceblue;
     width: 34%;
     font-size: 35px;
-    margin-right: 89px;
+    margin-left: 100px;
 
     display: flex;
-    justify-self: flex-end;
-    text-align: end;
+    justify-self: flex-start;
+    text-align: start;
 }
 /* quem somos */
 .header .conteudo {
@@ -214,14 +215,88 @@ ul{
     border-top-left-radius: 15px;
 }
 
+/* diagrama */
 
+.header .conteudo .diagrama h1{
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+}
+.header .conteudo .diagrama .visaodenegocio img{
+    width: 1900px;
+}
 
+/* contate-nos */
 
+.header .conteudo .contate-nos{
+    background-color: #503324;
+    height: 700px;
+    display: flex;
+    color: #F8F8EE;
 
+}
 
-
-
-
+.header .conteudo .contate-nos h2{
+    font-size: 80px;
+    width: 40%;
+    margin-left: 100px;
+}
+.header .conteudo .contate-nos p {
+    font-size: 22px;
+    margin-left: 100px;
+    width: 60%;
+}
+.header .conteudo .contate-nos .inputs .nome-sobrenome {
+    display: flex;
+    margin-top: 100px;
+    margin-right: 100px;
+    
+}
+.header .conteudo .contate-nos .inputs .nome-sobrenome #ipt_nome{
+    width: 380px;
+    height: 65px;
+    margin-right: 20px;
+}
+.header .conteudo .contate-nos .inputs .nome-sobrenome #ipt_sobrenome{
+    width: 380px;
+    height: 65px;
+}
+.header .conteudo .contate-nos .inputs .email {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.header .conteudo .contate-nos .inputs .email #ipt_email{
+    width: 788px;
+    height: 65px;
+    margin-bottom: 20px;
+}
+.header .conteudo .contate-nos .inputs .email #ipt_assunto{
+    width: 788px;
+    height: 65px;
+    margin-bottom: 20px;
+}
+.header .conteudo .contate-nos .inputs .email #ipt_mensagem{
+    width: 788px;
+    height: 208px;
+    margin-bottom: 20px;
+}
+.header .conteudo .contate-nos .inputs .email button{
+    width: 380px;
+    height: 80px;
+    border-radius: 5px;
+    background-color: #8F5D46;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    box-shadow: 5px 5px 5px 6px rgb(0,0,0,0.1);
+    font-size: 32px;
+    font-weight: bold;
+    font-family: 'DM sans', sans-serif;
+    color: #F8F8EE;
+    border: 0;
+    margin-left: 200px;
+    cursor: pointer;
+}
 
 
 /* footer */
@@ -235,6 +310,7 @@ ul{
     justify-content: center;
     align-items: center;
     justify-content: space-around;
+    color: #F8F8EE;
 }
 .footer .conteiner-footer img {
     width:250px;
