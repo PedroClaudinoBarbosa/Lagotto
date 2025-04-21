@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/cadastro.css">
+    <title>Cadastro</title>
+</head>
+<body>
+    <div class="header">
+        <div class="conteiner">
+            <ul class="navbar">
+                <li>
+                    <a href="index.html">Início</a>
+                </li>
+                <li>
+                    <a href="sobre.html">Sobre</a>
+                </li>
+                <li>
+                    <a href="truficultura.html">Truficultura</a>
+                </li>
+                <div class="login">
+                    <a href="#">Entrar</a>
+                </div>
+            </ul>
+                <div class="conteiner-geral">
+                    <div class="box">
+                        <div class="imagem-lado">
+                            <img src="assets/icon/logo-lagotto-beige-semfundo.png" alt="">
+                        </div>
+                    </div>
+                    <div class="box2">
+                        <div class="campos">
+                            <p>Digite um endereço de email:</p>
+                            <input type="text" id="ipt_email" placeholder="Email...">
+                            <div id="validar_email"></div>
+                            <p>Digite uma senha:</p>
+                            <input type="password" id="ipt_senha" placeholder="Senha...">
+                            <div id="validar_senha"></div>
+                            <p>Digite novamente a senha:</p>
+                            <input type="password" id="ipt_senhanovamente" placeholder="Senha...">
+                            <div id="validar_senhanova"></div>
+                            <button onclick="cadastro()">Cadastrar</button>
+                            <div id="sucesso"></div>
+                            <div class='login'>
+                                <p>Já é cliente? </p><a href="login.html">Entrar</a>
+                            </div>
+                    </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    function cadastro(){
+        var email = ipt_email.value;
+        var senha = ipt_senha.value;
+        var novamente = ipt_senhanovamente.value;
+        validar_email.innerHTML = ''
+        validar_senha.innerHTML = ''
+        validar_senhanova.innerHTML = ''
+        // ver se tem @ ou .com
+        var arroba = email.indexOf('@');
+        var com = email.endsWith('.com');
+
+        if (arroba == -1){
+            validar_email.innerHTML += `<p style="color: red; font-style: italic; font-size: 12px;">O seu email falta o "@"</p>`
+        } if (com == -1){
+            validar_email.innerHTML += `<p style="color: red; font-style: italic; font-size: 12px;">O seu email falta o ".com"</p>`
+        }
+
+        // validar senha
+        // se tem 8 caracteres, caractere especial, letra maiuscula, letra minuscula, tem numero
+
+        var tamanhosenha = senha.length;
+
+        if (tamanhosenha < 8){
+            validar_senha.innerHTML += `<p style="color: red; font-style: italic; font-size: 12px;">A senha deve ter 8 ou mais caracteres</p>`
+        } if (!/[!@#$%&*]/.test(senha)){
+            validar_senha.innerHTML += `<p style="color: red; font-style: italic; font-size: 12px;">A senha deve ter 1 ou mais caracteres epeciais</p>`
+        } if (!/[A-Z]/.test(senha)){
+            validar_senha.innerHTML += `<p style="color: red; font-style: italic; font-size: 12px;">A senha deve ter 1 ou mais letras maiusculas</p>`
+        } if (!/[a-z]/.test(senha)){
+            validar_senha.innerHTML += `<p style="color: red; font-style: italic; font-size: 12px;">A senha deve ter 1 ou mais letras minusculas</p>`
+        } if (!/[0-9]/.test(senha)){
+            validar_senha.innerHTML += `<p style="color: red; font-style: italic; font-size: 12px;">A senha deve ter 1 ou mais numeros</p>`
+        }
+
+        // validar a senha novamente
+        if (novamente != senha){
+            validar_senhanova.innerHTML += `<p style="color: red; font-style: italic; font-size: 12px;">A senha está diferente da anterior</p>`
+        } 
+
+        // sucesso
+        sucesso.innerHTML = `<p style="color: green; font-style: italic; font-size: 12px;">Sucesso</p>`
+
+       
+    }
+</script>

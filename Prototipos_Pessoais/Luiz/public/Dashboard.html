@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="header">
+            <div class="conteiner">
+                <ul class="navbar">
+                    <img class="logo-navbar" src="assets/icon/logo-lagotto-beige-semfundo.png" alt="">
+                    <li>
+                        <div class="logo-grafico">
+                            <img class='logo-grafico' src="assets/icon/graphic-icon.png" alt="">
+                            <a href="#">Gráficos</a>
+                        </div>
+                    </li>
+                    <li> 
+                        <div class='logo-config'>
+                            <img src="assets/icon/config-icon.png" alt="">
+                            <a href="#">Configurações</a>
+                        </div>
+                    </li>
+                    <li> 
+                      <div class='logo-logout'>
+                          <img src="assets/icon/logout-icon.png" alt="">
+                          <a href="login.html">Logout</a>
+                      </div>
+                  </li>
+                </ul>
+                <div class="graficos">
+                 
+                    <div class="graficos-comprometidos">
+                      <div class="graphics">
+                        <h1>Hectares com crescimento <span>Comprometido</span></h1>
+                        <p>*(fora do limite de 30 à 40% de umidade do solo)</p>
+                        <canvas id="myChart"></canvas>
+                        <h2>Hectar 2</h2>
+                        <p class="text-hec1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum iste esse veniam. 
+                          Laudantium corrupti eaque aperiam reprehenderit maxime nostrum eligendi, natus, 
+                          ipsam doloremque maiores, aliquid exercitationem totam atque nemo esse.</p>
+                        </div>
+                        <div class="graphics2">
+                          <h1>Hectares com crescimento <span>Comprometido</span></h1>
+                          <p>*(fora do limite de 30 à 40% de umidade do solo)</p>
+                          <canvas id="myChart2"></canvas>
+                          <h2>Hectar 5</h2>
+                          <p class="text-hec5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum iste esse veniam. 
+                            Laudantium corrupti eaque aperiam reprehenderit maxime nostrum eligendi, natus, 
+                            ipsam doloremque maiores, aliquid exercitationem totam atque nemo esse.</p>
+                          </div>
+                          </div>
+                          <div class="graficos-alerta">
+                            <div class="graphics3">
+                              <h1>Hectares em Estado de<span>Alerta</span></h1>
+                              <p>*(perto do limite de 30 à 40% de umidade do solo)</p>
+                              <canvas id="myChart4"></canvas>
+                              <h2>Hectar 7</h2>
+                              <p class="text-hec7">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum iste esse veniam. 
+                                Laudantium corrupti eaque aperiam reprehenderit maxime nostrum eligendi, natus, 
+                                ipsam doloremque maiores, aliquid exercitationem totam atque nemo esse.</p>
+                              </div>
+                          </div>
+                          <div class="geral">
+                            <div class="graphics-general">
+                              <h1>Dashboard geral dos sensores</h1>
+                              <canvas id="myChart3"></canvas>
+                              <h2>Umidade do solo dos hectares</h2>
+                              <p class="text-general">* (Mediana da umidade dos sensores de todos os hectares)</p>
+                              </div>
+                              <div class="opcoes">
+                                <select id="Hectar">
+                                  <option value="#">Selecionar hectar</option>
+                                  <option value="1">Hectar 1</option>
+                                  <option value="2">Hectar 2</option>
+                                  <option value="3">Hectar 3</option>
+                                  <option value="4">Hectar 4</option>
+                                  <option value="5">Hectar 5</option>
+                                  <option value="6">Hectar 6</option>
+                                </select>
+                                <select id="data">
+                                  <option value="#">Selecionar data</option>
+                                  <option value="1">20/04/2025</option>
+                                  <option value="2">19/04/2025</option>
+                                  <option value="3">18/04/2025</option>
+                                  <option value="4">17/04/2025</option>
+                                  <option value="5">16/04/2025</option>
+                                  <option value="6">15/04/2025</option>
+                                </select>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+            </div>
+    </div>
+</body>
+</html>
+<script>
+    const ctx = document.getElementById('myChart');
+    const ctx2 = document.getElementById('myChart2');
+    const ctx3 = document.getElementById('myChart3');
+    const ctx4 = document.getElementById('myChart4');
+
+    new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['10:00', '10:10', '10:20', '10:30', '10:40', '10:50'],
+      datasets: [{
+        label: 'Umidade do solo',
+        data: [45, 42, 48, 59, 63, 52],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  new Chart(ctx2, {
+    type: 'line',
+    data: {
+      labels: ['10:00', '10:10', '10:20', '10:30', '10:40', '10:50'],
+      datasets: [{
+        label: 'Umidade do solo',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  new Chart(ctx3, {
+    type: 'bar',
+    data: {
+      labels: ['10:00', '10:10', '10:20', '10:30', '10:40', '10:50'],
+      datasets: [{
+        label: 'Umidade do solo',
+        data: [32, 30, 35, 41, 37, 32],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  new Chart(ctx4, {
+    type: 'line',
+    data: {
+      labels: ['10:00', '10:10', '10:20', '10:30', '10:40', '10:50'],
+      datasets: [{
+        label: 'Umidade do solo',
+        data: [40, 40, 39, 38, 37, 40],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>

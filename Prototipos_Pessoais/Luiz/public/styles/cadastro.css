@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+body{
+    margin: 0;
+    background-color: #F8F8EE;
+    font-family: 'DM sans', sans-serif;
+}
+ul{
+    margin: 0;
+}
+.navbar a{
+    text-decoration: none;
+    color: white;
+
+}
+
+.header .conteiner .navbar {
+    height: 100px;
+    width: 1880px;
+    background-color: #8F5D46;
+    list-style-type: none;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+.header .conteiner .navbar .login{
+    border: solid white 1px ;
+    border-radius: 5px;
+    padding: 5px;
+    width: 60px;
+
+    display: flex;
+    justify-content: center;
+}
+
+/* LOGO */
+
+.header .conteiner .imagem-lado {
+    background-color: #8F5D46;
+    width: 955px;
+    height: 851px;
+    display: flex;
+    justify-content: center;
+}
+.header .conteiner .imagem-lado img{
+    display: flex;
+    align-self: center; 
+    width: 550px;
+    height: 200px;
+}
+
+/* CAMPOS */
+
+.header .conteiner .conteiner-geral{
+    display: flex;
+}
+.header .conteiner .conteiner-geral .box2{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+    text-align: start;
+    background-color: rgb(214, 214, 214);
+}
+.header .conteiner .conteiner-geral .box2 p{
+    font-size: 18px;
+}
+.header .conteiner .conteiner-geral input{
+    width: 500px;
+    height: 60px;
+    border-radius: 5px;
+    border: 0;
+}
+.header .conteiner .conteiner-geral .box2 button{
+    margin-top: 50px;
+    width: 500px;
+    height: 60px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #8F5D46;
+    font-weight: bold;
+    font-size: 25px;
+    color: #F8F8EE;
+    cursor: pointer;
+}
+.header .conteiner .conteiner-geral .box2 .login {
+    display: flex;
+    align-items: center;
+}
+.header .conteiner .conteiner-geral .box2 .login a{
+    text-decoration: none;
+    color: #8F5D46;
+    font-size: 18px;
+    margin-left: 10px;
+}
+

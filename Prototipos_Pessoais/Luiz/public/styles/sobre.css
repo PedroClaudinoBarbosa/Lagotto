@@ -5,7 +5,7 @@ body{
     font-family: 'DM sans', sans-serif;
 }
 .conteiner {
-    background-image: url("/assets/imgs/imagem-sobrenos.jpg");
+    background-image: url("/assets/imgs/imagem-sobrenos.jpg") ;
     height: 936px;
 }
 ul{

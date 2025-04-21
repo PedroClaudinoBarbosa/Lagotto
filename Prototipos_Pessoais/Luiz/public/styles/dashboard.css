@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+body{
+    margin: 0;
+    background-color: #F8F8EE;
+    font-family: 'DM sans', sans-serif;
+}
+ul{
+    margin: 0;
+}
+.navbar{
+    padding: 0;
+}
+.logo-navbar{
+    width:250px;
+    height: 85px;
+    display: flex;
+
+}
+.navbar a{
+    text-decoration: none;
+    color: #F8F8EE;
+    margin-left: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header .conteiner .navbar {
+    height: 1800px;
+    width: 250px;
+    list-style-type: none;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    background-color: #503324;
+}
+.header .conteiner .navbar .logo-grafico{
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+.header .conteiner .navbar .logo-grafico img{
+    width: 25px;
+}
+.header .conteiner .navbar .logo-config{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+.header .conteiner .navbar .logo-config img{
+    width: 25px;
+}
+.header .conteiner .navbar .logo-logout{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+.header .conteiner .navbar .logo-logout img{
+    width: 25px;
+}
+
+/* Dash geral */
+
+.geral{
+    display: flex;
+}
+.conteiner{
+    display: flex;
+}
+.header .conteiner .graficos .opcoes{
+    width: 50px;
+    height: 10px;
+}
+.header .conteiner .graficos .graphics-general{
+    margin-top: 20px;
+    width: 45%;
+    height: 550px;
+    border: 1px solid;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-left: 50px;
+}
+.header .conteiner .graficos .graphics-general h1{
+    margin-left: 10px;
+    align-self: flex-start;
+    font-size: 25px;
+    margin-bottom: 0;
+}
+.header .conteiner .graficos .graphics-general p{
+    margin-left: 10px;
+    font-style: italic;
+    margin-top: 5px;
+    color: gray;
+
+    font-size: 12px;
+    align-self: flex-start;
+}
+.header .conteiner .graficos .graphics-general h2{
+    margin-left: 10px;
+    color: #503324;
+}
+/* opcoes */
+
+.graficos.opcoes{
+    display: flex;
+    justify-content: center;
+}
+.opcoes #Hectar{
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    margin-top: 200px;
+    margin-left: 10px;
+    border: 0;
+    background-color: #503324;
+    color: #F8F8EE;
+    text-align: center;
+}
+.opcoes #data{
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border: 0;
+    background-color: #503324;
+    color: #F8F8EE;
+    text-align: center;
+}
+
+
+/* Grafico 1 */
+.graficos-comprometidos{
+    display: flex;
+
+}
+
+.header .conteiner .graphics{
+    margin-top: 20px;
+    width: 45%;
+    height: 580px;
+    border: 1px solid;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-left: 50px;
+}
+.header .conteiner .graphics span{
+    color: red;
+}
+.header .conteiner .graphics h1{
+    margin-left: 10px;
+    align-self: flex-start;
+    font-size: 25px;
+    margin-bottom: 0;
+}
+.header .conteiner .graphics p{
+    margin-left: 10px;
+    font-style: italic;
+    margin-top: 5px;
+    color: gray;
+
+    font-size: 12px;
+    align-self: flex-start;
+}
+
+.header .conteiner .graphics h2{
+    margin-left: 10px;
+    color: #503324;
+}
+
+/* Grafico 2 */
+.header .conteiner .graphics2{
+    margin-top: 20px;
+    width: 45%;
+    height: 580px;
+    border: 1px solid;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.header .conteiner .graphics2 span{
+    color: red;
+}
+.header .conteiner .graphics2 h1{
+    margin-left: 10px;
+    align-self: flex-start;
+    font-size: 25px;
+    margin-bottom: 0;
+}
+.header .conteiner .graphics2 p{
+    margin-left: 10px;
+    font-style: italic;
+    margin-top: 5px;
+    color: gray;
+
+    font-size: 12px;
+    align-self: flex-start;
+}
+
+.header .conteiner .graphics2 h2{
+    margin-left: 10px;
+    color: #503324;
+}
+/* Alerta */
+.header .conteiner .graphics3{
+    margin-top: 20px;
+    width: 45%;
+    height: 580px;
+    border: 1px solid;
+    border-radius: 20px;
+    
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-left: 50px;
+}
+.header .conteiner .graphics3 span{
+    color: red;
+}
+.header .conteiner .graphics3 h1{
+    margin-left: 10px;
+    align-self: flex-start;
+    font-size: 25px;
+    margin-bottom: 0;
+}
+.header .conteiner .graphics3 p{
+    margin-left: 10px;
+    font-style: italic;
+    margin-top: 5px;
+    color: gray;
+
+    font-size: 12px;
+    align-self: flex-start;
+}
+
+.header .conteiner .graphics3    h2{
+    margin-left: 10px;
+    color: #503324;
+}

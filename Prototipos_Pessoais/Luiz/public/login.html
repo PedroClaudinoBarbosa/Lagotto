@@ -3,9 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="styles/login.css">
+    <title>Login</title>
 </head>
 <body>
-    
+    <div class="header">
+        <div class="conteiner">
+            <ul class="navbar">
+                <li>
+                    <a href="index.html">Início</a>
+                </li>
+                <li>
+                    <a href="sobre.html">Sobre</a>
+                </li>
+                <li>
+                    <a href="truficultura.html">Truficultura</a>
+                </li>
+                <div class="login">
+                    <a href="#">Entrar</a>
+                </div>
+            </ul>
+                <div class="conteiner-geral">
+                    <div class="box">
+                        <div class="imagem-lado">
+                            <img src="assets/icon/logo-lagotto-beige-semfundo.png" alt="">
+                        </div>
+                    </div>
+                    <div class="box2">
+                        <div class="campos">
+                            <p>Endereço de email:</p>
+                            <input type="text" id="ipt_email" placeholder="Email...">
+                            <p>Senha:</p>
+                            <input type="password" id="ipt_senha" placeholder="senha...">
+                            <div class="lembre">
+                                <input type="checkbox" id="chk_lembre">
+                                <p>Lembre-se de mim</p>
+                            </div>
+                            <button onclick="login()">Entrar</button>
+                            <div id="validar_login"></div>
+                            <p>Esqueceu a senha?</p>
+                            <div class='cadastro'>
+                                <p>Ainda não é cliente? </p><a href="cadastro.html">Cadastre-se</a>
+                            </div>
+                    </div>
+                    </div>
+                </div>
+        </div>
+    </div>
 </body>
 </html>
+<script>
+    function login(){
+        var email = ipt_email.value
+        var senha = ipt_senha.value
+        var lembre = chk_lembre.checked
+
+        var tentativas = 3
+
+        while(tentativas > 0){
+        if(senha == 'La%123rt' && email == 'sptech@gmail.com'){
+            location.href = 'Dashboard.html'
+            tentativas = 3
+            break;
+        } else {
+            validar_login.innerHTML = `<p style="color: red; font-style: italic; font-size: 12px;">A senha ou o usuriario estão incorretos, por favor, digite novamente</p>`
+            tentativas--
+        }
+        
+        }
+        if (tentativas == 0){
+            validar_login.innerHTML = `<p style="color: red; font-style: italic; font-size: 12px;">login bloqueado, por favor, ver com gerente</p>`
+        }
+        
+    }
+</script>
