@@ -27,9 +27,11 @@
             <p>*(fora do limite de 30 à 40% de umidade do solo)</p>
             <div class="graficos">
                 <div class="graficoConteudo">
+                    <h1>Hectar 1</h1>
                     <canvas id="grafico1" class="grafico"></canvas>
                 </div>
                 <div class="graficoConteudo">
+                    <h1>Hectar 2</h1>
                     <canvas id="grafico2" class="grafico"></canvas>
                 </div>
             </div>
@@ -39,9 +41,11 @@
             <p>*(perto do limite de 30 à 40% de umidade do solo)</p>
             <div class="graficos">
                 <div class="graficoConteudo">
+                    <h1>Hectar 3</h1>
                     <canvas id="grafico3" class="grafico"></canvas>
                 </div>
                 <div class="graficoConteudo">
+                    <h1>Hectar 4</h1>
                     <canvas id="grafico4" class="grafico"></canvas>
                 </div>
             </div>
@@ -51,6 +55,7 @@
 </html>
 <script>
     let borderColor = '#8F5D46';
+    Chart.defaults.font.size = 20;
     
     const grafico1 = document.getElementById('grafico1');
     new Chart(grafico1, {
@@ -81,7 +86,7 @@
         labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
         datasets: [{
           label: 'Umidade',
-          data: [31, 35, 34, 29, 36, 41],
+          data: [37, 33, 33, 36, 42, 43],
           borderWidth: 2,
           borderColor: borderColor,
           backgroundColor: borderColor
@@ -103,7 +108,7 @@
         labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
         datasets: [{
           label: 'Umidade',
-          data: [31, 35, 34, 29, 36, 41],
+          data: [28, 29, 30, 35, 36, 39],
           borderWidth: 2,
           borderColor: borderColor,
           backgroundColor: borderColor
@@ -115,6 +120,7 @@
             beginAtZero: false
           }
         }
+
       }
     });
 
@@ -125,7 +131,7 @@
         labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
         datasets: [{
           label: 'Umidade',
-          data: [31, 35, 34, 29, 36, 41],
+          data: [44, 35, 32, 29, 32, 29],
           borderWidth: 2,
           borderColor: borderColor,
           backgroundColor: borderColor
