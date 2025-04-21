@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Lagotto</title>
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="sideBar">
+        <img id="logo" src="assets/img/logoLagotto.png" alt="logoLagotto">
+        <div class="paginas">
+            <div class="pagina">
+                <img src="assets/icon/grafico.svg" alt="Dashboard">
+                <p>Dashboard</p>
+            </div>
+            <div class="pagina">
+                <img src="assets/icon/config.svg" alt="Dashboard">
+                <p>Configurações</p>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard">
+        <div class="sessaoGraficos">
+            <h1>Hectares com Crescimento <span id="comprometido">Comprometido</span></h1>
+            <p>*(fora do limite de 30 à 40% de umidade do solo)</p>
+            <div class="graficos">
+                <div class="graficoConteudo">
+                    <canvas id="grafico1" class="grafico"></canvas>
+                </div>
+                <div class="graficoConteudo">
+                    <canvas id="grafico2" class="grafico"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="sessaoGraficos">
+            <h1>Hectares em Estado de <span id="alerta">Alerta</span></h1>
+            <p>*(perto do limite de 30 à 40% de umidade do solo)</p>
+            <div class="graficos">
+                <div class="graficoConteudo">
+                    <canvas id="grafico3" class="grafico"></canvas>
+                </div>
+                <div class="graficoConteudo">
+                    <canvas id="grafico4" class="grafico"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    let borderColor = '#8F5D46';
+    
+    const grafico1 = document.getElementById('grafico1');
+    new Chart(grafico1, {
+      type: 'line',
+      data: {
+        labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
+        datasets: [{
+          label: 'Umidade',
+          data: [31, 35, 34, 29, 36, 41],
+          borderWidth: 2,
+          borderColor: borderColor,
+          backgroundColor: borderColor
+        }],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: false
+          }
+        }
+      }
+    });
+    
+    const grafico2 = document.getElementById('grafico2');
+    new Chart(grafico2, {
+      type: 'line',
+      data: {
+        labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
+        datasets: [{
+          label: 'Umidade',
+          data: [31, 35, 34, 29, 36, 41],
+          borderWidth: 2,
+          borderColor: borderColor,
+          backgroundColor: borderColor
+        }],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: false
+          }
+        }
+      }
+    });
+
+    const grafico3 = document.getElementById('grafico3');
+    new Chart(grafico3, {
+      type: 'line',
+      data: {
+        labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
+        datasets: [{
+          label: 'Umidade',
+          data: [31, 35, 34, 29, 36, 41],
+          borderWidth: 2,
+          borderColor: borderColor,
+          backgroundColor: borderColor
+        }],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: false
+          }
+        }
+      }
+    });
+
+    const grafico4 = document.getElementById('grafico4');
+    new Chart(grafico4, {
+      type: 'line',
+      data: {
+        labels: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
+        datasets: [{
+          label: 'Umidade',
+          data: [31, 35, 34, 29, 36, 41],
+          borderWidth: 2,
+          borderColor: borderColor,
+          backgroundColor: borderColor
+        }],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: false
+          }
+        }
+      }
+    });
+</script>

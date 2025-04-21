@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'DM Sans', sans-serif;
+}
+
+body {
+    display: flex;
+}
+
+.sideBar {
+    position: fixed;
+    background-color: #513324;
+    width: 14vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: #FFFFFF;
+    gap: 100px  ;
+}
+
+.sideBar #logo {
+    width: 80%;
+    align-self: center;
+    margin-top: 10px;
+}
+
+.sideBar .paginas {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-left: 10px;
+}
+
+.sideBar .paginas .pagina {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.dashboard {
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    gap: 50px;
+    margin-left: 15vw;
+}
+
+.dashboard .sessaoGraficos h1 {
+    font-size: 50px;
+}
+
+.dashboard .sessaoGraficos h1 span {
+    color: #FF0000;
+    font-size: 60px;
+}
+
+.dashboard .sessaoGraficos h1 #comprometido {
+    color: #FF0000;
+}
+
+.dashboard .sessaoGraficos h1 #alerta {
+    color: #EE7575;
+}
+
+.dashboard .sessaoGraficos p {
+    font-size: 30px;
+    font-weight: 300;
+    font-style: italic;
+}
+
+.dashboard .sessaoGraficos .graficos {
+    display: flex;
+    gap: 50px;
+}
+
+.dashboard .sessaoGraficos .graficos .graficoConteudo {
+    width: 35vw;
+}
+
