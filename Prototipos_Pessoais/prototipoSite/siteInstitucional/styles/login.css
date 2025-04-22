@@ -1,0 +1,124 @@
+.bannerLogin {
+    height: 100vh;
+    background-image:
+        linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(255, 255, 255, 0)),
+        url(../assets/img/trufasCesta.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.header {
+    background-color: rgba(0, 0, 0, 0.500);
+    height: 60px;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+
+
+.index {
+    background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.726), rgba(255, 255, 255, 0)),
+    linear-gradient(to top, #f8f8ee 0%, rgba(0, 0, 0, 0) 20%),
+    url(../assets/img/bannerIndex.png);
+
+}
+
+.index .container .headerMain {
+    justify-self: flex-end;
+    text-align: right;
+    width: 40%;
+}
+
+.navbar {
+
+    background-color: rgba(0, 0, 0, 0.500);
+    height: 60px;
+
+    display: flex;
+    color: #ffffff;
+    padding: 20px 0px 20px 30px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar img {
+    width: 10vw;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.login {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-self: center;
+    background-color: rgba(0, 0, 0, 0.712);
+    border-radius: 50px;
+    width: 40%;
+    padding: 50px 25px;
+    height: auto;
+    flex-direction: column;
+    text-align: center;
+    
+}
+
+.login img {
+    width: 25%;
+    height: auto;
+    align-self: center;
+}
+
+.login h1 {
+    color:#8F5D46;
+    font-size: 40px;
+}
+
+.login p {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.login input{
+    background-color: rgba(0, 0, 0, 0.87);
+    padding: 10px 20px;
+    border: solid 1px white;
+    border-radius: 30px;
+    color: white;
+}
+
+.login button {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: #8F5D46;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 20px;
+    padding: 10px 30px;
+    transition: 0.3s ease-in-out;
+}
+
+.login button:hover {
+    background-color: #000000;
+    color: #8F5D46;
+    cursor: pointer;
+    padding: 12px 32px;
+    font-size: 22px;
+}
+
+#clicavel {
+    cursor: pointer;
+    color: #8F5D46;
+}
+

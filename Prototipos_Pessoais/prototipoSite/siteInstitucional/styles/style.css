@@ -1,0 +1,469 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'DM Sans', sans-serif;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 85%;
+    margin: auto;
+}
+
+.spacing {
+    height: 100px;
+}
+
+/* HEADER */
+
+.header {
+    background-color: rgba(0, 0, 0, 0.500);
+    height: 60px;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.sobreNos {
+    background-image: url(../assets/img/bannerSobreNos.png);
+}
+
+.index {
+    background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.726), rgba(255, 255, 255, 0)),
+    linear-gradient(to top, #f8f8ee 0%, rgba(0, 0, 0, 0) 20%),
+    url(../assets/img/bannerIndex.png);
+
+}
+
+.index .container .headerMain {
+    justify-self: flex-end;
+    text-align: right;
+    width: 40%;
+}
+
+.navbar {
+
+    background-color: rgba(0, 0, 0, 0.500);
+    height: 60px;
+
+    display: flex;
+    color: #ffffff;
+    padding: 30px 0px 30px 40px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar img {
+    width: 10vw;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbarLinks {
+    display: flex;
+    justify-content: space-evenly;
+    width: 45%;
+}
+
+.navbarLinks button {
+    background: transparent;
+    border: 1px solid #FFFFFF;
+    padding: 4px 15px 4px 15px;
+    color: inherit;
+    border-radius: 4px;
+}
+
+.headerMain {
+    color: #FFFFFF;
+    width: 46%;
+    justify-self: flex-start;
+}
+
+.headerMain h1 {
+    font-size: 80px;
+}
+
+.headerMain p {
+    font-size: 20px;
+}
+
+.setaConteudo {
+    align-self: center;
+}
+
+.setaConteudo img {
+    width: 60px;
+}
+
+/* INTRODUCAO */
+
+.introducao {
+    display: flex;
+    flex-direction: column;
+}
+
+.introducao span {
+    color: #8F5D46;
+    font-weight: bold;
+}
+
+.introducao .conteudo {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.introducao .conteudo .texto {
+    width: 51%;
+}
+
+.introducao h1 {
+    font-size: 50px;
+}
+
+.introducao p {
+    font-size: 21px;
+}
+
+.introducao img {
+    width: 480px;
+}
+
+/* CARDS */
+
+.container-cards h1{
+    font-size: 50px;
+}
+
+.cards {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-bottom: 10px;
+}
+
+.cards .card {
+    width: 30%;
+    border-radius: 16px;
+    border: 1px solid #dfdede;
+    box-shadow: 0 4px 12px #00000066;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cards .card .imgCard{
+    width: 100%;
+}
+
+.cards .card h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.cards .card .texto{
+    padding: 20px;
+    text-align: center;
+}
+
+.cards .card .texto h4 span{
+    color: #149D80;
+}
+
+.cards .card .texto span{
+    color: #8F5D46;
+    font-weight: bold;
+}
+
+.saibaMais {
+    background-color: #8F5D46;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: row;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    gap: 10px;
+    width: 150px;
+    margin-bottom: 10px;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    align-items: center;
+}
+
+.cards .card .saibaMais {
+    justify-self: flex-end;
+}
+
+.saibaMais img{
+    height: 15px;
+    width: 15px;
+}
+
+/* TRUFICULTURA */
+
+.truficultura {
+    text-align: center;
+}
+
+.truficultura h1 {
+    font-size: 50px;
+}
+
+.truficulturaBox {
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    background-image: linear-gradient(to top, #f8f8ee 0%, rgba(0, 0, 0, 0) 10%), linear-gradient(to bottom, #f8f8ee 0%, rgba(0, 0, 0, 0) 10%),
+        linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../assets/img/imgTruficultura.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.truficulturaBox .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.truficulturaBox .container h2 {
+    font-size: 60px;
+    color: #fff;
+}
+
+.truficulturaBox .container .truficulturaTexto {
+    width: 500px;
+    color: #fff;
+}
+
+.truficulturaBox .container .truficulturaTexto span{
+    color: #fff;
+    font-weight: bold;
+    
+}
+
+/* SOLUÇÕES */
+
+.solucoes .cardSolucoes {
+    display: flex;
+    flex-direction: row;
+    width: 92%;
+    align-items: center;
+}
+
+.solucoes .container img {
+    width: 95%;
+}
+
+.solucoes .cardSolucoes .textos h2 {
+    font-size: 50px;
+    color: #8F5D46;
+    width: 400px;
+}
+
+.solucoes .container h1 {
+    font-size: 50px;
+}
+
+.solucoes .cardSolucoes .textos {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.solucoes .cardSolucoes .textos h4{
+    font-size: 60px;
+    justify-self: flex-end;
+    margin-top: 90px;
+}
+
+.solucoes .cardSolucoes .textos p {
+    width: 80%;
+    font-size: 20px;
+}
+
+.solucoes .card1 {
+    gap: 300px;
+}
+
+.solucoes .card1 img{
+    height: 120%;
+    width: 150%;
+}
+
+.solucoes .card1 .textos {
+    justify-self: flex-end;
+}
+
+.solucoes .card2 {
+    justify-self: flex-end;
+    align-items: center;
+}
+
+.solucoes .card2 img{
+    height: 120%;
+    width: 150%;
+}
+
+.solucoes .card2 .textos h1{
+    align-self: flex-end;
+}
+
+.solucoes .img100 {
+    display: flex;
+    width: 95%;
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+/* VISÃO DE NEGÓCIO */
+
+.container-visao {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container-visao h1{
+    font-size: 50px;
+}
+
+.container-visao img{
+    width: inherit;
+}
+
+/* FOOTER */
+
+.footer {
+    background-color: #503324;
+    color: #FFFFFF;
+}
+
+.footer img {
+    width: 20vw;
+}
+
+.footer .container {
+    height: 350px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer .container h4{
+    font-weight: 500;
+}
+
+.footer .container .lista{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.footer .container span{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.footer .container .lista li{
+    padding: 4px;
+    font-weight: 200;
+}
+
+/* CONTATO */
+
+.contato {
+    background-color: #503324;
+    color: #FFFFFF;
+}
+
+.contato .container {
+    height: 460px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contato .container .texto{
+    width: 40%;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.contato .container .texto h1{
+    font-size: 70px;
+}
+
+.contato .container .formulario{
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    height: 85%;
+    justify-content: space-around;
+}
+
+.contato .container .formulario textarea{
+    width: 100%;
+    height: 30px;
+    resize: none;
+    padding-left: 5px;
+    padding-top: 10px;
+}
+
+.contato .container .formulario textarea{
+    width: 100%;
+    height: 30px;
+}
+
+.contato .container .formulario .nome textarea{
+    width: 47%;
+}
+
+.contato .container .formulario input::placeholder{
+    vertical-align: top;
+    line-height: 1;
+}
+
+.contato .container .formulario .mensagem{
+    width: 100%;
+    height: 120px;
+}
+
+.contato .container .formulario button{
+    height: 40px;
+    background-color: #8F5D46;
+    color: #FFFFFF;
+    border: 0px;
+    border-radius: 4px;
+    font-size: 30px;
+    font-weight: bold;
+    box-shadow: 0 5px 12px #00000066;
+}
+
+.contato .container .formulario .nome{
+    display: flex;
+    justify-content: space-between;
+}
