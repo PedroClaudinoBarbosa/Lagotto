@@ -3,80 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/style-sobre.css">
     <title>Lagotto</title>
 </head>
 <body>
-    <div class="header">
-        <div class="container">
-          <div class="logo">
-              <img src href
-          </div>
-          <ul class="navbar">
-              <li>
-                  <a>Inicial</a>
-              </li>
-              <li>
-                  <a>Quem Somos</a>
-              </li>
-              <li>
-                  <a>Calculadora</a>
-              </li>
-              <li>
-                  <a>Login</a>
-              </li>
-              <li>
-                  <a>Criar Conta</a>
-              </li>
-          </ul>
+    <banner class="banner">
+        <div class="texto-banner">
+            <h1>Sobre <br>nós</h1>
+            <p>Inovação e precisão para um cultivo de excelência. <br>Descubra uma nova forma de monitorar e otimizar <br>a umidade do solo.</p>
         </div>
-      </div>
-      <div class="background">
-          <div class="container">
-              <h1>Sobre nós</h1>
-              <p>Inovação e precisão para um cultivo de excelência. Descubra uma nova forma de monitorar e otimizar a umidade do solo.</p>
-          </div>
-      </div>
-      <div class="boxes">
-          <div class="box1">
-                  <h2>Quem somos?</h2>
-                  <p>Nas dependências da Faculdade São Paulo Tech School, nós, alunos do curso de Ciências da Computação, fundamos uma das principais empresas quando o assunto é monitoramento de umidade do solo, especialmente para trufas negras, nossa especialidade, onde atuamos a mais de 3 semanas no ramo. Usando Arduinos e sensores de umidade do solo, somos capazes de transformar o lucro de nossos clientes! </p>
-              <div class="box2">
-                  <img src="">
-              </div>
-              <h2>Como implantamos?</h2>
-              <div class="box3">
-                  <img src="">
-                  <h4>Arduino UNO</h4>
-                  <p>O Arduino Uno <span>processa</span> os dados dos sensores e envia informações em <span>tempo real</span>, permitindo um monitoramento <span>preciso</span> do solo para o cultivo das trufas negras.</button>
-              </div>
-              <div class="box3">
-                  <img src="">
-                  <h4>Sensor capacitivo de umidade do solo</h4>
-                  <p>Esse sensor mede a <span>umidade do solo com alta precisão</span>, ajudando a manter as condições <span>ideais</span> para o desenvolvimento das trufas negras.</button>
-              </div>
-              <div class="box3">
-                  <img src="">
-                  <h4>Dashboard em tempo real</h4>
-                  <p>Nosso dashboard permite <span>monitorar</span> a umidade do solo em tempo real, <span>otimizando</span> a irrigação e garantindo um cultivo <span>eficiente.</span></button>
-              </div>
-          </div>
-      </div>
-      <div>
-        <h1>Visão de Negócio</h1>
-        <div id="img_diagrama">
-            <img src="">
+        <nav class="nav-bar">
+            <div class="nav-bar-conteudo">
+                <div class="img-logo">
+                    <img src="../imgs/logotipo/logo lagotto branca.png">
+                </div>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="index.html">Inicio</a>
+                        </li>
+                        <li>
+                            <a href="sobre_nos.html">Sobre Nós</a>
+                        </li>
+                        <li>
+                            <a href="">Orçamento</a>
+                        </li>
+                        <li>
+                            <a href="">Contato</a>
+                        </li>
+                        <li>
+                            <a href="">Cadastre-se</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </nav>
+    </banner>
+    <div id="container">
+        <div class="main-conteudo">
+            <div class="conteudo-div-1">
+                <h1>Quem somos?</h1>
+            <div class="text-principal-div1">
+                    <p>Nas dependências da Faculdade São Paulo Tech School, nós, alunos do curso de Ciências da Computação, fundamos uma das principais empresas quando o assunto é monitoramento de umidade do solo, especialmente para trufas negras, nossa especialidade, onde atuamos a mais de 3 semanas no ramo. Usando Arduinos e sensores de umidade do solo, somos capazes de transformar o lucro de nossos clientes!</p>
+                    <img src="../imgs/sobre_nos/sensor_implantado.png">
+                </div>
+                <div class="titulo-conteudo-2">
+                    <h1>Como implementamos?</h1>
+                </div>
+                <div class="conteudo-div-2">
+                    <div class="container-card">
+                        <div class="card-cada-imagem">
+                            <img src="../imgs/sobre_nos/arduino.png">
+                            <h3>Arduino Uno</h3>
+                            <p>O Arduino Uno <span>processa</span> os dados dos sensores e envia informações em <span>tempo real</span>, permitindo um monitoramento <span>preciso</span> do solo para o cultivo das trufas negras.</p>
+                        </div>
+                        <div class="card-cada-imagem">
+                            <img src="../imgs/sobre_nos/sensor_utilizado.jpg">
+                            <h3>Sensor capacitivo de umidade do solo</h3>
+                            <p>Esse sensor mede a <span>umidade do solo com alta precisão</span>, ajudando a manter as condições <span>ideais</span> para o desenvolvimento das trufas negras.</p>
+                        </div>
+                        <div class="card-cada-imagem">
+                            <img src="../imgs/sobre_nos/dashboard_exemplo.png">
+                            <h3>Dashboard em tempo real</h3>
+                            <p>Nosso dashboard permite <span>monitorar</span> a umidade do solo em tempo real, <span>otimizando</span> a irrigação e garantindo um cultivo <span>eficiente</span>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div>
-        <h1>Entre em contato</h1>
-        <p>Quer saber mais sobre como a tecnologia pode transformar o cultivo de trufas negras? Nossa equipe está pronta para ajudar com informações, suporte e soluções personalizadas para o seu monitoramento.<br><br>Fale conosco e descubra como otimizar sua produção com dados em tempo real e maior precisão no manejo do solo! </p>
-
-        <input type="text" id="ipt_nome_contato" placeholder="Nome">
-        <input type="text" id="ipt_sobrenome_contato" placeholder="Sobrenome">
-        <input type="text" id="ipt_email_contato" placeholder="Email">
-        <input type="text" id="ipt_assunto_contato" placeholder="Assunto">
-        <input type="text" id="ipt_mensagem_contato" placeholder="Mensagem">
-        <button>Enviar</button>
-      </div>
+    </div>
+    <div class="conteudo-3">
+        <div class="titulo-conteudo-3">
+            <h1>Visão de Negócio</h1>
+        </div>
+        <div class="img-conteudo-3">
+            <img src="../imgs/sobre_nos/diagrama_visao_negocio.png"
+        </div>
+    </div>
+    <div class="contato">
+            <div class="texto-contato">
+                <h1>Entre em <br>contato</h1>
+                <p>Quer saber mais sobre como a tecnologia pode transformar o cultivo de trufas negras? Nossa equipe está pronta para ajudar com informações, suporte e soluções personalizadas para o seu monitoramento. <br>Fale conosco e descubra como otimizar sua produção com dados em tempo real e maior precisão no manejo do solo! </p>
+            </div>
+        <div class="inputs">
+            <div class="ipt-contato-1">
+                <input type="text" id="nome" placeholder="Nome*">
+                <input type="text" id="sobrenome" placeholder="Sobrenome*">
+            </div>
+            <div class="ipt-contato-2">
+                <input type="text" id="email" placeholder="Email*">
+                <input type="text" id="assunto" placeholder="Assunto*">
+            </div>
+            <div class="ipt-contato-3">
+                <input type="text" id="mensagem" placeholder="Mensagem*">
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="logo-footer">
+            <img src="../imgs/logotipo/logo lagotto branca.png">
+            <p>© 2025 lagotto, Inc. - Todos os direitos reservados.</p>
+        </div>
+            <div class="footer-content">
+                <nav class="content-1">
+                    <a><span>Recursos</span></a>
+                    <a>Truficultura</a>
+                    <a>Metodologia</a>
+                    <a>soluções</a>
+                    <a>Calculadora</a>
+                </nav>
+                <nav class="content-2">
+                    <a><span>Sobre a Lagotto</span></a>
+                    <a>Equipe</a>
+                    <a>História</a>
+                    <a>Missão e Valores</a>
+                    <a>Parceiros</a>
+                </nav>
+                <nav class="content-3">
+                    <a><span>Legalidade</span></a>
+                    <a>Conformidade Regulatória</a>
+                    <a>Cookies</a>
+                    <a>Privacidade</a>
+                    <a>Termos de Serviço</a>
+                </nav>
+            </div>
+    </div>
+</main>
 </body>
 </html>
+</body>
