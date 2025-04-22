@@ -12,16 +12,9 @@ void loop() { // funcao que sera executada em loop
   float porcentagemUmidade = (1 - (leituraSensor / 1023.0)) * 100; 
    // faz o calculo para converter a unidade de medida padrao para porcentagem de umidade do solo
 
-  Serial.print("Umidade:");
-  Serial.print(porcentagemUmidade);
-  Serial.print(",");
+  
+  Serial.println(porcentagemUmidade);
 
-  Serial.print("maximo:");
-  Serial.print(maximo);
-  Serial.print(",");
-
-  Serial.print("minimo:");
-  Serial.println(minimo);
 
   delay(1000); // tempo de 1 segundo para realizar a proxima leitura
 }
