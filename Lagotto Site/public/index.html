@@ -168,12 +168,15 @@
         var valorTrufas = Number(ipt_valortrufas.value);
         var valorFinal = 0;
 
-        div_calculadora.innerHTML += ``;
+        div_calculadora.innerHTML = ``;
 
+        div_calculadora.innerHTML += `<p style="color:red;">Lucro Atual: R$${kgcultivados*valorTrufas}</p>`;
 
         for(i = 1; i <=3; i++){
             valorFinal = (kgcultivados*(1+(0.5*i)))*valorTrufas;
-            div_calculadora.innerHTML += `<p>Com sensor o sensor da Lagotto seu cultivo pode aumetar em ${50*i}%, rendendo: <br><br><span id="valorFinal">R$${valorFinal}</span></p>`;
+
+            div_calculadora.innerHTML += `${i}º Cenário:
+            <p>Com sensor o sensor da Lagotto seu cultivo pode aumetar em ${50*i}%, rendendo: <br><br><span id="valorFinal">R$${valorFinal}</span></p>`;
 
         }
 

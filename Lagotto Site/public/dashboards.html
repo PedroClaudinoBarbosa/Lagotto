@@ -55,7 +55,7 @@
         </div>
         <div class="card">
           <canvas id="graficoSensor"></canvas>
-          <h3>Temperatura Atual & Média de Umidade</h3>
+          <h3>Umidade Atual & Média de Umidade</h3>
           <h4>*Média calculada com base nas leituras no dia*</h4>
         </div>
       </div>
@@ -135,7 +135,7 @@
     new Chart(document.getElementById('graficoProblemas'), {
       type: 'bar',
       data: {
-        labels: ['Plantio 1', 'Plantio 2', 'Plantio 3', 'Plantio 4', 'Plantio 5', 'Plantio 6', 'Plantio 7', 'Plantio 8', 'Plantio 9'],
+        labels: ['Hectare 1', 'Hectare 2', 'Hectare 3', 'Hectare 4', 'Hectare 5', 'Hectare 6', 'Hectare 7', 'Hectare 8', 'Hectare 9'],
         datasets: [{
           label: 'Problemas (%)',
           data: [30, 15, 10, 35, 25, 10, 12, 8, 6],
@@ -177,7 +177,7 @@
   new Chart(document.getElementById('graficoSensor'), {
     type: 'bar',
     data: {
-      labels: ['Temp. Atual', 'Média Umidade'],
+      labels: ['Umidade Atual', 'Umidade Média'],
       datasets: [{
         label: 'Valores',
         data: [22, 38],
