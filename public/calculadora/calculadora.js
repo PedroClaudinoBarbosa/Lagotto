@@ -12,6 +12,5 @@ function calcular() {
 
 
     output.innerHTML = `Com o preço da trufa de ${precoTrufaKg}  você teria um retorno com o nosso investimento no valor de ${precoTotal}`;
-
 }
 
