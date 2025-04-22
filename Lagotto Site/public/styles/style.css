@@ -581,6 +581,8 @@ body {
 
 /* Login */
 .bannerLogin {
+    display: flex;
+    flex-direction: column;
     height: 100%;
     background-image:
         linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(255, 255, 255, 0)),
@@ -591,7 +593,8 @@ body {
 }
 
 .login {
-    margin-top: 50px;
+    align-self: center;
+    margin: 50px 0px 50px 0px;
     display: flex;
     justify-self: center;
     background-color: rgba(0, 0, 0, 0.712);
