@@ -5,7 +5,7 @@ body{
     font-family: 'DM sans', sans-serif;
 }
 .conteiner {
-    background-image: url("/assets/imgs/fundo-truficultura.png") ;
+    background-image: url("../assets/imgs/fundo-truficultura.png") ;
     height: 936px;
 }
 ul{
