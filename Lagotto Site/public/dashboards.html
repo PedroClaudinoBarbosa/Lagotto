@@ -30,19 +30,19 @@
       <h2>Visão Atual dos Sensores</h2>
       <div class="selector-bar">
         <div>
-          <label for="hectarSelect">Selecionar Hectar:</label>
+          <label for="hectarSelect">Selecionar Plantio:</label>
           <select id="hectarSelect">
-            <option>Hectar 1</option>
-            <option>Hectar 2</option>
-            <option>Hectar 3</option>
+            <option>Plantio 1</option>
+            <option>Plantio 2</option>
+            <option>Plantio 3</option>
           </select>
         </div>
         <div>
-          <label for="sensorSelect">Selecionar Sensor:</label>
+          <label for="sensorSelect">Selecionar Região:</label>
           <select id="sensorSelect">
-            <option>Sensor A</option>
-            <option>Sensor B</option>
-            <option>Sensor C</option>
+            <option>Região A</option>
+            <option>Região B</option>
+            <option>Região C</option>
           </select>
         </div>
       </div>
@@ -50,8 +50,8 @@
       <div class="card-container">
         <div class="card">
           <canvas id="graficoUmidadeHectar"></canvas>
-          <h3>Umidade Atual do Hectar</h3>
-          <h4>*Mediana da umidade atual de todos os sensores no hectar*</h4>
+          <h3>Umidade Atual da Região</h3>
+          <h4>*Mediana da umidade atual de todas as regiões no plantio*</h4>
         </div>
         <div class="card">
           <canvas id="graficoSensor"></canvas>
@@ -63,27 +63,27 @@
 
 
     <div class="section">
-      <h2>Hectares com Crescimento <span class="alert">Comprometido</span></h2>
+      <h2>Regiões com Crescimento <span class="alert">Comprometido</span></h2>
       <p><small>(*Fora do limite de 30 a 40% de umidade do solo)</small></p>
       <div class="card-container">
         <div class="card">
           <canvas id="graficoHectar8"></canvas>
-          <h3>Hectar 8</h3>
+          <h3>Região 8</h3>
         </div>
         <div class="card">
           <canvas id="graficoHectar5"></canvas>
-          <h3>Hectar 5</h3>
+          <h3>Região 5</h3>
         </div>
       </div>
     </div>
 
     <div class="section">
-      <h2>Hectares em Estado de <span class="alert" style="color: #f48fb1;">Alerta</span></h2>
+      <h2>Regiões em Estado de <span class="alert" style="color: #f48fb1;">Alerta</span></h2>
       <p><small>(*Perto do limite de 30 a 40% de umidade do solo)</small></p>
       <div class="card-container">
         <div class="card">
           <canvas id="graficoHectar1"></canvas>
-          <h3>Hectar 1</h3>
+          <h3>Região 1</h3>
         </div>
       </div>
     </div>
@@ -135,7 +135,7 @@
     new Chart(document.getElementById('graficoProblemas'), {
       type: 'bar',
       data: {
-        labels: ['Hectare 1', 'Hectare 2', 'Hectare 3', 'Hectare 4', 'Hectare 5', 'Hectare 6', 'Hectare 7', 'Hectare 8', 'Hectare 9'],
+        labels: ['Região 1', 'Região 2', 'Região 3', 'Região 4', 'Região 5', 'Região 6', 'Região 7', 'Região 8', 'Região 9'],
         datasets: [{
           label: 'Problemas (%)',
           data: [30, 15, 10, 35, 25, 10, 12, 8, 6],
