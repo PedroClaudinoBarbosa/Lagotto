@@ -60,6 +60,36 @@ h2 {
     gap: 20px;
 }
 
+#kpiSection {
+    width: 15vw;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+#kpiSection .card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#kpiSection .card h1{
+    font-size: 70px;
+}
+
+.card .titulo {
+    width: 100%;
+    align-self: top;
+    height: 40px;
+    background-color: #5f422c;
+    color: #FFFFFF;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .card {
     flex: 1;
     border: 1px dashed #bbb;
@@ -151,4 +181,11 @@ h2 {
 
 a {
     text-decoration: none;
+}
+.section h2 {
+    font-size: 60px;
+}
+
+.section p {
+    font-size: 30px;
 }

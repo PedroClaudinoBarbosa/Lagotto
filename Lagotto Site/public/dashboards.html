@@ -53,10 +53,24 @@
           <h3>Umidade Atual da Região</h3>
           <h4>*Mediana da umidade atual de todas as regiões no plantio*</h4>
         </div>
-        <div class="card">
+        <!-- <div class="card">
           <canvas id="graficoSensor"></canvas>
           <h3>Umidade Atual & Média de Umidade</h3>
           <h4>*Média calculada com base nas leituras no dia*</h4>
+        </div> -->
+        <div class="card" id="kpiSection">
+          <div class="card">
+            <div class="titulo">
+              <p>Umidade Atual</p>
+            </div>
+            <h1>35%</h1>
+          </div>
+          <div class="card">
+            <div class="titulo">
+              <p>Localização</p>
+            </div>
+            <h1>Plantio 1, Região A</h1>
+          </div>
         </div>
       </div>
     </div>
@@ -64,7 +78,7 @@
 
     <div class="section">
       <h2>Regiões com Crescimento <span class="alert">Comprometido</span></h2>
-      <p><small>(*Fora do limite de 30 a 40% de umidade do solo)</small></p>
+      <p>(*Fora do limite de 30 a 40% de umidade do solo)</p>
       <div class="card-container">
         <div class="card">
           <canvas id="graficoHectar8"></canvas>
@@ -78,8 +92,8 @@
     </div>
 
     <div class="section">
-      <h2>Regiões em Estado de <span class="alert" style="color: #f48fb1;">Alerta</span></h2>
-      <p><small>(*Perto do limite de 30 a 40% de umidade do solo)</small></p>
+      <h2>Regiões em Estado de <span class="alert" style="color: orange;">Alerta</span></h2>
+      <p>(*Perto do limite de 30 a 40% de umidade do solo)</p>
       <div class="card-container">
         <div class="card">
           <canvas id="graficoHectar1"></canvas>
