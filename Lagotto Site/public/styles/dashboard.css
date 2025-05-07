@@ -189,3 +189,99 @@ a {
 .section p {
     font-size: 30px;
 }
+
+.cabecalho, .alerta {
+    display: flex;
+    justify-content: center;
+}
+
+.cabecalho div {
+    background-color: #5f422c;
+    color: #FFFFFF;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: #FFFFFF solid 1px;
+}
+
+.alerta div {
+    color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    border: #000000 solid 1px;
+    border-top: 0px;
+    font-weight: 800px;
+}
+
+.situacao {
+    width: 15%;
+}
+
+.plantio {
+    width: 30%;
+}
+
+.horario, .umidade {
+    width: 25%;
+}
+
+.umidade img {
+    justify-self: flex-end;
+}
+
+#alertaGraficos {
+    border: #000000 1px solid;
+    width: 95.4%;
+    margin: auto;
+    height: 60vh;
+}
+
+#alertaGraficos h3 {
+    font-size: 40px;
+    margin-left: 40px;
+}
+
+#alertaGraficos .mapa {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+}
+
+#alertaGraficos .mapa .linha {
+    display: flex;
+    width: 90%
+}
+
+#alertaGraficos .mapa div {
+    width: 25%;
+    height: 160px;
+    text-align: center;
+    border: #000000 1px solid;
+    font-size: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.verde {
+    background-color: #78FF71;
+}
+
+.vermelho {
+    background-color: #FF7171;
+}
+
+.amarelo {
+    background-color: #FFC219;
+}
+
+.hide {
+    display: none;
+}
