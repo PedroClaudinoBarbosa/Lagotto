@@ -28,7 +28,7 @@
     <div class="content">
         <div class="section">
             <h2>Histórico de Alertas</h2>
-            <div class="alertas">
+            <div class="alertas" id="alertas">
                 <div class="cabecalho">
                     <div class="situacao">
                         <p>Situação</p>
@@ -77,21 +77,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="alerta">
-                    <div class="situacao">
-                        <p>⚠️</p>
-                    </div>
-                    <div class="plantio">
-                        <p>Plantio Rio de Janeiro - RJ</p>
-                    </div>
-                    <div class="horario">
-                        <p>25/04/2025 - 17:00</p>
-                    </div>
-                    <div class="umidade">
-                        <p><span style="color: rgb(232, 232, 36);">31%</span> - Região B</p>
-                        <img src="assets/chevron-down-solid.svg" alt="" style="height: 30px">
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -100,10 +85,80 @@
 </html>
 
 <script>
-    function exibirGrafico() {
-        let element = document.getElementById('alertaGraficos');
+    listarAvisos();
 
-        if(element.classList.contains('hide')) {
+    function listarAvisos() {
+        let i = 0;
+
+        fetch("/avisos/listarAvisos", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            console.log("Puxando os avisos");
+
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    json.forEach((aviso) => {
+                        alertas.innerHTML += `
+                            <div class="alerta" id="alerta${i}">
+                                <div class="situacao">
+                                    <p>🚨</p>
+                                </div>
+                                <div class="plantio">
+                                    <p>${aviso.Endereco}</p>
+                                </div>
+                                <div class="horario">
+                                    <p>${aviso.data}</p>
+                                </div>
+                                <div class="umidade">
+                                    <p><span style="color: red;">${aviso.umidade}%</span> - ${aviso.localizacao}</p>
+                                    <img src="assets/chevron-down-solid.svg" alt="" style="height: 30px;" onclick="exibirGrafico(${i})">
+                                </div>
+                            </div>
+                            <div id="alertaGraficos${i}" class="hide alertaGraficos">
+                                <h3>Mapa do Plantio e Regiões</h3>
+                                <div>
+                                    <div class="mapa">
+                                        <div class="linha">
+                                            <div class="amarelo">A</div>
+                                            <div class="vermelho">B</div>
+                                            <div class="verde">C</div>
+                                            <div class="verde">D</div>
+                                        </div>
+                                        <div class="linha">
+                                            <div class="amarelo">E</div>
+                                            <div class="verde">F</div>
+                                            <div class="amarelo">G</div>
+                                            <div class="verde">H</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        i++;
+                    })
+                })
+            } else {
+                console.log("Houve um erro ao tentar buscar o desafio!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch(function(erro) {
+            console.log(erro);
+        });
+
+        return false;
+    }
+
+    function exibirGrafico(i) {
+        let element = document.getElementById(`alertaGraficos${i}`);
+
+        if (element.classList.contains('hide')) {
             element.classList.remove('hide');
         } else {
             element.classList.add('hide');

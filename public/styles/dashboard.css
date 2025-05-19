@@ -232,19 +232,19 @@ a {
     justify-self: flex-end;
 }
 
-#alertaGraficos {
+.alertaGraficos {
     border: #000000 1px solid;
     width: 95.4%;
     margin: auto;
     height: 60vh;
 }
 
-#alertaGraficos h3 {
+.alertaGraficos h3 {
     font-size: 40px;
     margin-left: 40px;
 }
 
-#alertaGraficos .mapa {
+.alertaGraficos .mapa {
     display: flex;
     flex-direction: column;
     width: 50%;
@@ -252,12 +252,12 @@ a {
     align-items: center;
 }
 
-#alertaGraficos .mapa .linha {
+.alertaGraficos .mapa .linha {
     display: flex;
     width: 90%
 }
 
-#alertaGraficos .mapa div {
+.alertaGraficos .mapa div {
     width: 25%;
     height: 160px;
     text-align: center;
