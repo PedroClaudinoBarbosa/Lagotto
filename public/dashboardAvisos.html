@@ -101,6 +101,12 @@
             if (resposta.ok) {
                 resposta.json().then(json => {
                     json.forEach((aviso) => {
+                        let dataHorario = aviso.data.split('T');
+
+                        let data = dataHorario[0].replaceAll("-", "/");
+                        let horario = dataHorario[1].split(".");
+                        horario = horario[0];
+
                         alertas.innerHTML += `
                             <div class="alerta" id="alerta${i}">
                                 <div class="situacao">
@@ -110,7 +116,7 @@
                                     <p>${aviso.Endereco}</p>
                                 </div>
                                 <div class="horario">
-                                    <p>${aviso.data}</p>
+                                    <p>${data} - ${horario}</p>
                                 </div>
                                 <div class="umidade">
                                     <p><span style="color: red;">${aviso.umidade}%</span> - ${aviso.localizacao}</p>

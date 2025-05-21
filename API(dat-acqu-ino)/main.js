@@ -19,7 +19,7 @@ const serial = async (
     // conexão com o banco de dados MySQL
     let poolBancoDados = mysql.createPool(
         {
-            host: 'localhost',
+            host: '10.18.33.71',
             user: 'lagotto',
             password: 'Lagotto@1234',
             database: 'Lagotto',

@@ -221,7 +221,12 @@ a {
 }
 
 .plantio {
-    width: 30%;
+    flex: 1;
+}
+
+.plantio p {
+    font-size: 28px;
+
 }
 
 .horario, .umidade {
