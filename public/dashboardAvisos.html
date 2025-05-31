@@ -85,9 +85,9 @@
 </html>
 
 <script>
-    listarAvisos();
+    listarAvisos2();
 
-    function listarAvisos() {
+    function listarAvisos2() {
         let i = 0;
 
         fetch(`/avisos/listarAvisos/${sessionStorage.ID_EMPRESA}`, {
@@ -113,13 +113,13 @@
                                     <p>🚨</p>
                                 </div>
                                 <div class="plantio">
-                                    <p>${aviso.Endereco}</p>
+                                    <p>${aviso.nome} - ${aviso.estadoSigla}</p>
                                 </div>
                                 <div class="horario">
                                     <p>${data} - ${horario}</p>
                                 </div>
                                 <div class="umidade">
-                                    <p><span style="color: red;">${aviso.umidade}%</span> - ${aviso.localizacao}</p>
+                                    <p><span style="color: red;">${aviso.umidade}%</span> - ${aviso.descricao}</p>
                                     <img src="assets/chevron-down-solid.svg" alt="" style="height: 30px;" onclick="exibirGrafico(${i})">
                                 </div>
                             </div>
@@ -143,6 +143,8 @@
                                 </div>
                             </div>
                         `;
+
+                        i++;
                     })
                 })
             } else {
@@ -157,6 +159,40 @@
         });
 
         return false;
+    }
+
+    function listarAvisos() {
+        let i;
+
+        fetch(`/avisos/buscarPlantio/${sessionStorage.ID_EMPRESA}`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((respostaPlantios) => {
+            if(respostaPlantios.ok) {
+                resposta.json().then(json => {
+                    json.forEach((plantio) => {
+                        let idPlantio = plantio.idPlantio;
+
+                        for(let i = 0; i < 6; i++) {
+                            fetch('/avisos/buscarRegiao'), {
+                                method: 'GET',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    idPlantioServer: idPlantio,
+                                    idRegiaoServer: i
+                                }).then((respostaRegiao) => {
+                                    
+                                })
+                            }
+                        }
+                    })
+                })
+            }
+        })
     }
 
     function exibirGrafico(i) {

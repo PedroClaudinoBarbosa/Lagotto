@@ -7,4 +7,12 @@ router.get("/listarAvisos/:idEmpresa", function(req,res) {
     avisoController.listarAvisos(req, res);
 });
 
+router.get("/buscarPlantios/:idEmpresa", function(req, res) {
+    avisoController.buscarPlantios(req, res);
+});
+
+router.get("/buscarRegiao", function(req, res) {
+    avisoController.buscarRegiao(req, res);
+});
+
 module.exports = router;

@@ -17,6 +17,38 @@ function listarAvisos(idEmpresa) {
     return database.executar(instrucaoSql);
 }
 
+function buscarPlantios(idEmpresa) {
+    let instrucaoSql = `
+        SELECT  Plantio.idPlantio,
+                Plantio.nome,
+                Endereco.estadoSigla
+        FROM Plantio
+        INNER JOIN Endereco ON Plantio.fkEndereco = Endereco.idEndereco
+        WHERE Plantio.fkEmpresa = '${idEmpresa}';
+    `;
+
+    return database.executar(instrucaoSql);
+}
+
+function buscarRegiao(idPlantio, idRegiao) {
+    let instrucaoSql = `
+        SELECT SELECT  DadosSensor.idDadosSensor,
+                Regiao.descricao,
+                DadosSensor.data,
+                DadosSensor.umidade
+        FROM DadosSensor
+        INNER JOIN Regiao ON DadosSensor.fkRegiao = Regiao.idRegiao AND DadosSensor.fkPlantio = Regiao.fkPlantio
+        WHERE DadosSensor.fkPlantio = '${idPlantio}'
+        AND DadosSensor.fkRegiao = '${idRegiao}'
+        ORDER BY data DESC
+        LIMIT 10;
+    `;
+
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
-    listarAvisos
+    listarAvisos,
+    buscarPlantios,
+    buscarRegiao
 }
