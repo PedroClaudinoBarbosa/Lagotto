@@ -221,7 +221,7 @@ a {
 }
 
 .plantio {
-    flex: 1;
+    width: 30%;
 }
 
 .plantio p {

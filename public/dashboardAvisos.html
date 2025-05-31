@@ -90,7 +90,7 @@
     function listarAvisos() {
         let i = 0;
 
-        fetch("/avisos/listarAvisos", {
+        fetch(`/avisos/listarAvisos/${sessionStorage.ID_EMPRESA}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -143,8 +143,6 @@
                                 </div>
                             </div>
                         `;
-
-                        i++;
                     })
                 })
             } else {

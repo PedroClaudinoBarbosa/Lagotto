@@ -3,7 +3,7 @@ var router = express.Router();
 
 var avisoController = require("../controllers/avisoController");
 
-router.get("/listarAvisos", function(req,res) {
+router.get("/listarAvisos/:idEmpresa", function(req,res) {
     avisoController.listarAvisos(req, res);
 });
 

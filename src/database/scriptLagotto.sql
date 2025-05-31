@@ -61,7 +61,7 @@ PRIMARY KEY(fkPlantio, idRegiao)
 
 CREATE TABLE DadosSensor (
 	idDadosSensor INT PRIMARY KEY AUTO_INCREMENT,
-    data DATETIME NOT NULL,
+    data DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     umidade DECIMAL(4, 2) NOT NULL,
     fkPlantio INT NOT NULL,
     fkRegiao INT NOT NULL,
