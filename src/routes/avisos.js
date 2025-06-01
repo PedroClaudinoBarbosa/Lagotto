@@ -11,7 +11,7 @@ router.get("/buscarPlantios/:idEmpresa", function(req, res) {
     avisoController.buscarPlantios(req, res);
 });
 
-router.get("/buscarRegiao", function(req, res) {
+router.post("/buscarRegiao", function(req, res) {
     avisoController.buscarRegiao(req, res);
 });
 

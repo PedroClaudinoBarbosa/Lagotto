@@ -32,7 +32,7 @@ function buscarPlantios(idEmpresa) {
 
 function buscarRegiao(idPlantio, idRegiao) {
     let instrucaoSql = `
-        SELECT SELECT  DadosSensor.idDadosSensor,
+        SELECT  DadosSensor.idDadosSensor,
                 Regiao.descricao,
                 DadosSensor.data,
                 DadosSensor.umidade
