@@ -105,6 +105,8 @@ INSERT INTO Regiao (fkPlantio, idRegiao, descricao, areaCapturaM2) VALUES
 (1, 4, 'Região D', 50),
 (1, 5, 'Região E', 50),
 (1, 6, 'Região F', 50),
+(1, 7, 'Região G', 50),
+(1, 8, 'Região H', 50),
 
 (2, 1, 'Região A', 50),
 (2, 2, 'Região B', 50),
@@ -112,6 +114,8 @@ INSERT INTO Regiao (fkPlantio, idRegiao, descricao, areaCapturaM2) VALUES
 (2, 4, 'Região D', 50),
 (2, 5, 'Região E', 50),
 (2, 6, 'Região F', 50),
+(2, 7, 'Região G', 50),
+(2, 8, 'Região H', 50),
 
 (3, 1, 'Região A', 50),
 (3, 2, 'Região B', 50),
@@ -119,10 +123,33 @@ INSERT INTO Regiao (fkPlantio, idRegiao, descricao, areaCapturaM2) VALUES
 (3, 4, 'Região D', 50),
 (3, 5, 'Região E', 50),
 (3, 6, 'Região F', 50),
+(3, 7, 'Região G', 50),
+(3, 8, 'Região H', 50),
 
 (4, 1, 'Região A', 50),
 (4, 2, 'Região B', 50),
 (4, 3, 'Região C', 50),
 (4, 4, 'Região D', 50),
 (4, 5, 'Região E', 50),
-(4, 6, 'Região F', 50);
+(4, 6, 'Região F', 50),
+(4, 7, 'Região G', 50),
+(4, 7, 'Região H', 50);
+
+INSERT INTO DadosSensor(umidade, fkPlantio, fkRegiao) VALUES
+	(38, 1, 1),
+    (42, 1, 2),
+    (35, 1, 3),
+    (44, 1, 4),
+    (29, 1, 5),
+    (32, 1, 6),
+    (28, 1, 7),
+    (32, 1, 8),
+
+	(39, 2, 1),
+    (35, 2, 2),
+    (37, 2, 3),
+    (41, 2, 4),
+    (31, 2, 5),
+    (28, 2, 6),
+    (33, 1, 6),
+    (44, 1, 6);

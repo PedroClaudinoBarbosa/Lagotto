@@ -176,10 +176,11 @@
 
             for (const plantio of plantios) {
                 let idPlantio = plantio.idPlantio;
+                let qtdRegioes = plantio.qtdRegioes;
 
                 let regioes = [];
 
-                for (let j = 0; j < 6; j++) {
+                for (let j = 0; j < qtdRegioes + 1; j++) {
                     const respostaRegiao = await fetch('/avisos/buscarRegiao', {
                         method: 'POST',
                         headers: {
@@ -190,10 +191,11 @@
                             idRegiaoServer: j + 1
                         })
                     });
+
                     if (respostaRegiao.ok) {
                         respostaRegiao.json().then((regiao) => {
                             regioes.push(regiao);
-                        })
+                        });
                     } else {
                         console.log("Houve um erro ao tentar buscar as regiões");
 
@@ -201,7 +203,6 @@
                             console.error(texto);
                         });
                     }
-
                 }
 
                 let regioesPreocupantes = [];
@@ -239,30 +240,78 @@
                 let data = dataHorario[0].replaceAll("-", "/");
                 let horario = dataHorario[1].split(".");
                 horario = horario[0];
+                let avisoImagem;
+                let corTexto;
+
+                if (umidade >= 40 || umidade <= 30) {
+                    avisoImagem = '🚨';
+                    corTexto = 'red';
+                } else if (umidade > 38 || umidade < 32) {
+                    avisoImagem = '⚠️';
+                    corTexto = 'yellow';
+                }
 
                 let alertaHTML = `
-                    <div class="alerta" id="alerta${i}">
-                        <div class="situacao">
-                            <p></p>
+                        <div class="alerta" id="alerta${i}">
+                            <div class="situacao">
+                                <p>${avisoImagem}</p>
+                            </div>
+                            <div class="plantio">
+                                <p>${plantio.nome} - ${plantio.estadoSigla}</p>
+                            </div>
+                            <div class="horario">
+                                <p>${data} - ${horario}</p>
+                            </div>
+                            <div class="umidade">
+                                <p><span style="color: ${corTexto};">${umidade.toFixed(0)}%</span> - ${regiaoComUmidadeMaisPerigosa.descricao}</p>
+                                <img src="assets/chevron-down-solid.svg" alt="" style="height: 30px;" onclick="exibirGrafico(${i})">
+                            </div>
                         </div>
-                        <div class="plantio">
-                            <p>${plantio.nome} - ${plantio.estadoSigla}</p>
-                        </div>
-                        <div class="horario">
-                            <p>${data} - ${horario}</p>
-                        </div>
-                        <div class="umidade">
-                            <p><span style="color: red;">${umidade.toFixed(0)}%</span> - ${regiaoComUmidadeMaisPerigosa.descricao}</p>
-                            <img src="assets/chevron-down-solid.svg" alt="" style="height: 30px;" onclick="exibirGrafico(${i})">
+                         <div id="alertaGraficos${i}" class="hide alertaGraficos">
+                            <h3>Mapa do Plantio e Regiões</h3>
+                            <div>
+                                <div class="mapa">
+                                    <div class="linha">
+                    `;
+
+                for (let m = 0; m < regioes.length; m++) {
+                    let regiao = regioes[m];
+                    let ultimaUmidade = regiao[0].umidade;
+                    let classeCor;
+                    let regiaoNome = regiao[0].descricao.slice(-1);
+
+                    if (ultimaUmidade >= 40 || ultimaUmidade <= 30) {
+                        classeCor = 'vermelho';
+                    } else if (ultimaUmidade > 38 || ultimaUmidade < 32) {
+                        classeCor = 'amarelo';
+                    } else {
+                        classeCor = 'verde';
+                    }
+
+                    if (m == 4) {
+                        alertaHTML += `
+                            </div>
+                            <div class="linha">
+                        `;
+                    }
+
+                    alertaHTML += `
+                        <div class="${classeCor}">${regiaoNome}</div>
+                    `;
+                }
+
+                alertaHTML += `
+                                </div>
+                            </div>
                         </div>
                     </div>
                 `;
+
 
                 alertas.innerHTML += alertaHTML;
 
                 i++;
             }
-
         } else {
             console.log("Houve um erro ao tentar buscar o plantio");
 

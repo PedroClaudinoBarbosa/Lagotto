@@ -21,10 +21,13 @@ function buscarPlantios(idEmpresa) {
     let instrucaoSql = `
         SELECT  Plantio.idPlantio,
                 Plantio.nome,
-                Endereco.estadoSigla
+                Endereco.estadoSigla,
+                COUNT(fkPlantio) as qtdRegioes
         FROM Plantio
         INNER JOIN Endereco ON Plantio.fkEndereco = Endereco.idEndereco
-        WHERE Plantio.fkEmpresa = '${idEmpresa}';
+        INNER JOIN Regiao ON Plantio.idPlantio = Regiao.fkPlantio
+        WHERE Plantio.fkEmpresa = '${idEmpresa}'
+        GROUP BY Plantio.idPlantio, Plantio.nome, Endereco.estadoSigla;
     `;
 
     return database.executar(instrucaoSql);
