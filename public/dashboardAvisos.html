@@ -60,7 +60,7 @@
                 </div>
                 <div id="alertaGraficos" class="hide">
                     <h3>Mapa do Plantio e Regiões</h3>
-                    <div>
+                    <div class="conteudo">
                         <div class="mapa">
                             <div class="linha">
                                 <div class="amarelo">A</div>
@@ -85,81 +85,10 @@
 </html>
 
 <script>
+    let graficoRegiao = null;
+
+    let regioesArray = [];
     listarAvisos();
-
-    function listarAvisos2() {
-        let i = 0;
-
-        fetch(`/avisos/listarAvisos/${sessionStorage.ID_EMPRESA}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(function (resposta) {
-            console.log("Puxando os avisos");
-
-            if (resposta.ok) {
-                resposta.json().then(json => {
-                    json.forEach((aviso) => {
-                        let dataHorario = aviso.data.split('T');
-
-                        let data = dataHorario[0].replaceAll("-", "/");
-                        let horario = dataHorario[1].split(".");
-                        horario = horario[0];
-
-                        alertas.innerHTML += `
-                            <div class="alerta" id="alerta${i}">
-                                <div class="situacao">
-                                    <p>🚨</p>
-                                </div>
-                                <div class="plantio">
-                                    <p>${aviso.nome} - ${aviso.estadoSigla}</p>
-                                </div>
-                                <div class="horario">
-                                    <p>${data} - ${horario}</p>
-                                </div>
-                                <div class="umidade">
-                                    <p><span style="color: red;">${aviso.umidade}%</span> - ${aviso.descricao}</p>
-                                    <img src="assets/chevron-down-solid.svg" alt="" style="height: 30px;" onclick="exibirGrafico(${i})">
-                                </div>
-                            </div>
-                            <div id="alertaGraficos${i}" class="hide alertaGraficos">
-                                <h3>Mapa do Plantio e Regiões</h3>
-                                <div>
-                                    <div class="mapa">
-                                        <div class="linha">
-                                            <div class="amarelo">A</div>
-                                            <div class="vermelho">B</div>
-                                            <div class="verde">C</div>
-                                            <div class="verde">D</div>
-                                        </div>
-                                        <div class="linha">
-                                            <div class="amarelo">E</div>
-                                            <div class="verde">F</div>
-                                            <div class="amarelo">G</div>
-                                            <div class="verde">H</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-
-                        i++;
-                    })
-                })
-            } else {
-                console.log("Houve um erro ao tentar buscar o desafio!");
-
-                resposta.text().then(texto => {
-                    console.error(texto);
-                });
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-        });
-
-        return false;
-    }
 
     async function listarAvisos() {
         let i = 0;
@@ -252,27 +181,27 @@
                 }
 
                 let alertaHTML = `
-                        <div class="alerta" id="alerta${i}">
-                            <div class="situacao">
-                                <p>${avisoImagem}</p>
-                            </div>
-                            <div class="plantio">
-                                <p>${plantio.nome} - ${plantio.estadoSigla}</p>
-                            </div>
-                            <div class="horario">
-                                <p>${data} - ${horario}</p>
-                            </div>
-                            <div class="umidade">
-                                <p><span style="color: ${corTexto};">${umidade.toFixed(0)}%</span> - ${regiaoComUmidadeMaisPerigosa.descricao}</p>
-                                <img src="assets/chevron-down-solid.svg" alt="" style="height: 30px;" onclick="exibirGrafico(${i})">
-                            </div>
+                    <div class="alerta" id="alerta${i}">
+                        <div class="situacao">
+                            <p>${avisoImagem}</p>
                         </div>
-                         <div id="alertaGraficos${i}" class="hide alertaGraficos">
-                            <h3>Mapa do Plantio e Regiões</h3>
-                            <div>
-                                <div class="mapa">
-                                    <div class="linha">
-                    `;
+                        <div class="plantio">
+                            <p>${plantio.nome} - ${plantio.estadoSigla}</p>
+                        </div>
+                        <div class="horario">
+                            <p>${data} - ${horario}</p>
+                        </div>
+                        <div class="umidade">
+                            <p><span style="color: ${corTexto};">${umidade.toFixed(0)}%</span> - ${regiaoComUmidadeMaisPerigosa.descricao}</p>
+                            <img src="assets/chevron-down-solid.svg" alt="" style="height: 30px;" onclick="exibirGrafico(${i})">
+                        </div>
+                    </div>
+                        <div id="alertaGraficos${i}" class="hide alertaGraficos">
+                        <h3>Mapa do Plantio e Regiões</h3>
+                        <div class="conteudo">
+                            <div class="mapa">
+                                <div class="linha">
+                `;
 
                 for (let m = 0; m < regioes.length; m++) {
                     let regiao = regioes[m];
@@ -296,19 +225,25 @@
                     }
 
                     alertaHTML += `
-                        <div class="${classeCor}">${regiaoNome}</div>
+                        <div class="${classeCor}" onclick="estatisticasRegiao(${m}, ${i})">${regiaoNome}</div>
                     `;
                 }
 
+                regioesArray[i] = regioes;
+
                 alertaHTML += `
                                 </div>
+                            </div>
+                            <div class="canvas">
+                                <canvas id="graficoPlantio${i}"</canvas>
                             </div>
                         </div>
                     </div>
                 `;
 
-
                 alertas.innerHTML += alertaHTML;
+
+
 
                 i++;
             }
@@ -322,6 +257,46 @@
 
     }
 
+    function estatisticasRegiao(idRegiao, idPlantio) {
+        var ctx = document.getElementById(`graficoPlantio${idPlantio}`);
+
+        let regiao = regioesArray[idPlantio][idRegiao];
+
+        let labels = [];
+        let data = [];
+
+        for(let i = regiao.length - 1; i >= 0; i--) {
+            let horario = regiao[i].data;
+            let umidade = regiao[i].umidade;
+
+            labels.push(horario);
+            data.push(umidade);
+        }
+
+        if(graficoRegiao !== null) {
+            graficoRegiao.destroy();
+        }
+
+        graficoRegiao = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels,
+                datasets: [{
+                    label: 'Umidade do Solo',
+                    data,
+                    borderWidth: 1
+                }],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
     function exibirGrafico(i) {
         let element = document.getElementById(`alertaGraficos${i}`);
 
@@ -331,4 +306,6 @@
             element.classList.add('hide');
         }
     }
+
+
 </script>

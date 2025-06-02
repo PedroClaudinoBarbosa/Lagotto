@@ -290,3 +290,12 @@ a {
 .hide {
     display: none;
 }
+
+.alertaGraficos .conteudo {
+    display: flex;
+    flex-direction: row;
+}
+
+.alertaGraficos .conteudo .canvas {
+    width: 50%;
+}
