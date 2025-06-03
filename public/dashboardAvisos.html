@@ -43,40 +43,6 @@
                         <p>Umidade Atual</p>
                     </div>
                 </div>
-                <div class="alerta">
-                    <div class="situacao">
-                        <p>🚨</p>
-                    </div>
-                    <div class="plantio">
-                        <p>Plantio São Paulo - SP</p>
-                    </div>
-                    <div class="horario">
-                        <p>25/04/2025 - 14:00</p>
-                    </div>
-                    <div class="umidade">
-                        <p><span style="color: red;">41%</span> - Região A</p>
-                        <img src="assets/chevron-down-solid.svg" alt="" style="height: 30px;" onclick="exibirGrafico()">
-                    </div>
-                </div>
-                <div id="alertaGraficos" class="hide">
-                    <h3>Mapa do Plantio e Regiões</h3>
-                    <div class="conteudo">
-                        <div class="mapa">
-                            <div class="linha">
-                                <div class="amarelo">A</div>
-                                <div class="vermelho">B</div>
-                                <div class="verde">C</div>
-                                <div class="verde">D</div>
-                            </div>
-                            <div class="linha">
-                                <div class="amarelo">E</div>
-                                <div class="verde">F</div>
-                                <div class="amarelo">G</div>
-                                <div class="verde">H</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -181,6 +147,7 @@
                 }
 
                 let alertaHTML = `
+                    
                     <div class="alerta" id="alerta${i}">
                         <div class="situacao">
                             <p>${avisoImagem}</p>
@@ -243,9 +210,9 @@
 
                 alertas.innerHTML += alertaHTML;
 
-
-
                 i++;
+
+                setInterval(listarAvisos(), 100000);
             }
         } else {
             console.log("Houve um erro ao tentar buscar o plantio");
@@ -289,9 +256,7 @@
             },
             options: {
                 scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+                    
                 }
             }
         });
