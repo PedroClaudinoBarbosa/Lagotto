@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Lagotto Dashboard </title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles/dashboard.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo"><img src="./assets/logo.png" alt="Imagem"></div>
+        <div class="nav">
+            <div>
+                <a href="dashboards.html"><span style="color: wheat;">📊 Gráficos</span></a>
+            </div>
+            <div>
+                <a href="dashboardAvisos.html" style="color: wheat;">⚠️ Avisos</a>
+            </div>
+            <div>
+                <a href="login_cadastro.html" style="color: wheat;">❌ Sair</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="section">
+            <h2>Histórico de Alertas</h2>
+            <div class="alertas" id="alertas">
+                <div class="cabecalho">
+                    <div class="situacao">
+                        <p>Situação</p>
+                    </div>
+                    <div class="plantio">
+                        <p>Plantio</p>
+                    </div>
+                    <div class="horario">
+                        <p>Horário Inicial</p>
+                    </div>
+                    <div class="umidade">
+                        <p>Umidade Atual</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    let graficoRegiao = null;
+
+    let regioesArray = [];
+    listarAvisos();
+
+    async function listarAvisos() {
+        let i = 0;
+
+        const respostaPlantios = await fetch(`/avisos/buscarPlantios/${sessionStorage.ID_EMPRESA}`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (respostaPlantios.ok) {
+            const plantios = await respostaPlantios.json();
+
+            for (const plantio of plantios) {
+                let idPlantio = plantio.idPlantio;
+                let qtdRegioes = plantio.qtdRegioes;
+
+                let regioes = [];
+
+                for (let j = 0; j < qtdRegioes + 1; j++) {
+                    const respostaRegiao = await fetch('/avisos/buscarRegiao', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            idPlantioServer: idPlantio,
+                            idRegiaoServer: j + 1
+                        })
+                    });
+
+                    if (respostaRegiao.ok) {
+                        respostaRegiao.json().then((regiao) => {
+                            regioes.push(regiao);
+                        });
+                    } else {
+                        console.log("Houve um erro ao tentar buscar as regiões");
+
+                        respostaPlantios.text().then(texto => {
+                            console.error(texto);
+                        });
+                    }
+                }
+
+                let regioesPreocupantes = [];
+
+                for (let k = 0; k < regioes.length; k++) {
+                    let regiao = regioes[k];
+
+                    if (regiao[0].umidade > 38 || regiao[0].umidade < 32) {
+                        regioesPreocupantes.push(regiao[0]);
+                    }
+                }
+
+                if (regioesPreocupantes.length == 0) {
+                    return;
+                }
+
+                let regiaoComUmidadeMaisPerigosa = regioesPreocupantes[0];
+                for (let l = 0; l < regioesPreocupantes.length; l++) {
+                    let regiaoPreocupante = regioesPreocupantes[l];
+
+                    if (regiaoPreocupante > 38) {
+                        if ((regiaoPreocupante.umidade - 38) > (regiaoComUmidadeMaisPerigosa.umidade - 38)) {
+                            regiaoComUmidadeMaisPerigosa = regiaoPreocupante;
+                        }
+                    } else if (regiaoPreocupante < 32) {
+                        if ((32 - regiaoPreocupante.umidade) > (32 - regiaoComUmidadeMaisPerigosa.umidade)) {
+                            regiaoComUmidadeMaisPerigosa = regiaoPreocupante;
+                        }
+                    }
+                }
+
+                let umidade = Number(regiaoComUmidadeMaisPerigosa.umidade);
+                let dataHorario = regiaoComUmidadeMaisPerigosa.data.split('T');
+
+                let data = dataHorario[0].replaceAll("-", "/");
+                let horario = dataHorario[1].split(".");
+                horario = horario[0];
+                let avisoImagem;
+                let corTexto;
+
+                if (umidade >= 40 || umidade <= 30) {
+                    avisoImagem = '🚨';
+                    corTexto = 'red';
+                } else if (umidade > 38 || umidade < 32) {
+                    avisoImagem = '⚠️';
+                    corTexto = 'yellow';
+                }
+
+                let alertaHTML = `
+                    
+                    <div class="alerta" id="alerta${i}">
+                        <div class="situacao">
+                            <p>${avisoImagem}</p>
+                        </div>
+                        <div class="plantio">
+                            <p>${plantio.nome} - ${plantio.estadoSigla}</p>
+                        </div>
+                        <div class="horario">
+                            <p>${data} - ${horario}</p>
+                        </div>
+                        <div class="umidade">
+                            <p><span style="color: ${corTexto};">${umidade.toFixed(0)}%</span> - ${regiaoComUmidadeMaisPerigosa.descricao}</p>
+                            <img src="assets/chevron-down-solid.svg" alt="" style="height: 30px;" onclick="exibirGrafico(${i})">
+                        </div>
+                    </div>
+                        <div id="alertaGraficos${i}" class="hide alertaGraficos">
+                        <h3>Mapa do Plantio e Regiões</h3>
+                        <div class="conteudo">
+                            <div class="mapa">
+                                <div class="linha">
+                `;
+
+                for (let m = 0; m < regioes.length; m++) {
+                    let regiao = regioes[m];
+                    let ultimaUmidade = regiao[0].umidade;
+                    let classeCor;
+                    let regiaoNome = regiao[0].descricao.slice(-1);
+
+                    if (ultimaUmidade >= 40 || ultimaUmidade <= 30) {
+                        classeCor = 'vermelho';
+                    } else if (ultimaUmidade > 38 || ultimaUmidade < 32) {
+                        classeCor = 'amarelo';
+                    } else {
+                        classeCor = 'verde';
+                    }
+
+                    if (m == 4) {
+                        alertaHTML += `
+                            </div>
+                            <div class="linha">
+                        `;
+                    }
+
+                    alertaHTML += `
+                        <div class="${classeCor}" onclick="estatisticasRegiao(${m}, ${i})">${regiaoNome}</div>
+                    `;
+                }
+
+                regioesArray[i] = regioes;
+
+                alertaHTML += `
+                                </div>
+                            </div>
+                            <div class="canvas">
+                                <canvas id="graficoPlantio${i}"</canvas>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                alertas.innerHTML += alertaHTML;
+
+                i++;
+
+                setInterval(listarAvisos(), 100000);
+            }
+        } else {
+            console.log("Houve um erro ao tentar buscar o plantio");
+
+            respostaPlantios.text().then(texto => {
+                console.error(texto);
+            });
+        }
+
+    }
+
+    function estatisticasRegiao(idRegiao, idPlantio) {
+        var ctx = document.getElementById(`graficoPlantio${idPlantio}`);
+
+        let regiao = regioesArray[idPlantio][idRegiao];
+
+        let labels = [];
+        let data = [];
+
+        for(let i = regiao.length - 1; i >= 0; i--) {
+            let horario = regiao[i].data;
+            let umidade = regiao[i].umidade;
+
+            labels.push(horario);
+            data.push(umidade);
+        }
+
+        if(graficoRegiao !== null) {
+            graficoRegiao.destroy();
+        }
+
+        graficoRegiao = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels,
+                datasets: [{
+                    label: 'Umidade do Solo',
+                    data,
+                    borderWidth: 1
+                }],
+            },
+            options: {
+                scales: {
+                    
+                }
+            }
+        });
+    }
+
+    function exibirGrafico(i) {
+        let element = document.getElementById(`alertaGraficos${i}`);
+
+        if (element.classList.contains('hide')) {
+            element.classList.remove('hide');
+        } else {
+            element.classList.add('hide');
+        }
+    }
+
+
+</script>

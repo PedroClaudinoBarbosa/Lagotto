@@ -7,9 +7,9 @@ void setup() { // funcao que sera executada uma vez
 
 void loop() { // funcao que sera executada em loop
   int leituraSensor = analogRead(PINO_SENSOR_UMIDADE_SOLO); // leitura analogica da porta A0
-  int maximo = 80;
-  int minimo = 60;
-  float porcentagemUmidade = (1 - (leituraSensor / 1023.0)) * 100; 
+  int maximo = 40;
+  int minimo = 30;
+  float porcentagemUmidade = ((1 - (leituraSensor / 1023.0)) * 100) - 20; 
    // faz o calculo para converter a unidade de medida padrao para porcentagem de umidade do solo
 
   
