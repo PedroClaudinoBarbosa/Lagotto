@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,16 +13,19 @@
   <div class="sidebar">
     <div class="logo"><img src="./assets/logo.png" alt="Imagem"></div>
     <div class="nav">
-      <div>
-        <a href="dashboards.html"><span style="color: wheat;">📊 Gráficos</span></a>
-      </div>
-      <div>
-        <a href="dashboardAvisos.html" style="color: wheat;">⚠️ Avisos</a>
-      </div>
-      <div>
-        <a href="login_cadastro.html" style="color: wheat;">❌ Sair</a>
-      </div>
-    </div>
+            <div>
+                <a href="dashboardAvisos.html" style="color: wheat;">⚠️ Avisos</a>
+            </div>
+            <div>
+                <a href="dashboardPlantios.html"><span style="color: wheat;">📊 Plantios</span></a>
+            </div>
+            <div>
+                <a href="dashboardConfiguracoes.html" style="color: wheat;">⚙️ Configurações</a>
+            </div>
+            <div>
+                <a href="login_cadastro.html" style="color: wheat;">❌ Sair</a>
+            </div>
+        </div>
   </div>
 
   <div class="content">
@@ -47,7 +51,7 @@
           </select>
         </div>
       </div>
-    
+
       <div class="card-container">
         <div class="card">
           <canvas id="graficoUmidadeHectar"></canvas>
@@ -169,46 +173,47 @@
     });
 
 
-  new Chart(document.getElementById('graficoUmidadeHectar'), {
-    type: 'line',
-    data: {
-      labels: ['13:00', '14:00', '15:00', '16:00'],
-      datasets: [{
-        label: 'Umidade (%)',
-        data: [32, 34, 33, 35],
-        borderColor: '#4caf50',
-        backgroundColor: 'rgba(76, 175, 80, 0.2)',
-        tension: 0.4
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { display: false }
-      }
-    }
-  });
-
-  new Chart(document.getElementById('graficoSensor'), {
-    type: 'bar',
-    data: {
-      labels: ['Umidade Atual', 'Umidade Média'],
-      datasets: [{
-        label: 'Valores',
-        data: [22, 38],
-        backgroundColor: ['#ff7043', '#64b5f6']
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true
+    new Chart(document.getElementById('graficoUmidadeHectar'), {
+      type: 'line',
+      data: {
+        labels: ['13:00', '14:00', '15:00', '16:00'],
+        datasets: [{
+          label: 'Umidade (%)',
+          data: [32, 34, 33, 35],
+          borderColor: '#4caf50',
+          backgroundColor: 'rgba(76, 175, 80, 0.2)',
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
         }
       }
-    }
-  });
+    });
+
+    new Chart(document.getElementById('graficoSensor'), {
+      type: 'bar',
+      data: {
+        labels: ['Umidade Atual', 'Umidade Média'],
+        datasets: [{
+          label: 'Valores',
+          data: [22, 38],
+          backgroundColor: ['#ff7043', '#64b5f6']
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
 
   </script>
 </body>
+
 </html>

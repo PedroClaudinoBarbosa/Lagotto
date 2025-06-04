@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Lagotto Dashboard </title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="styles/dashboard.css">
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="logo"><img src="../public/assets/logo.png" alt="Imagem"></div>
+    <div class="nav">
+            <div>
+                <a href="dashboardAvisos.html" style="color: wheat;">⚠️ Avisos</a>
+            </div>
+            <div>
+                <a href="dashboardPlantios.html"><span style="color: wheat;">📊 Plantios</span></a>
+            </div>
+            <div>
+                <a href="dashboardConfiguracoes.html" style="color: wheat;">⚙️ Configurações</a>
+            </div>
+            <div>
+                <a href="login_cadastro.html" style="color: wheat;">❌ Sair</a>
+            </div>
+        </div>
+  </div>
+  <div class="cadastrar">
+    <h1>Cadastrar Novos Funcionários</h1>
+    <div class="box">
+        <span>Nome:</span>
+        <input type="text" id="nome_funcionario" placeholder="exemplo@exemplo.com">
+        <span>Email:</span>
+        <input type="text" id="email_funcionario" placeholder="exemplo@exemplo.com">
+        <span>Senha:</span>
+        <input type="password" id="senha_funcionario" placeholder="********">
+        <button>Cadastrar Funcionário</button>
+    </div>
+</div>
+<script>
+    function cadastrar() {
+      // aguardar();
+  
+      //Recupere o valor da nova input pelo nome do id
+      // Agora vá para o método fetch logo abaixo
+      var nomeVar = nome_funcionario.value;
+      var emailVar = email_funcionario.value;
+      var senhaVar = senha_funcionario.value;
+  
+      // Verificando se há algum campo em branco
+      if (
+        nomeVar == "" ||
+        emailVar == "" ||
+        senhaVar == "" 
+      ) {
+        finalizarAguardar();
+        return false;
+      } 
+      // Enviando o valor da nova input
+      fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+          // Agora vá para o arquivo routes/usuario.js
+          nomeServer: nomeVar,
+          emailServer: emailVar,
+          senhaServer: senhaVar
+        }),
+      })
+        .then(function (resposta) {
+          console.log("resposta: ", resposta);
+        })
+    }
+    
+  </script>

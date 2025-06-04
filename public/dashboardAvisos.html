@@ -14,10 +14,13 @@
         <div class="logo"><img src="./assets/logo.png" alt="Imagem"></div>
         <div class="nav">
             <div>
-                <a href="dashboards.html"><span style="color: wheat;">📊 Gráficos</span></a>
+                <a href="dashboardAvisos.html" style="color: wheat;">⚠️ Avisos</a>
             </div>
             <div>
-                <a href="dashboardAvisos.html" style="color: wheat;">⚠️ Avisos</a>
+                <a href="dashboardPlantios.html"><span style="color: wheat;">📊 Plantios</span></a>
+            </div>
+            <div>
+                <a href="dashboardConfiguracoes.html" style="color: wheat;">⚙️ Configurações</a>
             </div>
             <div>
                 <a href="login_cadastro.html" style="color: wheat;">❌ Sair</a>
@@ -54,9 +57,27 @@
     let graficoRegiao = null;
 
     let regioesArray = [];
-    listarAvisos();
+    listarAvisosComLoop();
 
     async function listarAvisos() {
+
+        alertas.innerHTML = `
+            <div class="cabecalho">
+                <div class="situacao">
+                    <p>Situação</p>
+                </div>
+                <div class="plantio">
+                    <p>Plantio</p>
+                </div>
+                <div class="horario">
+                    <p>Horário Inicial</p>
+                </div>
+                <div class="umidade">
+                    <p>Umidade Atual</p>
+                </div>
+            </div>
+        `;
+
         let i = 0;
 
         const respostaPlantios = await fetch(`/avisos/buscarPlantios/${sessionStorage.ID_EMPRESA}`, {
@@ -212,16 +233,19 @@
 
                 i++;
 
-                setInterval(listarAvisos(), 100000);
             }
         } else {
             console.log("Houve um erro ao tentar buscar o plantio");
-
+            
             respostaPlantios.text().then(texto => {
                 console.error(texto);
             });
         }
+    }
 
+    async function listarAvisosComLoop() {
+        await listarAvisos();
+        setTimeout(listarAvisosComLoop, 10000); // executa novamente após 10 segundos
     }
 
     function estatisticasRegiao(idRegiao, idPlantio) {
@@ -232,15 +256,20 @@
         let labels = [];
         let data = [];
 
-        for(let i = regiao.length - 1; i >= 0; i--) {
-            let horario = regiao[i].data;
+        for (let i = regiao.length - 1; i >= 0; i--) {
+            let dataHorario = regiao[i].data.split('T');
+            let dataRegiao = dataHorario[0].replaceAll("-", "/");
+            let horario = dataHorario[1].split(".");
+            horario = horario[0];
+            let horarioExibir = `${dataRegiao} ${horario}`;
+            
             let umidade = regiao[i].umidade;
 
-            labels.push(horario);
+            labels.push(horarioExibir);
             data.push(umidade);
         }
 
-        if(graficoRegiao !== null) {
+        if (graficoRegiao !== null) {
             graficoRegiao.destroy();
         }
 
@@ -256,7 +285,7 @@
             },
             options: {
                 scales: {
-                    
+
                 }
             }
         });
