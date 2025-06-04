@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title> Lagotto Dashboard </title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="styles/dashboard.css">
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+  <link rel="stylesheet" href="../public/styles/dashboard.css">
+  <link rel="stylesheet" href="../public/styles/dashboardPlantio.css">
 </head>
 
 <body>
@@ -24,8 +26,14 @@
     </div>
   </div>
 
-  <div class="content">
+  <div class="content-plantio">
+    
+    <div class="mapConteudo">
+      <canvas id="meuGrafico" width="600" height="400"></canvas>
+    </div>
+    
 
+<!-- 
 
     <div class="section">
       <h2>Visão Atual dos Sensores</h2>
@@ -53,12 +61,12 @@
           <canvas id="graficoUmidadeHectar"></canvas>
           <h3>Umidade Atual da Região</h3>
           <h4>*Mediana da umidade atual de todas as regiões no plantio*</h4>
-        </div>
-        <!-- <div class="card">
+        </div> 
+        <div class="card">
           <canvas id="graficoSensor"></canvas>
           <h3>Umidade Atual & Média de Umidade</h3>
           <h4>*Média calculada com base nas leituras no dia*</h4>
-        </div> -->
+        </div> 
         <div class="card" id="kpiSection">
           <div class="card">
             <div class="titulo">
@@ -117,9 +125,81 @@
     </div>
   </div>
 
+-->
+
+
+
+</div> 
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+<script>
+  const imagem = new Image();
+  imagem.src = '../public/assets/mapaBrasil.png'; // caminho da sua imagem
+
+  imagem.onload = () => {
+    const ctx = document.getElementById('meuGrafico').getContext('2d');
+
+    const backgroundImagePlugin = {
+      id: 'customBackground',
+      beforeDraw: (chart) => {
+        if (imagem.complete) {
+          ctx.drawImage(imagem, 0, 0, chart.width, chart.height);
+        }
+      }
+    };
+
+    new Chart(ctx, {
+      type: 'bubble',
+      data: {
+        datasets: [{
+          label: 'Distribuição por região',
+          data: [
+            { x: 190, y: 90, r: 6 },
+            { x: 210, y: 115, r: 6 },
+            { x: 140, y: 100, r: 6 },
+          ],
+          backgroundColor: '#5f422c'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: { beginAtZero: true, max: 300, display: false, 
+            grid: {
+              display: false
+            }
+           },
+          y: { beginAtZero: true, max: 300,
+            display: false,
+            grid:{
+              display: false
+            }
+           }
+        },
+        plugins: {
+          legend: { display: false }
+        }
+      },
+      plugins: [backgroundImagePlugin]
+    });
+  };
+</script>
+
+
+
+
 
   <!-- JavaScript -->
-  <script>
+  <!-- <script>
     const labels = ['13:00', '14:00', '15:00', '16:00', '17:00'];
     const data = [20, 35, 15, 10, 25];
 
@@ -209,6 +289,6 @@
     }
   });
 
-  </script>
+  </script> -->
 </body>
 </html>
