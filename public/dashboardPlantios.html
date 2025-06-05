@@ -7,8 +7,9 @@
 
   <title> Lagotto Dashboard </title>
   <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
-  <link rel="stylesheet" href="../public/styles/dashboard.css">
-  <link rel="stylesheet" href="../public/styles/dashboardPlantio.css">
+  <link rel="stylesheet" href="styles/dashboard.css">
+  <link rel="stylesheet" href="styles/dashboardPlantio.css">
+  <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body>
@@ -144,11 +145,52 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
+<script> 
+  gerarMapaPlantios()
 
-  <script>
+  async function  buscarTodosPlantios(){
+      let respostaPlantios = await fetch(`/plantios/buscarPlantios/${sessionStorage.ID_EMPRESA}`, {
+        method: 'GET',
+        headers: {
+          "Content-Type":"application/json" 
+        }
+
+      });
+
+      if(!respostaPlantios.ok){
+        return
+      } 
+      
+      let jsonPlantios = await respostaPlantios.json()
+      let data = []
+
+      console.log(jsonPlantios)
+
+
+      
+      for(i=0; i < jsonPlantios.length; i++){
+      let plantioAtual = jsonPlantios[i]
+        data.push({
+          'x':plantioAtual.coordX,
+          'y':plantioAtual.coordY,
+          'logradouro':plantioAtual.logradouro,
+          'cidade':plantioAtual.cidade,
+          'estado':plantioAtual.estadoSigla,
+          'r': 6
+        })
+        
+      }
+ 
+      return data;
+}
+
+  async function gerarMapaPlantios() {
+
+    let data = await buscarTodosPlantios();
+
     const imagem = new Image();
-    imagem.src = '../public/assets/mapaBrasil.png'; // caminho da sua imagem
-
+    imagem.src = '/assets/mapaBrasil.png'; // caminho da sua imagem
+    
     imagem.onload = () => {
       const ctx = document.getElementById('meuGrafico').getContext('2d');
 
@@ -160,17 +202,13 @@
           }
         }
       };
-
+      
       new Chart(ctx, {
         type: 'bubble',
         data: {
           datasets: [{
             label: 'Distribuição por região',
-            data: [
-              { x: 190, y: 90, r: 7 },
-              { x: 210, y: 115, r: 7 },
-              { x: 140, y: 100, r: 7 },
-            ],
+            data: data,
             backgroundColor: '#5f422c'
           }]
         },
@@ -199,7 +237,8 @@
         plugins: [backgroundImagePlugin]
       });
     };
-
+  }
+    
   </script>
 
 

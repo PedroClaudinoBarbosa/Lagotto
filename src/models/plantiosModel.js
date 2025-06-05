@@ -1,36 +1,18 @@
 let database = require("../database/config");
 
 
-function buscarTodosPlantios(
-    idEmpresa,
-    nome,
-    coordX,
-    coordY,
-    logradouro,
-    cidade,
-    estadoSigla
-) {
-
+function buscarTodosPlantios(idEmpresa) {
     let instrucaoSql = `
-        select 
-    e.idEmpresa, 
-    e.nome,  
-    end.coordX, 
-    end.coordY,
-    end.logradouro,
-    end.cidade, 
-    end.estadoSigla
-from (
-    select * 
-    from Empresa 
-    where idEmpresa = ${idEmpresa}
-) as e
-inner join  Endereco as end
-    on end.idEndereco = e.fkEndereco
-inner join Plantio as p
-    on p.fkEmpresa = e.idEmpresa
-    group by idEmpresa;
-`;
+        SELECT 
+            end.coordX, 
+            end.coordY,
+            end.logradouro,
+            end.cidade, 
+            end.estadoSigla
+        FROM Plantio
+        INNER JOIN Endereco end ON end.idEndereco = Plantio.fkEndereco
+        WHERE Plantio.fkEmpresa = '${idEmpresa}';
+    `
 
     return database.executar(instrucaoSql);
 };
