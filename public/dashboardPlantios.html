@@ -4,32 +4,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title> Lagotto Dashboard </title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
   <link rel="stylesheet" href="styles/dashboard.css">
+  <link rel="stylesheet" href="styles/dashboardPlantio.css">
+  <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body>
   <div class="sidebar">
     <div class="logo"><img src="./assets/logo.png" alt="Imagem"></div>
     <div class="nav">
-            <div>
-                <a href="dashboardAvisos.html" style="color: wheat;">⚠️ Avisos</a>
-            </div>
-            <div>
-                <a href="dashboardPlantios.html"><span style="color: wheat;">📊 Plantios</span></a>
-            </div>
-            <div>
-                <a href="dashboardConfiguracoes.html" style="color: wheat;">⚙️ Configurações</a>
-            </div>
-            <div>
-                <a href="login_cadastro.html" style="color: wheat;">❌ Sair</a>
-            </div>
-        </div>
+      <div>
+        <a href="dashboardAvisos.html" style="color: wheat;">⚠️ Avisos</a>
+      </div>
+      <div>
+        <a href="dashboardPlantios.html"><span style="color: wheat;">📊 Plantios</span></a>
+      </div>
+      <div>
+        <a href="dashboardConfiguracoes.html" style="color: wheat;">⚙️ Configurações</a>
+      </div>
+      <div>
+        <a href="login_cadastro.html" style="color: wheat;">❌ Sair</a>
+      </div>
+    </div>
   </div>
 
-  <div class="content">
+  <div class="content-plantio">
 
+    <div class="mapConteudo">
+      <canvas id="meuGrafico" width="600" height="400"></canvas>
+    </div>
+
+
+    <!-- 
 
     <div class="section">
       <h2>Visão Atual dos Sensores</h2>
@@ -51,18 +60,18 @@
           </select>
         </div>
       </div>
-
+    
       <div class="card-container">
         <div class="card">
           <canvas id="graficoUmidadeHectar"></canvas>
           <h3>Umidade Atual da Região</h3>
           <h4>*Mediana da umidade atual de todas as regiões no plantio*</h4>
-        </div>
-        <!-- <div class="card">
+        </div> 
+        <div class="card">
           <canvas id="graficoSensor"></canvas>
           <h3>Umidade Atual & Média de Umidade</h3>
           <h4>*Média calculada com base nas leituras no dia*</h4>
-        </div> -->
+        </div> 
         <div class="card" id="kpiSection">
           <div class="card">
             <div class="titulo">
@@ -121,9 +130,123 @@
     </div>
   </div>
 
+-->
+
+
+
+  </div>
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script> 
+  gerarMapaPlantios()
+
+  async function  buscarTodosPlantios(){
+      let respostaPlantios = await fetch(`/plantios/buscarPlantios/${sessionStorage.ID_EMPRESA}`, {
+        method: 'GET',
+        headers: {
+          "Content-Type":"application/json" 
+        }
+
+      });
+
+      if(!respostaPlantios.ok){
+        return
+      } 
+      
+      let jsonPlantios = await respostaPlantios.json()
+      let data = []
+
+      console.log(jsonPlantios)
+
+
+      
+      for(i=0; i < jsonPlantios.length; i++){
+      let plantioAtual = jsonPlantios[i]
+        data.push({
+          'x':plantioAtual.coordX,
+          'y':plantioAtual.coordY,
+          'logradouro':plantioAtual.logradouro,
+          'cidade':plantioAtual.cidade,
+          'estado':plantioAtual.estadoSigla,
+          'r': 6
+        })
+        
+      }
+ 
+      return data;
+}
+
+  async function gerarMapaPlantios() {
+
+    let data = await buscarTodosPlantios();
+
+    const imagem = new Image();
+    imagem.src = '/assets/mapaBrasil.png'; // caminho da sua imagem
+    
+    imagem.onload = () => {
+      const ctx = document.getElementById('meuGrafico').getContext('2d');
+
+      const backgroundImagePlugin = {
+        id: 'customBackground',
+        beforeDraw: (chart) => {
+          if (imagem.complete) {
+            ctx.drawImage(imagem, 0, 0, chart.width, chart.height);
+          }
+        }
+      };
+      
+      new Chart(ctx, {
+        type: 'bubble',
+        data: {
+          datasets: [{
+            label: 'Distribuição por região',
+            data: data,
+            backgroundColor: '#5f422c'
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            x: {
+              beginAtZero: true, max: 300,
+              display: false,
+              grid: {
+                display: false
+              }
+            },
+            y: {
+              beginAtZero: true, max: 300,
+              display: false,
+              grid: {
+                display: false
+              }
+            }
+          },
+          plugins: {
+            legend: { display: false }
+          }
+        },
+        plugins: [backgroundImagePlugin]
+      });
+    };
+  }
+    
+  </script>
+
+
+
+
 
   <!-- JavaScript -->
-  <script>
+  <!-- <script>
     const labels = ['13:00', '14:00', '15:00', '16:00', '17:00'];
     const data = [20, 35, 15, 10, 25];
 
@@ -173,47 +296,45 @@
     });
 
 
-    new Chart(document.getElementById('graficoUmidadeHectar'), {
-      type: 'line',
-      data: {
-        labels: ['13:00', '14:00', '15:00', '16:00'],
-        datasets: [{
-          label: 'Umidade (%)',
-          data: [32, 34, 33, 35],
-          borderColor: '#4caf50',
-          backgroundColor: 'rgba(76, 175, 80, 0.2)',
-          tension: 0.4
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: false }
+  new Chart(document.getElementById('graficoUmidadeHectar'), {
+    type: 'line',
+    data: {
+      labels: ['13:00', '14:00', '15:00', '16:00'],
+      datasets: [{
+        label: 'Umidade (%)',
+        data: [32, 34, 33, 35],
+        borderColor: '#4caf50',
+        backgroundColor: 'rgba(76, 175, 80, 0.2)',
+        tension: 0.4
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('graficoSensor'), {
+    type: 'bar',
+    data: {
+      labels: ['Umidade Atual', 'Umidade Média'],
+      datasets: [{
+        label: 'Valores',
+        data: [22, 38],
+        backgroundColor: ['#ff7043', '#64b5f6']
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true
         }
       }
-    });
+    }
+  });
 
-    new Chart(document.getElementById('graficoSensor'), {
-      type: 'bar',
-      data: {
-        labels: ['Umidade Atual', 'Umidade Média'],
-        datasets: [{
-          label: 'Valores',
-          data: [22, 38],
-          backgroundColor: ['#ff7043', '#64b5f6']
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-
-  </script>
+  </script> -->
 </body>
-
-</html>
