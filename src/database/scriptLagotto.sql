@@ -8,7 +8,9 @@ CREATE TABLE Endereco (
     logradouro VARCHAR(150) NOT NULL,
     numero INT NOT NULL,
     cidade VARCHAR(100) NOT NULL,
-    estadoSigla VARCHAR(2) NOT NULL
+    estadoSigla VARCHAR(2) NOT NULL,
+    coordX INT,
+    coordY INT
 );
 
 CREATE TABLE Empresa (
@@ -71,23 +73,28 @@ CONSTRAINT fkDadosRegiao
 );
 
 -- Inserindo endereços (8 no total: 2 empresas + 4 plantios + 2 funcionários fictícios se quiser depois)
-INSERT INTO Endereco (cep, logradouro, numero, cidade, estadoSigla) VALUES
-('12345-000', 'Rua das Trufas', 100, 'TrufaVille', 'SP'),       -- id 1 - Empresa 1
-('23456-000', 'Av. dos Fungos', 200, 'TrufaVille', 'SP'),       -- id 2 - Empresa 2
-('34567-000', 'Sítio das Árvores', 1, 'Campestre', 'MG'),       -- id 3 - Plantio 1 da Empresa 1
-('45678-000', 'Fazenda do Carvalho', 2, 'Campestre', 'MG'),     -- id 4 - Plantio 2 da Empresa 1
-('56789-000', 'Trufalândia Norte', 3, 'Interiorzão', 'PR'),     -- id 5 - Plantio 1 da Empresa 2
-('67890-000', 'Trufalândia Sul', 4, 'Interiorzão', 'PR');       -- id 6 - Plantio 2 da Empresa 2
+INSERT INTO Endereco (cep, logradouro, numero, cidade, estadoSigla, coordX, coordY) VALUES
+('12345-000', 'Rua das Trufas', 100, 'TrufaVille', 'SP', 250, 150),       -- id 1 - Empresa 1
+('23456-000', 'Av. dos Fungos', 200, 'TrufaVille', 'SP', 260, 160),       -- id 2 - Empresa 2
+('34567-000', 'Sítio das Árvores', 1, 'Campestre', 'MG', 270, 170),       -- id 3 - Plantio 1 da Empresa 1
+('45678-000', 'Fazenda do Carvalho', 2, 'Campestre', 'MG', 280, 180),     -- id 4 - Plantio 2 da Empresa 1
+('56789-000', 'Trufalândia Norte', 3, 'Interiorzão', 'PR', 290, 190),     -- id 5 - Plantio 1 da Empresa 2
+('67890-000', 'Trufalândia Sul', 4, 'Interiorzão', 'PR', 300, 200),       -- id 6 - Plantio 2 da Empresa 2
+('01414-000', 'Haddock Lobo', 200, 'Av. Paulista', 'SP', 310, 210);       -- id 7 - Lagotto
 
 -- Inserindo empresas
 INSERT INTO Empresa (nome, cnpj, ativo, fkEndereco) VALUES
 ('Trufas Nobres LTDA', '12345678000199', 1, 1),
 ('Trufas do Sul SA', '98765432000188', 1, 2);
 
+INSERT INTO Empresa (nome, cnpj, ativo, fkEndereco) VALUES
+('Lagotto', '234567213413', 1, 7);
+
 -- Inserindo usuários administradores
 INSERT INTO Funcionario (nome, senha, email, fkEmpresa, ativo, isAdmin) VALUES
 ('Admin Trufas Nobres', 'senha123', 'admin1@gmail.com', 1, 1, 1),
-('Admin Trufas do Sul', 'senha123', 'admin2@gmail.com', 2, 1, 1);
+('Admin Trufas do Sul', 'senha123', 'admin2@gmail.com', 2, 1, 1),
+('Admin Lagotto', 'senha123', 'admin1@lagotto.com', 3, 1, 1);
 
 -- Inserindo plantios
 INSERT INTO Plantio (fkEmpresa, fkEndereco, nome) VALUES
@@ -133,7 +140,7 @@ INSERT INTO Regiao (fkPlantio, idRegiao, descricao, areaCapturaM2) VALUES
 (4, 5, 'Região E', 50),
 (4, 6, 'Região F', 50),
 (4, 7, 'Região G', 50),
-(4, 7, 'Região H', 50);
+(4, 8, 'Região H', 50);
 
 INSERT INTO DadosSensor(umidade, fkPlantio, fkRegiao) VALUES
 	(38, 1, 1),
