@@ -31,109 +31,19 @@
     </div>
   </div>
 
+  <div id="nomeUsuario"></div>
   <div class="content-plantio">
 
+
     <div class="mapConteudo">
+      <h1>Todos os seus Plantios</h1>
       <canvas id="meuGrafico" width="600" height="400"></canvas>
-    </div>
+      <div class="containtSensores1"></div>
+      <div class="graficoCanva">
 
-
-    <!-- 
-
-    <div class="section">
-      <h2>Visão Atual dos Sensores</h2>
-      <div class="selector-bar">
-        <div>
-          <label for="hectarSelect">Selecionar Plantio:</label>
-          <select id="hectarSelect">
-            <option>Plantio 1</option>
-            <option>Plantio 2</option>
-            <option>Plantio 3</option>
-          </select>
-        </div>
-        <div>
-          <label for="sensorSelect">Selecionar Região:</label>
-          <select id="sensorSelect">
-            <option>Região A</option>
-            <option>Região B</option>
-            <option>Região C</option>
-          </select>
-        </div>
       </div>
-    
-      <div class="card-container">
-        <div class="card">
-          <canvas id="graficoUmidadeHectar"></canvas>
-          <h3>Umidade Atual da Região</h3>
-          <h4>*Mediana da umidade atual de todas as regiões no plantio*</h4>
-        </div> 
-        <div class="card">
-          <canvas id="graficoSensor"></canvas>
-          <h3>Umidade Atual & Média de Umidade</h3>
-          <h4>*Média calculada com base nas leituras no dia*</h4>
-        </div> 
-        <div class="card" id="kpiSection">
-          <div class="card">
-            <div class="titulo">
-              <p>Umidade Atual</p>
-            </div>
-            <h1>35%</h1>
-          </div>
-          <div class="card">
-            <div class="titulo">
-              <p>Localização</p>
-            </div>
-            <h1>Plantio 1, Região A</h1>
-          </div>
-        </div>
-      </div>
+
     </div>
-
-
-    <div class="section">
-      <h2>Regiões com Crescimento <span class="alert">Comprometido</span></h2>
-      <p>(*Fora do limite de 30 a 40% de umidade do solo)</p>
-      <div class="card-container">
-        <div class="card">
-          <canvas id="graficoHectar8"></canvas>
-          <h3>Região 8</h3>
-        </div>
-        <div class="card">
-          <canvas id="graficoHectar5"></canvas>
-          <h3>Região 5</h3>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Regiões em Estado de <span class="alert" style="color: orange;">Alerta</span></h2>
-      <p>(*Perto do limite de 30 a 40% de umidade do solo)</p>
-      <div class="card-container">
-        <div class="card">
-          <canvas id="graficoHectar1"></canvas>
-          <h3>Região 1</h3>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Estatísticas Gerais</h2>
-      <div class="calendar-chart">
-        <div class="calendar-box">
-          <h4>Período</h4>
-          <input type="month" value="2025-04">
-        </div>
-        <div class="chart-box">
-          <canvas id="graficoProblemas"></canvas>
-        </div>
-      </div>
-    </div>
-  </div>
-
--->
-
-
-
   </div>
 
 
@@ -145,100 +55,136 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
-<script> 
-  gerarMapaPlantios()
+  <script>
+    gerarMapaPlantios()
 
-  async function  buscarTodosPlantios(){
+
+
+    async function buscarTodosPlantios() {
       let respostaPlantios = await fetch(`/plantios/buscarPlantios/${sessionStorage.ID_EMPRESA}`, {
         method: 'GET',
         headers: {
-          "Content-Type":"application/json" 
+          "Content-Type": "application/json"
         }
 
       });
 
-      if(!respostaPlantios.ok){
+      if (!respostaPlantios.ok) {
         return
-      } 
-      
+      }
+
       let jsonPlantios = await respostaPlantios.json()
       let data = []
 
       console.log(jsonPlantios)
 
 
-      
-      for(i=0; i < jsonPlantios.length; i++){
-      let plantioAtual = jsonPlantios[i]
+
+      for (i = 0; i < jsonPlantios.length; i++) {
+        let plantioAtual = jsonPlantios[i]
         data.push({
-          'x':plantioAtual.coordX,
-          'y':plantioAtual.coordY,
-          'logradouro':plantioAtual.logradouro,
-          'cidade':plantioAtual.cidade,
-          'estado':plantioAtual.estadoSigla,
+          'x': plantioAtual.coordX,
+          'y': plantioAtual.coordY,
+          'logradouro': plantioAtual.logradouro,
+          'cidade': plantioAtual.cidade,
+          'estado': plantioAtual.estadoSigla,
           'r': 6
         })
-        
+
       }
- 
+
       return data;
-}
+    }
 
-  async function gerarMapaPlantios() {
+    async function gerarMapaPlantios() {
 
-    let data = await buscarTodosPlantios();
+      let data = await buscarTodosPlantios();
 
-    const imagem = new Image();
-    imagem.src = '/assets/mapaBrasil.png'; // caminho da sua imagem
-    
-    imagem.onload = () => {
-      const ctx = document.getElementById('meuGrafico').getContext('2d');
+      const imagem = new Image();
+      imagem.src = '/assets/mapaBrasil.png';
 
-      const backgroundImagePlugin = {
-        id: 'customBackground',
-        beforeDraw: (chart) => {
-          if (imagem.complete) {
-            ctx.drawImage(imagem, 0, 0, chart.width, chart.height);
+      imagem.onload = () => {
+        const ctx = document.getElementById('meuGrafico').getContext('2d');
+
+        const backgroundImagePlugin = {
+          id: 'customBackground',
+          beforeDraw: (chart) => {
+            if (imagem.complete) {
+              ctx.drawImage(imagem, 0, 0, chart.width, chart.height);
+            }
           }
-        }
-      };
-      
-      new Chart(ctx, {
-        type: 'bubble',
-        data: {
-          datasets: [{
-            label: 'Distribuição por região',
-            data: data,
-            backgroundColor: '#5f422c'
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            x: {
-              beginAtZero: true, max: 300,
-              display: false,
-              grid: {
-                display: false
+        };
+
+        new Chart(ctx, {
+          type: 'bubble',
+          data: {
+            datasets: [{
+              label: 'Distribuição por região',
+              data: data,
+              backgroundColor: '#5f422c'
+            }]
+          },
+          options: {
+            responsive: true,
+            onclick: (event, elements, chart) => {
+              if (elements.length > 0) {
+                const elemeto = elements[0];
+                const index = elemento.index;
+                const dataset = chart.data.dataset[elemnto.datasetIndex];
+                const pontoClicado = dataset.data[index]
+
+                exibirPlantio(pontoClicado);
               }
             },
-            y: {
-              beginAtZero: true, max: 300,
-              display: false,
-              grid: {
-                display: false
+            scales: {
+              x: {
+                beginAtZero: true, max: 300,
+                display: false,
+                grid: {
+                  display: false
+                }
+              },
+              y: {
+                beginAtZero: true, max: 300,
+                display: false,
+                grid: {
+                  display: false
+                }
               }
+            },
+            plugins: {
+              legend: { display: false }
             }
           },
-          plugins: {
-            legend: { display: false }
-          }
-        },
-        plugins: [backgroundImagePlugin]
-      });
-    };
-  }
-    
+          plugins: [backgroundImagePlugin]
+        });
+      };
+    }
+
+
+
+    function exibirPlantio() {
+
+      containerSensores1.innerHTML = ` 
+            <div class="conteudoPrimeiroPopUp">
+            <nav class="navSensorLocalizacao">
+            <h1>Plantio ${localizacao} (1) - Sensores</h1>
+            </nav>
+            </div>
+        
+            `
+    }
+    function exibirGraficoBarra() {
+
+      graficoCanva.innerHTML = ` <div id="graficoRegiao">
+        <nav class="graficoRegiao">
+          <h1>Plnatio ${TAL}</h1>
+        </nav>
+        <div class="containerRegiaoGrafico">
+          <canvas id="GraficoRegiao" width="250" height="100"></canvas>
+        </div>
+      </div>`
+    }
   </script>
 
 
