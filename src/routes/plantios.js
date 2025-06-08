@@ -9,4 +9,8 @@ router.get("/buscarPlantios/:idEmpresa", function(req, res) {
 });
 
 
+router.get('/buscarPlantios/:cepPlantio', function (req, res){
+    plantiosController.exibirPlantio(req, res);
+});
+
 module.exports = router;

@@ -4,9 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title> Lagotto Dashboard </title>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+  <title>Lagotto Dashboard</title>
   <link rel="stylesheet" href="styles/dashboard.css">
   <link rel="stylesheet" href="styles/dashboardPlantio.css">
   <link rel="stylesheet" href="styles/style.css">
@@ -16,89 +14,137 @@
   <div class="sidebar">
     <div class="logo"><img src="./assets/logo.png" alt="Imagem"></div>
     <div class="nav">
-      <div>
-        <a href="dashboardAvisos.html" style="color: wheat;">⚠️ Avisos</a>
-      </div>
-      <div>
-        <a href="dashboardPlantios.html"><span style="color: wheat;">📊 Plantios</span></a>
-      </div>
-      <div>
-        <a href="dashboardConfiguracoes.html" style="color: wheat;">⚙️ Configurações</a>
-      </div>
-      <div>
-        <a href="login_cadastro.html" style="color: wheat;">❌ Sair</a>
-      </div>
+      <div><a href="dashboardAvisos.html" style="color: wheat;">⚠️ Avisos</a></div>
+      <div><a href="dashboardPlantios.html"><span style="color: wheat;">📊 Plantios</span></a></div>
+      <div><a href="dashboardConfiguracoes.html" style="color: wheat;">⚙️ Configurações</a></div>
+      <div><a href="login_cadastro.html" style="color: wheat;">❌ Sair</a></div>
     </div>
   </div>
 
   <div id="nomeUsuario"></div>
+
+
   <div class="content-plantio">
-
-
-    <div class="mapConteudo">
-      <h1>Todos os seus Plantios</h1>
-      <canvas id="meuGrafico" width="600" height="400"></canvas>
-      <div class="containtSensores1"></div>
-      <div class="graficoCanva">
-
+    <div class="containerGeralGraficos">
+      <div class="mapConteudo">
+        <div class="conteudoMap">
+          <h1>Todos os seus Plantios</h1>
+          <canvas id="meuGrafico" width="600" height="400"></canvas>
+        </div>
       </div>
-
+      <div id="containerSensores"></div>
+    </div>
+    <div class="container_GraficoLinha">
+      <div class="cotent_grafico_linha" id="containerGraficoLinha"></div>
     </div>
   </div>
-
-
-
 
 
 
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-
   <script>
-    gerarMapaPlantios()
-
-
+    gerarMapaPlantios();
+    gerarGraficoDeLinha()
 
     async function buscarTodosPlantios() {
       let respostaPlantios = await fetch(`/plantios/buscarPlantios/${sessionStorage.ID_EMPRESA}`, {
         method: 'GET',
-        headers: {
-          "Content-Type": "application/json"
-        }
-
+        headers: { "Content-Type": "application/json" }
       });
 
       if (!respostaPlantios.ok) {
-        return
+        console.error('Erro ao buscar plantios');
+        return [];
       }
 
-      let jsonPlantios = await respostaPlantios.json()
-      let data = []
+      let jsonPlantios = await respostaPlantios.json();
+      let data = [];
 
-      console.log(jsonPlantios)
-
-
-
-      for (i = 0; i < jsonPlantios.length; i++) {
-        let plantioAtual = jsonPlantios[i]
+      for (let plantio of jsonPlantios) {
         data.push({
-          'x': plantioAtual.coordX,
-          'y': plantioAtual.coordY,
-          'logradouro': plantioAtual.logradouro,
-          'cidade': plantioAtual.cidade,
-          'estado': plantioAtual.estadoSigla,
-          'r': 6
-        })
-
+          x: plantio.coordX,
+          y: plantio.coordY,
+          logradouro: plantio.logradouro,
+          cidade: plantio.cidade,
+          estado: plantio.estadoSigla,
+          r: 6
+        });
       }
-
       return data;
     }
 
-    async function gerarMapaPlantios() {
+   async function exibirPlantio(ponto){
 
+    let buscaporCep = await fetch('/buscarPlantios/${cepPlantio}', {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    });
+    if(!buscaporCep.ok){
+      console.error('Erro ao buscar os detalhese dos sensores')
+      console.log(JSON)
+      return [];
+    }
+    let jsonbuscarporCep = await buscaporCep.json()
+    let cepData = [];
+
+    for(i=0; i < jsonbuscarporCep.length; i++){
+      data.push({
+         regiao:Rediao.idRegiao,
+         idSensor:DadosSensor.idDadosSensor,
+          umidade:DadosSensor.umidade,
+          nomePlantio:Plantio.nome,
+      })
+      let cep = cep.sessionStorage
+      return cepData;
+    }
+
+
+      const container = document.getElementById('containerSensores');
+      const localizacao = `${ponto.logradouro}, ${ponto.cidade} - ${ponto.estado}`;
+
+      if(ponto.logradouro){
+      container.innerHTML = `
+        <div class="conteudoPrimeiroPopUp">
+          <nav class="navSensorLocalizacao">
+            <h1>Plantio: ${localizacao} - Sensores</h1>
+          </nav>
+          <div class="sensor-info">
+            <div class="imgSensor">
+              <div class="imgSensor1">
+                <img src="assets/sinal_radio_verde.png" class="sensor-click" data-id="1" alt="">
+                <p><strong>Logradouro:</strong> ${ponto.logradouro}</p>
+                <p><strong>Umidade:</strong> 30%</p>
+              </div>
+              <div class="imgSensor2">
+                <img src="assets/signal_radio_vermelho.png" class="sensor-click" data-id="2" alt="">
+                <p><strong>Logradouro:</strong> ${ponto.logradouro}</p>
+                <p><strong>Umidade:</strong> 30%</p>
+              </div>
+            </div>
+          </div>
+          <div id="graficoCanva"></div>
+        </div>
+        <div div="graficoDeLinha"> 
+        </div>
+      `;
+
+      document.querySelectorAll('.sensor-click').forEach(img => {
+        img.addEventListener('click', () => {
+          exibirGraficoBarra(ponto, img.getAttribute('data-id'));
+          exbirGraficoDeLinha(ponto, img.getAttribute('data-id'))
+        });
+      });
+    }
+
+  }
+
+
+
+    async function gerarMapaPlantios() {
       let data = await buscarTodosPlantios();
+      let meuGrafico = null;
 
       const imagem = new Image();
       imagem.src = '/assets/mapaBrasil.png';
@@ -115,42 +161,27 @@
           }
         };
 
-        new Chart(ctx, {
+        meuGrafico = new Chart(ctx, {
           type: 'bubble',
           data: {
             datasets: [{
               label: 'Distribuição por região',
               data: data,
-              backgroundColor: '#5f422c'
+              backgroundColor: 'green',
             }]
           },
           options: {
             responsive: true,
-            onclick: (event, elements, chart) => {
+            onClick: function (event, elements) {
               if (elements.length > 0) {
-                const elemeto = elements[0];
-                const index = elemento.index;
-                const dataset = chart.data.dataset[elemnto.datasetIndex];
-                const pontoClicado = dataset.data[index]
-
-                exibirPlantio(pontoClicado);
+                const index = elements[0].index;
+                const ponto = this.data.datasets[0].data[index];
+                exibirPlantio(ponto);
               }
             },
             scales: {
-              x: {
-                beginAtZero: true, max: 300,
-                display: false,
-                grid: {
-                  display: false
-                }
-              },
-              y: {
-                beginAtZero: true, max: 300,
-                display: false,
-                grid: {
-                  display: false
-                }
-              }
+              x: { beginAtZero: true, max: 300, display: false },
+              y: { beginAtZero: true, max: 300, display: false }
             },
             plugins: {
               legend: { display: false }
@@ -160,118 +191,40 @@
         });
       };
     }
+    
 
 
+  
+    function exbirGraficoDeLinha(ponto, sensorId) {
+  const containerGrafico = document.getElementById('containerGraficoLinha');
+  containerGrafico.innerHTML = `
+    <div class="graicoDeLinha">
+      <h1>Localização Plantio</h1>
+      <canvas id="graficoLinhaCanvas"height: 272px;
+    width: 609px;></canvas>
+    </div>
+    
+      <div class="cubo-plantio"><h3>Plantio - Umidade Atual: 30%</h3></div>
+      
+  `;
 
-    function exibirPlantio() {
+  const ctx = document.getElementById('graficoLinhaCanvas').getContext('2d');
 
-      containerSensores1.innerHTML = ` 
-            <div class="conteudoPrimeiroPopUp">
-            <nav class="navSensorLocalizacao">
-            <h1>Plantio ${localizacao} (1) - Sensores</h1>
-            </nav>
-            </div>
-        
-            `
-    }
-    function exibirGraficoBarra() {
+  const labels = ['Jan', 'Fev', 'Mar'];
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: `Sensor ${sensorId} - Variação de Umidade`,
+      data: [65, 59, 80, 81], // Dados fictícios
+      fill: false,
+      borderColor: 'rgb(75, 192, 192)',
+      tension: 0.1
+    }]
+  };
 
-      graficoCanva.innerHTML = ` <div id="graficoRegiao">
-        <nav class="graficoRegiao">
-          <h1>Plnatio ${TAL}</h1>
-        </nav>
-        <div class="containerRegiaoGrafico">
-          <canvas id="GraficoRegiao" width="250" height="100"></canvas>
-        </div>
-      </div>`
-    }
-  </script>
-
-
-
-
-
-  <!-- JavaScript -->
-  <!-- <script>
-    const labels = ['13:00', '14:00', '15:00', '16:00', '17:00'];
-    const data = [20, 35, 15, 10, 25];
-
-    const config = () => ({
-      type: 'line',
-      data: {
-        labels,
-        datasets: [{
-          label: 'Umidade (%)',
-          data,
-          borderColor: '#a3643f',
-          backgroundColor: 'rgba(163, 100, 63, 0.2)',
-          tension: 0.3
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: false }
-        }
-      }
-    });
-
-    new Chart(document.getElementById('graficoHectar8'), config());
-    new Chart(document.getElementById('graficoHectar5'), config());
-    new Chart(document.getElementById('graficoHectar1'), config());
-
-    new Chart(document.getElementById('graficoProblemas'), {
-      type: 'bar',
-      data: {
-        labels: ['Região 1', 'Região 2', 'Região 3', 'Região 4', 'Região 5', 'Região 6', 'Região 7', 'Região 8', 'Região 9'],
-        datasets: [{
-          label: 'Problemas (%)',
-          data: [30, 15, 10, 35, 25, 10, 12, 8, 6],
-          backgroundColor: '#a3643f'
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 40
-          }
-        }
-      }
-    });
-
-
-  new Chart(document.getElementById('graficoUmidadeHectar'), {
+  new Chart(ctx, {
     type: 'line',
-    data: {
-      labels: ['13:00', '14:00', '15:00', '16:00'],
-      datasets: [{
-        label: 'Umidade (%)',
-        data: [32, 34, 33, 35],
-        borderColor: '#4caf50',
-        backgroundColor: 'rgba(76, 175, 80, 0.2)',
-        tension: 0.4
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { display: false }
-      }
-    }
-  });
-
-  new Chart(document.getElementById('graficoSensor'), {
-    type: 'bar',
-    data: {
-      labels: ['Umidade Atual', 'Umidade Média'],
-      datasets: [{
-        label: 'Valores',
-        data: [22, 38],
-        backgroundColor: ['#ff7043', '#64b5f6']
-      }]
-    },
+    data: data,
     options: {
       responsive: true,
       scales: {
@@ -281,6 +234,41 @@
       }
     }
   });
+}
 
-  </script> -->
+   
+    function exibirGraficoBarra(ponto, sensorId) {
+      const graficoCanva = document.getElementById('graficoCanva');
+      graficoCanva.innerHTML = `
+        <div class="GraficoBarra">
+           
+          <canvas id="myChart" width="400" height="200"></canvas>
+        </div>
+      `;
+
+      const ctx = document.getElementById('myChart').getContext('2d');
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Umidade', 'Temperatura'],
+          datasets: [{
+            label: `Sensor ${sensorId} - ${ponto.logradouro}`,
+            data: [30, 22], // Dados fictícios
+            backgroundColor: ['#4CAF50', '#2196F3'],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    }
+  </script>
+
 </body>
+
+</html>

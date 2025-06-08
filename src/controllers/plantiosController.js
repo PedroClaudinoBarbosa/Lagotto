@@ -11,6 +11,17 @@ function buscarTodosPlantios(req, res) {
     });
 
 }
+
+function exibirPlantio(req, res){
+    let cepPlantio = req.params.cepPlantio
+    plantiosModel.exibirPlantio(
+        cepPlantio
+    ).then((resultado) => {
+        res.status(200).json(resultado);
+    });
+}
+
 module.exports = {
-    buscarTodosPlantios
+    buscarTodosPlantios,
+    exibirPlantio
 }
