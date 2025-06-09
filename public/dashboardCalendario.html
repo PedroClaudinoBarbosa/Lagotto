@@ -95,8 +95,8 @@
                     sensoresHtml += `
                         <div class="imgSensor-item">
                             <img src="${imageSrc}" class="sensor-click" data-id="${sensor.idDadosSensor}" alt="Sinal do Sensor">
-                            <p><strong>Nome Plantio:</strong> ${sensor.nomePlantio || 'N/A'}</p>
-                            <p><strong>Região:</strong> ${sensor.descricao || 'N/A'}</p>
+                            <p><strong>Nome Plantio:</strong> ${sensor.nome_plantio || 'N/A'}</p>
+                            <p><strong>Região:</strong> ${sensor.descricao_regiao || 'N/A'}</p>
                             <p><strong>Umidade:</strong> ${umidade}% (${status})</p>
                         </div>
                     `;
