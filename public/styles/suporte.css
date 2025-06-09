@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+body {
+    margin: 0;
+    font-family: DM Sans, sans-serif;
+    background-color: #fff;
+    color: #815a48;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100%;
+    background-color: #5f422c;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #fffefd;
+}
+
+.nav {
+    margin-top: 40px;
+}
+
+.nav div {
+    margin: 20px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+}   
+
+.nav a {
+    text-decoration: none   ;
+}
+.logo img {
+    width: 100%;
+    height: auto;
+}
+
+.content {
+    width: 80%;
+    margin: 50px;
+    margin-left: 250px;
+    text-align: center;
+}
+
+h1 {
+    color: #1F2A44;
+}
+
+textarea[type="text"] {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 400px;
+}
+
+select,
+button {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button {
+    background-color: #ED145B;
+    color: #FFFFFF;
+    border: none;
+}
+
+button:hover {
+    background-color: #EFB661;
+}
+
+#resposta {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #D0D3D4;
+    border: 1px solid #63666A;
+    text-align: left;
+    display: none;
+}
