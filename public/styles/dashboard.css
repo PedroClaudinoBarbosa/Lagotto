@@ -11,14 +11,47 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 220px;
+    width: 250px;
     height: 100%;
+    background-image: url('../assets/navBarDash.png');
     background-color: #5f422c;
-    padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
+.box1{
+    display: flex;
+    justify-content: center;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    width: 21vw;
+    height: 9vh;
+    background: linear-gradient(to right, #20130f, #3c261d);
+    position: relative;
+    transition: 0.3s ease-in-out;
+    
+}
+.box1:hover {
+    padding: 3px;
+}
+/* background-color: linear-gradient(to right, #20130f, #3c261d); */
+.box2:hover, .box3:hover, .box4:hover, .box5:hover {
+    width: 21vw;
+}
 
+.box2,  .box3, .box4, .box5 {
+    display: flex;
+    justify-content: center;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    width: 15vw;
+    height: 9vh;
+    background: linear-gradient(to right, #20130f, #3c261d);
+    transition: 0.3s ease-in-out;
+}
 .logo {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 2vh;
     font-size: 28px;
     font-weight: bold;
     color: #fffefd;
@@ -138,7 +171,7 @@ h2 {
 }
 
 .logo img {
-    width: 100%;
+    width: 10vw;
     height: auto;
 }
 
@@ -241,12 +274,13 @@ a {
     border: #000000 1px solid;
     width: 95.4%;
     margin: auto;
-    height: 60vh;
+    height: fit-content;
+    padding-bottom: 20px;
 }
 
 .alertaGraficos h3 {
     font-size: 40px;
-    margin-left: 40px;
+    margin-bottom: 0px;
 }
 
 .alertaGraficos .mapa {
@@ -287,8 +321,12 @@ a {
     background-color: #FFC219;
 }
 
+.verde, .vermelho, .amarelo {
+    cursor: pointer;
+}
+
 .hide {
-    display: none;
+    display: none !important;
 }
 
 .alertaGraficos .conteudo {
@@ -298,4 +336,20 @@ a {
 
 .alertaGraficos .conteudo .canvas {
     width: 50%;
+}
+
+.titulos {
+    display: flex;
+    justify-content: space-around;
+}
+
+.titulos .titulo {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.titulos .titulo p{
+    font-size: 20px;
+    color: #8F8F8F;
 }

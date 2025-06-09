@@ -9,7 +9,7 @@ router.get("/buscarPlantios/:idEmpresa", function(req, res) {
 });
 
 
-router.get('/:cidade/:idEmpresa', function (req, res){
+router.get('/:estado/:idEmpresa', function (req, res){
     const cep = req.params.cepPlantio;
      
     plantiosController.exibirPlantio(req, res);
