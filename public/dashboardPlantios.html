@@ -32,7 +32,7 @@
       <div class="mapConteudo">
         <div class="conteudoMap">
           <h1>Todos os seus Plantios</h1>
-          <canvas id="meuGrafico" width="600" height="400"></canvas>
+          <canvas id="graficoPlantio" width="600" height="400"></canvas>
         </div>
       </div>
       <div id="containerSensores"></div>
@@ -53,13 +53,13 @@
 
     async function gerarMapaPlantios() {
       let data = await buscarTodosPlantios();
-      let meuGrafico = null;
+      let graficoPlantio = null;
 
       const imagem = new Image();
       imagem.src = '/assets/mapaBrasil.png';
 
       imagem.onload = () => {
-        const ctx = document.getElementById('meuGrafico').getContext('2d');
+        const ctx = document.getElementById('graficoPlantio').getContext('2d');
 
         const backgroundImagePlugin = {
           id: 'customBackground',
@@ -70,7 +70,7 @@
           }
         };
 
-        meuGrafico = new Chart(ctx, {
+        graficoPlantio = new Chart(ctx, {
           type: 'bubble',
           data: {
             datasets: [{

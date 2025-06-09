@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Lagotto Dashboard </title>
+    <title>Lagotto Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="styles/dashboard.css">
     <link rel="stylesheet" href="styles/dashboardCalendario.css">
@@ -33,8 +33,111 @@
     </div>
 
     <div class="container-calendario">
-        <div class="container-conteudo"></div>
-
+        <div class="container-geral">
+            <div class="container-conteudo">
+                <input type="date" id="data_select" onchange="buscarDadosPorData()">
+                <div id="containerSensores"></div>
+                <div id="graficoDeLinha"></div>
+            </div>
+        </div>
     </div>
 
+    <script>
 
+        async function buscarDadosPorData() {
+            let dataSelecionada = document.getElementById('data_select').value;
+
+            let dadosSensores = await fetchDadosPorData(dataSelecionada);
+
+            exibirSensores(dadosSensores);
+            exibirGraficoDeLinha(dadosSensores);
+        }
+
+        async function fetchDadosPorData(data) {
+            let resposta = await fetch(`/calendario/${data}/${sessionStorage.ID_EMPRESA}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!resposta.ok) {
+                console.error('Erro ao buscar dados de sensores');
+                return [];
+            }
+
+            let dados = await resposta.json();
+            return dados;
+        }
+
+        function exibirSensores(dados) {
+            const container = document.getElementById('containerSensores');
+            let sensoresHtml = '';
+
+            if (dados.length > 0) {
+                dados.forEach(sensor => {
+                    let umidade = sensor.umidade;
+                    let status = umidade >= 30 && umidade <= 40 ? 'Normal' : 'Crítico';
+                    let imageSrc = status === 'Normal' ? 'assets/sinal_radio_verde.png' : 'assets/signal_radio_vermelho.png';
+
+                    sensoresHtml += `
+                        <div class="imgSensor-item">
+                            <img src="${imageSrc}" class="sensor-click" data-id="${sensor.idDadosSensor}" alt="Sinal do Sensor">
+                            <p><strong>Nome Plantio:</strong> ${sensor.nomePlantio || 'N/A'}</p>
+                            <p><strong>Região:</strong> ${sensor.descricao || 'N/A'}</p>
+                            <p><strong>Umidade:</strong> ${umidade}% (${status})</p>
+                        </div>
+                    `;
+                });
+            } else {
+                sensoresHtml = `<p style="text-align: center;">Nenhum dado encontrado para a data selecionada.</p>`;
+            }
+
+            container.innerHTML = sensoresHtml;
+        }
+
+        function exibirGraficoDeLinha(dados) {
+            const containerGrafico = document.getElementById('graficoDeLinha');
+            let labels = [];
+            let umidadeData = [];
+
+            dados.forEach(sensor => {
+                labels.push(sensor.descricao); 
+                umidadeData.push(sensor.umidade); 
+            });
+
+            if (umidadeData.length === 0) {
+                containerGrafico.innerHTML = '<p>Sem dados para exibir gráfico.</p>';
+                return;
+            }
+
+            const ctx = document.createElement('canvas');
+            containerGrafico.innerHTML = ''; 
+            containerGrafico.appendChild(ctx);
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Variação de Umidade',
+                        data: umidadeData,
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>

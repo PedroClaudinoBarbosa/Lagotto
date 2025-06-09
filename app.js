@@ -19,6 +19,7 @@ var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var avisoRouter = require("./src/routes/avisos");
 var plantioRouter =require('./src/routes/plantios');
+var calendarioRouter =require('./src/routes/calendario')
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -30,6 +31,7 @@ app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/avisos", avisoRouter);
 app.use("/plantios", plantioRouter);
+app.use("/calendario", calendarioRouter)
 
 app.listen(PORTA_APP, function () {
     console.log(`
