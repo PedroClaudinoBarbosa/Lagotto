@@ -29,7 +29,7 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/avisos", avisoRouter);
-app.use("/plantios/", plantioRouter);
+app.use("/plantios", plantioRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`

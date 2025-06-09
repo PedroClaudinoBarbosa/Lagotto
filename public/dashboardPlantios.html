@@ -48,100 +48,6 @@
     gerarMapaPlantios();
     gerarGraficoDeLinha()
 
-    async function buscarTodosPlantios() {
-      let respostaPlantios = await fetch(`/plantios/buscarPlantios/${sessionStorage.ID_EMPRESA}`, {
-        method: 'GET',
-        headers: { "Content-Type": "application/json" }
-      });
-
-      if (!respostaPlantios.ok) {
-        console.error('Erro ao buscar plantios');
-        return [];
-      }
-
-      let jsonPlantios = await respostaPlantios.json();
-      let data = [];
-
-      for (let plantio of jsonPlantios) {
-        data.push({
-          x: plantio.coordX,
-          y: plantio.coordY,
-          logradouro: plantio.logradouro,
-          cidade: plantio.cidade,
-          estado: plantio.estadoSigla,
-          r: 6
-        });
-      }
-      return data;
-    }
-
-   async function exibirPlantio(ponto){
-
-    let buscaporCep = await fetch('/buscarPlantios/${cepPlantio}', {
-      method: 'GET',
-      headers: {'Content-Type': 'application/json'}
-    });
-    if(!buscaporCep.ok){
-      console.error('Erro ao buscar os detalhese dos sensores')
-      console.log(JSON)
-      return [];
-    }
-    let jsonbuscarporCep = await buscaporCep.json()
-    let cepData = [];
-
-    for(i=0; i < jsonbuscarporCep.length; i++){
-      data.push({
-         regiao:Rediao.idRegiao,
-         idSensor:DadosSensor.idDadosSensor,
-          umidade:DadosSensor.umidade,
-          nomePlantio:Plantio.nome,
-      })
-      let cep = cep.sessionStorage
-      return cepData;
-    }
-
-
-      const container = document.getElementById('containerSensores');
-      const localizacao = `${ponto.logradouro}, ${ponto.cidade} - ${ponto.estado}`;
-
-      if(ponto.logradouro){
-      container.innerHTML = `
-        <div class="conteudoPrimeiroPopUp">
-          <nav class="navSensorLocalizacao">
-            <h1>Plantio: ${localizacao} - Sensores</h1>
-          </nav>
-          <div class="sensor-info">
-            <div class="imgSensor">
-              <div class="imgSensor1">
-                <img src="assets/sinal_radio_verde.png" class="sensor-click" data-id="1" alt="">
-                <p><strong>Logradouro:</strong> ${ponto.logradouro}</p>
-                <p><strong>Umidade:</strong> 30%</p>
-              </div>
-              <div class="imgSensor2">
-                <img src="assets/signal_radio_vermelho.png" class="sensor-click" data-id="2" alt="">
-                <p><strong>Logradouro:</strong> ${ponto.logradouro}</p>
-                <p><strong>Umidade:</strong> 30%</p>
-              </div>
-            </div>
-          </div>
-          <div id="graficoCanva"></div>
-        </div>
-        <div div="graficoDeLinha"> 
-        </div>
-      `;
-
-      document.querySelectorAll('.sensor-click').forEach(img => {
-        img.addEventListener('click', () => {
-          exibirGraficoBarra(ponto, img.getAttribute('data-id'));
-          exbirGraficoDeLinha(ponto, img.getAttribute('data-id'))
-        });
-      });
-    }
-
-  }
-
-
-
     async function gerarMapaPlantios() {
       let data = await buscarTodosPlantios();
       let meuGrafico = null;
@@ -176,7 +82,7 @@
               if (elements.length > 0) {
                 const index = elements[0].index;
                 const ponto = this.data.datasets[0].data[index];
-                exibirPlantio(ponto);
+                exibirPlantio(ponto,ponto.cep);
               }
             },
             scales: {
@@ -193,8 +99,149 @@
     }
     
 
+    async function buscarTodosPlantios() {
+      let respostaPlantios = await fetch(`/plantios/buscarPlantios/${sessionStorage.ID_EMPRESA}`, {
+        method: 'GET',
+        headers: { "Content-Type": "application/json" }
+      });
+
+      if (!respostaPlantios.ok) {
+        console.error('Erro ao buscar plantios');
+        return [];
+      }
+
+      let jsonPlantios = await respostaPlantios.json();
+      let data = [];
+
+      for (let plantio of jsonPlantios) {
+        data.push({
+          x: plantio.coordX,
+          y: plantio.coordY,
+          logradouro: plantio.logradouro,
+          cidade: plantio.cidade,
+          estado: plantio.estadoSigla,
+          cep:plantio.cep,
+          r: 6
+        });
+      }
+      return data;
+    }
+
+  // ----------------------------------------------------------//
+ // essas duas funções buscarTodosPlantios e gerarMapaPlantiosestão prontas
+ //faltanso aénas algumas alterações na exibição, mas model e route estão
+
 
   
+
+ async function exibirPlantio(ponto, cepPlantio){
+
+  // const cepFormatado = cepPlantio.replace('-', '');  
+  
+let buscaporCep = await fetch(`plantios/${ponto.cidade}/${sessionStorage.ID_EMPRESA}`, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+});
+
+if (!buscaporCep.ok) {
+    const container = document.getElementById('containerSensores');
+    container.innerHTML = `<p style="color: red; text-align: center;">Erro ao carregar dados dos sensores. Verifique o CEP ou tente novamente mais tarde.</p>`;
+    return [];
+}
+
+let jsonbuscarporCep = await buscaporCep.json();
+
+const container = document.getElementById('containerSensores');
+const localizacao = `${ponto.logradouro}, ${ponto.cidade} - ${ponto.estado}`;
+
+let sensorsHtml = '';
+
+if (jsonbuscarporCep.length > 0) {
+    jsonbuscarporCep.forEach(sensor => {
+        const umidade = sensor.umidade;
+        let imageSrc = '';
+        let umidadeStatus = '';
+
+        if (umidade >= 30 && umidade <= 40) {
+            imageSrc = 'assets/sinal_radio_verde.png';
+            umidadeStatus = 'Normal';
+        } else {
+            imageSrc = 'assets/signal_radio_vermelho.png';
+            umidadeStatus = 'Crítico';
+        }
+
+        sensorsHtml += `
+            <div class="imgSensor-item">
+                <img src="${imageSrc}" class="sensor-click" data-id="${sensor.idDadosSensor}" alt="Sinal do Sensor">
+                <p><strong>Nome Plantio:</strong> ${sensor.nome || 'N/A'}</p>
+                <p><strong>Região:</strong> ${sensor.idRegiao || 'N/A'}</p>
+                <p><strong>Umidade:</strong> ${umidade}% (${umidadeStatus})</p>
+            </div>
+        `;
+    });
+} else {
+    sensorsHtml = `<p style="text-align: center;">Nenhum sensor encontrado para este CEP.</p>`;
+}
+
+container.innerHTML = `
+    <div class="conteudoPrimeiroPopUp">
+        <nav class="navSensorLocalizacao">
+            <h1>Plantio: ${localizacao} - Sensores</h1>
+        </nav>
+        <div class="sensor-info">
+            <div class="imgSensor">
+                ${sensorsHtml}
+            </div>
+        </div>
+        <div id="graficoCanva"></div>
+    </div>
+    <div id="graficoDeLinha"> 
+    </div>
+`;
+
+document.querySelectorAll('.sensor-click').forEach(img => {
+    img.addEventListener('click', () => {
+        exibirGraficoBarra(ponto, img.getAttribute('data-id'));
+        exbirGraficoDeLinha(ponto, img.getAttribute('data-id'));
+    });
+});
+}
+
+   
+    function exibirGraficoBarra(ponto, sensorId) {
+      const graficoCanva = document.getElementById('graficoCanva');
+      graficoCanva.innerHTML = `
+        <div class="GraficoBarra">
+           
+          <canvas id="myChart" width="400" height="200"></canvas>
+        </div>
+      `;
+
+      const ctx = document.getElementById('myChart').getContext('2d');
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Umidade', 'Temperatura'],
+          datasets: [{
+            label: `Sensor ${sensorId} - ${ponto.logradouro}`,
+            data: [30, 22],
+            backgroundColor: ['#4CAF50', '#2196F3'],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    }
+ 
+ 
     function exbirGraficoDeLinha(ponto, sensorId) {
   const containerGrafico = document.getElementById('containerGraficoLinha');
   containerGrafico.innerHTML = `
@@ -237,37 +284,8 @@
 }
 
    
-    function exibirGraficoBarra(ponto, sensorId) {
-      const graficoCanva = document.getElementById('graficoCanva');
-      graficoCanva.innerHTML = `
-        <div class="GraficoBarra">
-           
-          <canvas id="myChart" width="400" height="200"></canvas>
-        </div>
-      `;
-
-      const ctx = document.getElementById('myChart').getContext('2d');
-
-      new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['Umidade', 'Temperatura'],
-          datasets: [{
-            label: `Sensor ${sensorId} - ${ponto.logradouro}`,
-            data: [30, 22], // Dados fictícios
-            backgroundColor: ['#4CAF50', '#2196F3'],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: { beginAtZero: true }
-          }
-        }
-      });
-    }
-  </script>
+ 
+ </script>
 
 </body>
 
