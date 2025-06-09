@@ -134,11 +134,11 @@
 
   
 
- async function exibirPlantio(ponto, cepPlantio){
+ async function exibirPlantio(ponto, estado){
+  console.log("ponto recebido:", ponto);
 
-  // const cepFormatado = cepPlantio.replace('-', '');  
-  
-let buscaporCep = await fetch(`plantios/${ponto.cidade}/${sessionStorage.ID_EMPRESA}`, {
+
+let buscaporCep = await fetch(`plantios/${ponto.estado}/${sessionStorage.ID_EMPRESA}`, {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json'
@@ -160,7 +160,7 @@ let sensorsHtml = '';
 
 if (jsonbuscarporCep.length > 0) {
     jsonbuscarporCep.forEach(sensor => {
-        const umidade = sensor.umidade;
+        let umidade = sensor.mediaUmidade;
         let imageSrc = '';
         let umidadeStatus = '';
 
@@ -172,13 +172,14 @@ if (jsonbuscarporCep.length > 0) {
             umidadeStatus = 'Crítico';
         }
 
+        umidadeEd = Math.floor(parseFloat(umidade))
         sensorsHtml += `
             <div class="imgSensor-item">
-                <img src="${imageSrc}" class="sensor-click" data-id="${sensor.idDadosSensor}" alt="Sinal do Sensor">
-                <p><strong>Nome Plantio:</strong> ${sensor.nome || 'N/A'}</p>
-                <p><strong>Região:</strong> ${sensor.idRegiao || 'N/A'}</p>
-                <p><strong>Umidade:</strong> ${umidade}% (${umidadeStatus})</p>
-            </div>
+        <img src="${imageSrc}" class="sensor-click" data-id="${sensor.idDadosSensor}" alt="Sinal do Sensor">
+        <p><strong>Nome Plantio:</strong> ${sensor.nomePlantio || 'N/A'}</p>
+        <p><strong>Região:</strong> ${sensor.logradouro || 'N/A'}</p>
+        <p><strong>Umidade:</strong> ${umidadeEd}% (${umidadeStatus})</p>
+    </div>
         `;
     });
 } else {
