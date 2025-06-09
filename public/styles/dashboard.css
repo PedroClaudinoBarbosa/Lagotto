@@ -22,7 +22,19 @@ body {
     justify-content: center;
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
-    width: 21vw;
+    width: 19vw;
+    height: 9vh;
+    background: linear-gradient(to right, #20130f, #3c261d);
+    position: relative;
+    transition: 0.3s ease-in-out;
+    
+}
+.box7{
+    display: flex;
+    justify-content: center;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    width: 19vw;
     height: 9vh;
     background: linear-gradient(to right, #20130f, #3c261d);
     position: relative;
@@ -32,12 +44,27 @@ body {
 .box1:hover {
     padding: 3px;
 }
-/* background-color: linear-gradient(to right, #20130f, #3c261d); */
+.box7:hover {
+    padding: 3px;
+}
 .box2:hover, .box3:hover, .box4:hover, .box5:hover {
-    width: 21vw;
+    width: 19vw;
+}
+.box6:hover, .box8:hover, .box9:hover, .box10:hover {
+    width: 19vw;
+}
+.box2,  .box3, .box4, .box5 {
+    display: flex;
+    justify-content: center;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    width: 15vw;
+    height: 9vh;
+    background: linear-gradient(to right, #20130f, #3c261d);
+    transition: 0.3s ease-in-out;
 }
 
-.box2,  .box3, .box4, .box5 {
+.box6,  .box8, .box9, .box10 {
     display: flex;
     justify-content: center;
     border-top-right-radius: 40px;
@@ -77,6 +104,7 @@ body {
 
 .section {
     margin-bottom: 40px;
+    margin-left: 20px;
 }
 
 h2 {
