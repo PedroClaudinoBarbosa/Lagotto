@@ -241,12 +241,13 @@ a {
     border: #000000 1px solid;
     width: 95.4%;
     margin: auto;
-    height: 60vh;
+    height: fit-content;
+    padding-bottom: 20px;
 }
 
 .alertaGraficos h3 {
     font-size: 40px;
-    margin-left: 40px;
+    margin-bottom: 0px;
 }
 
 .alertaGraficos .mapa {
@@ -287,8 +288,12 @@ a {
     background-color: #FFC219;
 }
 
+.verde, .vermelho, .amarelo {
+    cursor: pointer;
+}
+
 .hide {
-    display: none;
+    display: none !important;
 }
 
 .alertaGraficos .conteudo {
@@ -298,4 +303,20 @@ a {
 
 .alertaGraficos .conteudo .canvas {
     width: 50%;
+}
+
+.titulos {
+    display: flex;
+    justify-content: space-around;
+}
+
+.titulos .titulo {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.titulos .titulo p{
+    font-size: 20px;
+    color: #8F8F8F;
 }
