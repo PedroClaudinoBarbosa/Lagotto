@@ -16,6 +16,9 @@
     <div class="nav">
       <div><a href="dashboardAvisos.html" style="color: wheat;">⚠️ Avisos</a></div>
       <div><a href="dashboardPlantios.html"><span style="color: wheat;">📊 Plantios</span></a></div>
+      <div>
+        <a href="dashboardCalendario.html"><span style="color: wheat;">📅 Calendário</span></a>
+      </div>
       <div><a href="dashboardConfiguracoes.html" style="color: wheat;">⚙️ Configurações</a></div>
       <div><a href="login_cadastro.html" style="color: wheat;">❌ Sair</a></div>
     </div>
@@ -82,7 +85,7 @@
               if (elements.length > 0) {
                 const index = elements[0].index;
                 const ponto = this.data.datasets[0].data[index];
-                exibirPlantio(ponto,ponto.cep);
+                exibirPlantio(ponto, ponto.cep);
               }
             },
             scales: {
@@ -97,7 +100,7 @@
         });
       };
     }
-    
+
 
     async function buscarTodosPlantios() {
       let respostaPlantios = await fetch(`/plantios/buscarPlantios/${sessionStorage.ID_EMPRESA}`, {
@@ -120,60 +123,60 @@
           logradouro: plantio.logradouro,
           cidade: plantio.cidade,
           estado: plantio.estadoSigla,
-          cep:plantio.cep,
+          cep: plantio.cep,
           r: 6
         });
       }
       return data;
     }
 
-  // ----------------------------------------------------------//
- // essas duas funções buscarTodosPlantios e gerarMapaPlantiosestão prontas
- //faltanso aénas algumas alterações na exibição, mas model e route estão
+    // ----------------------------------------------------------//
+    // essas duas funções buscarTodosPlantios e gerarMapaPlantiosestão prontas
+    //faltanso aénas algumas alterações na exibição, mas model e route estão
 
 
-  
-
- async function exibirPlantio(ponto, estado){
-  console.log("ponto recebido:", ponto);
 
 
-let buscaporCep = await fetch(`plantios/${ponto.estado}/${sessionStorage.ID_EMPRESA}`, {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json'
-    }
-});
+    async function exibirPlantio(ponto, estado) {
+      console.log("ponto recebido:", ponto);
 
-if (!buscaporCep.ok) {
-    const container = document.getElementById('containerSensores');
-    container.innerHTML = `<p style="color: red; text-align: center;">Erro ao carregar dados dos sensores. Verifique o CEP ou tente novamente mais tarde.</p>`;
-    return [];
-}
 
-let jsonbuscarporCep = await buscaporCep.json();
+      let buscaporCep = await fetch(`plantios/${ponto.estado}/${sessionStorage.ID_EMPRESA}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
 
-const container = document.getElementById('containerSensores');
-const localizacao = `${ponto.logradouro}, ${ponto.cidade} - ${ponto.estado}`;
+      if (!buscaporCep.ok) {
+        const container = document.getElementById('containerSensores');
+        container.innerHTML = `<p style="color: red; text-align: center;">Erro ao carregar dados dos sensores. Verifique o CEP ou tente novamente mais tarde.</p>`;
+        return [];
+      }
 
-let sensorsHtml = '';
+      let jsonbuscarporCep = await buscaporCep.json();
 
-if (jsonbuscarporCep.length > 0) {
-    jsonbuscarporCep.forEach(sensor => {
-        let umidade = sensor.mediaUmidade;
-        let imageSrc = '';
-        let umidadeStatus = '';
+      const container = document.getElementById('containerSensores');
+      const localizacao = `${ponto.logradouro}, ${ponto.cidade} - ${ponto.estado}`;
 
-        if (umidade >= 30 && umidade <= 40) {
+      let sensorsHtml = '';
+
+      if (jsonbuscarporCep.length > 0) {
+        jsonbuscarporCep.forEach(sensor => {
+          let umidade = sensor.mediaUmidade;
+          let imageSrc = '';
+          let umidadeStatus = '';
+
+          if (umidade >= 30 && umidade <= 40) {
             imageSrc = 'assets/sinal_radio_verde.png';
             umidadeStatus = 'Normal';
-        } else {
+          } else {
             imageSrc = 'assets/signal_radio_vermelho.png';
             umidadeStatus = 'Crítico';
-        }
+          }
 
-        umidadeEd = Math.floor(parseFloat(umidade))
-        sensorsHtml += `
+          umidadeEd = Math.floor(parseFloat(umidade))
+          sensorsHtml += `
             <div class="imgSensor-item">
         <img src="${imageSrc}" class="sensor-click" data-id="${sensor.idDadosSensor}" alt="Sinal do Sensor">
         <p><strong>Nome Plantio:</strong> ${sensor.nomePlantio || 'N/A'}</p>
@@ -181,12 +184,12 @@ if (jsonbuscarporCep.length > 0) {
         <p><strong>Umidade:</strong> ${umidadeEd}% (${umidadeStatus})</p>
     </div>
         `;
-    });
-} else {
-    sensorsHtml = `<p style="text-align: center;">Nenhum sensor encontrado para este CEP.</p>`;
-}
+        });
+      } else {
+        sensorsHtml = `<p style="text-align: center;">Nenhum sensor encontrado para este CEP.</p>`;
+      }
 
-container.innerHTML = `
+      container.innerHTML = `
     <div class="conteudoPrimeiroPopUp">
         <nav class="navSensorLocalizacao">
             <h1>Plantio: ${localizacao} - Sensores</h1>
@@ -202,15 +205,15 @@ container.innerHTML = `
     </div>
 `;
 
-document.querySelectorAll('.sensor-click').forEach(img => {
-    img.addEventListener('click', () => {
-        exibirGraficoBarra(ponto, img.getAttribute('data-id'));
-        exbirGraficoDeLinha(ponto, img.getAttribute('data-id'));
-    });
-});
-}
+      document.querySelectorAll('.sensor-click').forEach(img => {
+        img.addEventListener('click', () => {
+          exibirGraficoBarra(ponto, img.getAttribute('data-id'));
+          exbirGraficoDeLinha(ponto, img.getAttribute('data-id'));
+        });
+      });
+    }
 
-   
+
     function exibirGraficoBarra(ponto, sensorId) {
       const graficoCanva = document.getElementById('graficoCanva');
       graficoCanva.innerHTML = `
@@ -241,11 +244,11 @@ document.querySelectorAll('.sensor-click').forEach(img => {
         }
       });
     }
- 
- 
+
+
     function exbirGraficoDeLinha(ponto, sensorId) {
-  const containerGrafico = document.getElementById('containerGraficoLinha');
-  containerGrafico.innerHTML = `
+      const containerGrafico = document.getElementById('containerGraficoLinha');
+      containerGrafico.innerHTML = `
     <div class="graicoDeLinha">
       <h1>Localização Plantio</h1>
       <canvas id="graficoLinhaCanvas"height: 272px;
@@ -256,37 +259,37 @@ document.querySelectorAll('.sensor-click').forEach(img => {
       
   `;
 
-  const ctx = document.getElementById('graficoLinhaCanvas').getContext('2d');
+      const ctx = document.getElementById('graficoLinhaCanvas').getContext('2d');
 
-  const labels = ['Jan', 'Fev', 'Mar'];
-  const data = {
-    labels: labels,
-    datasets: [{
-      label: `Sensor ${sensorId} - Variação de Umidade`,
-      data: [65, 59, 80, 81], // Dados fictícios
-      fill: false,
-      borderColor: 'rgb(75, 192, 192)',
-      tension: 0.1
-    }]
-  };
+      const labels = ['Jan', 'Fev', 'Mar'];
+      const data = {
+        labels: labels,
+        datasets: [{
+          label: `Sensor ${sensorId} - Variação de Umidade`,
+          data: [65, 59, 80, 81], // Dados fictícios
+          fill: false,
+          borderColor: 'rgb(75, 192, 192)',
+          tension: 0.1
+        }]
+      };
 
-  new Chart(ctx, {
-    type: 'line',
-    data: data,
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true
+      new Chart(ctx, {
+        type: 'line',
+        data: data,
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
         }
-      }
+      });
     }
-  });
-}
 
-   
- 
- </script>
+
+
+  </script>
 
 </body>
 
