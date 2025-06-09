@@ -4,13 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BobIA</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./styles/suporte.css">
+    <title>Suporte</title>
 </head>
 
 <body>
-
-    <div id="container">
+    <div class="sidebar">
+        <div class="logo"><img src="./assets/logo.png" alt="Imagem"></div>
+        <div class="nav">
+            <div>
+                <a href="dashboardSuporte.html" style="color: wheat;">📞 Suporte</a>
+            </div>
+        </div>
+    </div>
+    <div class="content">
         <h1>BobIA</h1>
         <textarea id="pergunta" type="text" placeholder="Digite a pergunta..."></textarea>
         <br><br>
@@ -32,23 +39,13 @@
                 body: JSON.stringify({ pergunta })
             });
 
-            if (!response.ok) {
-                respostaRegiao.json().then((regiao) => {
-                    regioes.push(regiao);
-                });
-                return;
-
-            }
-
             const data = await response.json();
-
 
             resposta.style.display = 'block';
             document.getElementById('resposta').innerText = data.resultado;
         }
 
     </script>
-
 </body>
 
 </html>
