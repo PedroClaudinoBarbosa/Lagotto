@@ -15,4 +15,10 @@ router.get('/:estado/:idEmpresa', function (req, res){
     plantiosController.exibirPlantio(req, res);
 });
 
+
+router.get('/graficoBarra/:sensorId', function(req, res){
+        const sensorId = req.params.sensorId;
+        plantiosController.exibirGraficoBarra(req, res)  
+});
+
 module.exports = router;

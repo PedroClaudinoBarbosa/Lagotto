@@ -127,14 +127,8 @@
       return data;
     }
 
-  // ----------------------------------------------------------//
- // essas duas funções buscarTodosPlantios e gerarMapaPlantiosestão prontas
- //faltanso aénas algumas alterações na exibição, mas model e route estão
 
-
-  
-
- async function exibirPlantio(ponto, estado){
+    async function exibirPlantio(ponto, estado){
   console.log("ponto recebido:", ponto);
 
 
@@ -147,7 +141,7 @@ let buscaporCep = await fetch(`plantios/${ponto.estado}/${sessionStorage.ID_EMPR
 
 if (!buscaporCep.ok) {
     const container = document.getElementById('containerSensores');
-    container.innerHTML = `<p style="color: red; text-align: center;">Erro ao carregar dados dos sensores. Verifique o CEP ou tente novamente mais tarde.</p>`;
+    container.innerHTML = `<p style="color: red; text-align: center;">Parece que não existe sensores cadastrados nesse plantio.</p>`;
     return [];
 }
 
@@ -211,35 +205,63 @@ document.querySelectorAll('.sensor-click').forEach(img => {
 }
 
    
-    function exibirGraficoBarra(ponto, sensorId) {
+
+  // ----------------------------------------------------------//
+ // essas duas funções buscarTodosPlantios e gerarMapaPlantiosestão prontas
+ //faltanso aénas algumas alterações na exibição, mas model e route estão
+
+
+  
+
+
+ async function exibirGraficoBarra(ponto, sensorId) {
       const graficoCanva = document.getElementById('graficoCanva');
       graficoCanva.innerHTML = `
         <div class="GraficoBarra">
-           
           <canvas id="myChart" width="400" height="200"></canvas>
         </div>
       `;
-
-      const ctx = document.getElementById('myChart').getContext('2d');
-
-      new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['Umidade', 'Temperatura'],
-          datasets: [{
-            label: `Sensor ${sensorId} - ${ponto.logradouro}`,
-            data: [30, 22],
-            backgroundColor: ['#4CAF50', '#2196F3'],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: { beginAtZero: true }
+      try{
+        const dadosGraficoBarra = await fetch('/graficoBarra/${sensorId}',{
+          
+          method: 'GET',
+          headers: {
+            'Content-type': 'application/json'
           }
+        });
+        if(!dadosGraficoBarra.ok){
+          throw new Error(`HTTP error! status: ${dadosGraficoBarra.status}`)
         }
-      });
+        const sensorData = await dadosGraficoBarra.json();
+        const umidadeMedia = sensorData.umidade;
+        
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['Umidade'],
+            datasets: [{
+              label: `Sensor ${ponto.umidadeMedia} - ${ponto.umidade}`,
+              data: [30, 22],
+              backgroundColor: ['#4CAF50', '#2196F3'],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              y: { beginAtZero: true }
+            }
+          }
+        });
+      } catch (error) {
+        console.error('erro ao buscar dados do sensor ', error)
+        graficoCanva.innerHTML = `<p style="color: red; text-align: center;">Erro ao carregar dados do gráfico.</p>`;
+   
+      }
+
+    
     }
  
  
