@@ -461,7 +461,6 @@ a {
     cursor: pointer;
     transition: 0.3s ease-in-out;
     box-shadow: 5px 5px 10px rgba(117, 79, 79, 0.4);
-    animation: cor infinite;
 }
 .cadastrar button:hover {
     transform: translateY(-5px);
