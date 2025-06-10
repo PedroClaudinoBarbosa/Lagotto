@@ -28,7 +28,7 @@
             <a href="dashboardConfiguracoes.html" style="color: wheat;">
                 <div class="box14">⚙️ Configurações</div>
             </a>
-            <a href="login_cadastro.html" style="color: wheat;">
+            <a onclick="sair()" href="login_cadastro.html" style="color: wheat;">
                 <div class="box15">❌ Sair</div>
             </a>
         </div>
@@ -186,6 +186,9 @@
                 container.classList.add('hide');
                 visualizarButton.textContent = 'Visualizar Tudo';
             }
+        }
+        function sair(){
+            sessionStorage.CONECTADO = 'desconectado'
         }
     </script>
 

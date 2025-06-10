@@ -34,7 +34,7 @@
           ⚙️ Configurações
         </div>
       </a>
-      <a href="login_cadastro.html" style="color: wheat;">
+      <a onclick="sair()" href="login_cadastro.html" style="color: wheat;">
         <div class="box15">
           ❌ Sair
         </div>
@@ -123,5 +123,8 @@
 
     return false;
     }
-
+    
+    function sair(){
+        sessionStorage.CONECTADO = 'desconectado'
+    }
   </script>

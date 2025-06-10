@@ -16,6 +16,11 @@
             <div>
                 <a href="dashboardSuporte.html" style="color: wheat;">📞 Suporte</a>
             </div>
+            <a onclick="sair()" href="login_cadastro.html" style="color: wheat;">
+                <div class="box10">
+                  ❌ Sair
+                </div>
+              </a>
         </div>
     </div>
     <div class="content">
@@ -47,6 +52,9 @@
             document.getElementById('resposta').innerText = data.resultado;
         }
 
+        function sair(){
+            sessionStorage.CONECTADO = 'desconectado'
+        }
     </script>
 </body>
 
