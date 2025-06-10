@@ -415,3 +415,61 @@ a {
     font-size: 20px;
     color: #8F8F8F;
 }
+.cadastrar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    border-radius: 20px;
+    left: 44vw;
+    top: 10vh;
+    height: 550px;
+    width: 500px;
+    box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.4);
+    transition: 0.2s linear;
+}
+.cadastrar h1 {
+    transform: translateY(20px);
+}
+.cadastrar:hover{
+    top:9.5vh
+}
+.cadastrar .box{
+    display: flex;
+    flex-direction: column;
+}
+.cadastrar .box span{
+    margin-top: 40px;
+}
+.cadastrar input {
+    width: 300px;
+    height: 50px;
+    border: 0;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.4);
+    font-size: 15px;
+    transition: 0.3s ease-out;
+}
+.cadastrar button{
+    margin-top: 30px;
+    width: 300px;
+    height: 50px;
+    border-radius: 20px;
+    border: 0;
+    background: linear-gradient(to right, #20130f, #3c261d);
+    color: beige;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    box-shadow: 5px 5px 10px rgba(117, 79, 79, 0.4);
+    animation: cor infinite;
+}
+.cadastrar button:hover {
+    transform: translateY(-5px);
+}
+.cadastrar input:hover{
+    transform: translateY(-5px);
+}
+
+.cadastrar button:active {
+    transform: translateY(5px);
+}
