@@ -3,7 +3,7 @@ let database = require("../database/config");
 function buscarDadosPorData(idEmpresa, dados) {
     console.log(dados, idEmpresa)
         const query = `
-            SELECT ds.idDadosSensor, ds.data, ds.umidade, p.nome AS nome_plantio, r.descricao AS descricao_regiao
+            SELECT ds.idDadosSensor, DATE_FORMAT(ds.data, "%H:%i:%S - %d/%m/%Y") AS data, ds.umidade, p.nome AS nome_plantio, r.descricao AS descricao_regiao
             FROM DadosSensor ds
             JOIN Regiao r ON ds.fkRegiao = r.idRegiao
             JOIN Plantio p ON ds.fkPlantio = p.idPlantio
@@ -16,7 +16,7 @@ function buscarDadosPorData(idEmpresa, dados) {
 function exibirSensores(dados, idEmpresa) {
     console.log(dados, idEmpresa)
         const query = `
-            SELECT ds.idDadosSensor, ds.data, ds.umidade, p.nome AS nome_plantio, r.descricao AS descricao_regiao
+            SELECT ds.idDadosSensor, DATE_FORMAT(ds.data, "%H:%i:%S - %d/%m/%Y") AS data, ds.umidade, p.nome AS nome_plantio, r.descricao AS descricao_regiao
             FROM DadosSensor ds
             JOIN Regiao r ON ds.fkRegiao = r.idRegiao
             JOIN Plantio p ON ds.fkPlantio = p.idPlantio
