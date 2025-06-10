@@ -477,3 +477,13 @@ a {
 .cadastrar button:active {
     transform: translateY(5px);
 }
+
+.titulo {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 50px;
+}
+
+.titulo p {
+    align-self: flex-end;
+}
