@@ -37,17 +37,15 @@ function exibirPlantio(req, res) {
         });
 }
 
-
-
 function exibirGraficoBarra(req, res){
-    const sensorId = req.params.sensorId;
-    plantiosModel.exibirGraficoBarra(sensorId)
+    let idDadosSensor = req.params.idDadosSensor
+    plantiosModel.exibirGraficoBarra(idDadosSensor)
     .then((resultado) => {
         if(resultado > 0){
             res.status(200).json(resultado);
         }else {
             res.status(404).json({mensagem: "Dados do sensor não encontrado"});
-            console.log('Dados não encontrado',sensorId)
+            console.log('Dados não encontrado',idDadosSensor)
         }
     })
     .catch((erro)=>{

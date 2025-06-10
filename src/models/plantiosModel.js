@@ -52,8 +52,27 @@ GROUP BY
     return database.executar(instrucaoSql); 
 }
 
+function exibirGraficoBarra(idDadosSensor) {
+    
+    let instrucaoSql = `
+        select 
+            date(data) as dia,
+            avg (umidade) as media_diairia
+            from DadosSensor
+            inner join Regiao on DadosSensor.fkRegiao = Regiao.idRegiao
+            join Plantio on Regiao.fkPlantio = Plantio.idPlantio
+            join Endereco on Plantio.fkEndereco = Endereco.idEndereco
+            where DadosSensor.idDadosSensor = '${idDadosSensor}'
+            group by date(data)
+            order by dia;
+    `;
+    return database.executar(instrucaoSql);
+}
+
+
 
 module.exports = {
     buscarTodosPlantios,
-    exibirPlantio
+    exibirPlantio, 
+    exibirGraficoBarra
 };

@@ -25,8 +25,21 @@ function buscarRegiao(req, res) {
     });
 }
 
+function exibirGraficoBarra(req, res){
+    const idDadosSensor = req.params.idDadosSensor;
+    console.log('id: ' + idDadosSensor);
+
+    avisoModel.exibirGraficoBarra(idDadosSensor).then((resultado) =>{
+        res.status(200).json(resultado)
+        console.log(resultado)
+        console.log(idDadosSensor)
+    });
+
+}
+
 module.exports = {
     listarAvisos,
     buscarPlantios,
-    buscarRegiao
+    buscarRegiao,
+    exibirGraficoBarra
 }

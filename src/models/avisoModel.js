@@ -51,32 +51,10 @@ function buscarRegiao(idPlantio, idRegiao) {
 }
 
 
-function exibirGraficoBarra(sensorId) {
-    let instrucaoSql = `
-        SELECT 
-            p.idPlantio,
-            p.nome AS nomePlantio,
-            e.logradouro,
-            e.estadoSigla,
-            AVG(ds.umidade) AS mediaUmidade
-        FROM DadosSensor ds
-        JOIN Regiao r ON ds.fkRegiao = r.idRegiao
-        JOIN Plantio p ON r.fkPlantio = p.idPlantio
-        JOIN Endereco e ON p.fkEndereco = e.idEndereco
-        WHERE ds.idDadosSensor = '${sensorId}'
-        GROUP BY 
-            p.idPlantio,
-            p.nome,
-            e.logradouro,
-            e.estadoSigla;
-    `;
-    return database.executar(instrucaoSql);
-}
 
 
 module.exports = {
     listarAvisos,
     buscarPlantios,
-    buscarRegiao,
-    exibirGraficoBarra
+    buscarRegiao
 }
