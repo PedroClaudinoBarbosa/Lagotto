@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,7 +49,6 @@
     </div>
 
     <script>
-        // Função para buscar dados da API
         async function buscarDadosPorData() {
             let dataSelecionada = document.getElementById('data_select').value;
             let dadosSensores = await fetchDadosPorData(dataSelecionada);
@@ -73,14 +73,31 @@
             return dados;
         }
 
-        function exibirGraficoDeLinha(dados) {
+        async function exibirGraficoDeLinha(dados) {
             const containerGrafico = document.getElementById('graficoDeLinha');
             let labels = [];
             let umidadeData = [];
 
+            let plantiosMaxUmidade = {};
+
             dados.forEach(sensor => {
-                labels.push(sensor.descricao);
-                umidadeData.push(sensor.umidade);
+                const plantio = sensor.nome_plantio;
+                const umidade = sensor.umidade;
+
+                if (!plantiosMaxUmidade[plantio] || umidade > plantiosMaxUmidade[plantio].umidade) {
+                    plantiosMaxUmidade[plantio] = {
+                        descricao_regiao: sensor.descricao_regiao,
+                        umidade: umidade
+                    };
+                }
+            });
+
+            const plantiosOrdenados = Object.keys(plantiosMaxUmidade).sort((a, b) => a.localeCompare(b));
+
+            plantiosOrdenados.forEach(plantio => {
+                const dadosPlantio = plantiosMaxUmidade[plantio];
+                labels.push(plantio);
+                umidadeData.push(dadosPlantio.umidade);
             });
 
             if (umidadeData.length === 0) {
@@ -90,24 +107,30 @@
 
             const ctx = document.createElement('canvas');
             containerGrafico.innerHTML = '';
+
             containerGrafico.appendChild(ctx);
 
             new Chart(ctx, {
-                type: 'line',
+                type: 'bar',
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Variação de Umidade',
+                        label: 'Maior Umidade/Plantio',
                         data: umidadeData,
-                        fill: false,
                         borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         tension: 0.1
                     }]
                 },
                 options: {
                     responsive: true,
                     scales: {
-                        y: { beginAtZero: true }
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: 'rgba(75, 192, 192)'
+                            }
+                        }
                     }
                 }
             });
@@ -118,18 +141,27 @@
             let sensoresHtml = '';
 
             if (dados.length > 0) {
+                dados.sort((a, b) => {
+                    let cmp = a.nome_plantio.localeCompare(b.nome_plantio);
+                    if (cmp === 0) {
+                        return a.descricao_regiao.localeCompare(b.descricao_regiao);
+                    }
+                    return cmp;
+                });
+
                 dados.forEach(sensor => {
                     let umidade = sensor.umidade;
                     let status = umidade >= 30 && umidade <= 40 ? 'Normal' : 'Crítico';
                     let imageSrc = status === 'Normal' ? 'assets/sinal_radio_verde.png' : 'assets/signal_radio_vermelho.png';
 
-                    sensoresHtml += 
+                    sensoresHtml +=
                         `<div class="imgSensor-item">
-                            <img src="${imageSrc}" class="sensor-click" data-id="${sensor.idDadosSensor}" alt="Sinal do Sensor">
-                            <p><strong>Nome Plantio:</strong> ${sensor.nome_plantio || 'N/A'}</p>
-                            <p><strong>Região:</strong> ${sensor.descricao_regiao || 'N/A'}</p>
-                            <p><strong>Umidade:</strong> ${umidade}% (${status})</p>
-                        </div>`;
+                    <img src="${imageSrc}" class="sensor-click" data-id="${sensor.idDadosSensor}" alt="Sinal do Sensor">
+                    <p><strong>Data/Hora:</strong> ${sensor.data || 'N/A'}</p>
+                    <p><strong>Nome Plantio:</strong> ${sensor.nome_plantio || 'N/A'}</p>
+                    <p><strong>Região:</strong> ${sensor.descricao_regiao || 'N/A'}</p>
+                    <p><strong>Umidade:</strong> ${umidade}% (${status})</p>
+                </div>`;
                 });
             } else {
                 sensoresHtml = '<p style="text-align: center;">Nenhum dado encontrado para a data selecionada.</p>';
@@ -138,12 +170,11 @@
             container.innerHTML = sensoresHtml;
         }
 
-        
 
         function toggleSensores() {
             const container = document.getElementById('containerSensores');
             const visualizarButton = document.getElementById('visualizarButton');
-            
+
             if (container.classList.contains('hide')) {
                 container.classList.remove('hide');
                 visualizarButton.textContent = 'Esconder Tudo';
@@ -155,4 +186,5 @@
     </script>
 
 </body>
+
 </html>

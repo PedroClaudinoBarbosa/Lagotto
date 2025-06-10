@@ -37,10 +37,7 @@
             </div>
 
 
-            <div>
-                <!-- <p style="color: rgba(255, 255, 255, 0.651);">Esqueceu a senha?</p>     -->
-                <p>Ainda não é um cliente? <span id="clicavel" onclick="cadastro()">Cadastre-se</span></p>
-            </div>
+
         </div>
     </div>
 
@@ -91,35 +88,6 @@
     var email5;
     var senha5;
 
-    function cadastro() {
-        div_login.innerHTML = `
-            <img src="./assets/logo.png" alt="Imagem">
-            <h1>Cadastro</h1>
-            <div>
-                <p>Endereço de email</p>
-                <input type="text" placeholder="Email" id="email">
-                <div id="avisoEmail" class="aviso"></div>
-            </div>
-            <div>
-                <p>Senha</p>
-                <input type="text" placeholder="Senha" id="senha">
-                <div id="avisoSenha" class="aviso"></div>
-            </div>
-            <div>
-                <p>Confirmar senha</p>
-                <input type="text" placeholder="Senha" id="confirmarSenha">
-            </div>
-            <div>
-                <button onclick="cadastrar()">Criar</button>
-            </div>
-
-
-            <div>
-                <p>Já possui cadastro? <span id="clicavel" onclick="entrar()">Entrar</span></p>
-            </div>
-        `
-            ;
-    }
 
     function entrar() {
         div_login.innerHTML = `
@@ -197,74 +165,5 @@
         })
 
         return false;
-    }
-
-    function cadastrar() {
-        const emailInput = email.value;
-        const senhaInput = senha.value;
-        const confirmarSenhaInput = confirmarSenha.value;
-        let indiceArroba = emailInput.indexOf('@');
-        let indicePontoCom = emailInput.indexOf('.com');
-        let arrobaAntesPontoCom = indiceArroba < indicePontoCom;
-        let senhaPossivel = false;
-
-        avisoEmail.innerHTML = ``;
-        avisoSenha.innerHTML = ``;
-        
-            if(indiceArroba == -1 || indicePontoCom == -1 || !arrobaAntesPontoCom) {
-                avisoEmail.innerHTML = `Insira um email válido!`;
-                return;
-            }
-
-            if(senhaInput.length < 8) {
-                avisoSenha.innerHTML += `Sua senha deve ter ao menos 8 caracteres!<br>`;
-                return;
-            }
-
-            const letraMaiuscula = new RegExp("[A-Z]");
-            const letraMinuscula = new RegExp("[a-z]");
-            const caracterEspecial = new RegExp(/[^a-zA-Z0-9]/);
-
-            if(!letraMaiuscula.test(senhaInput)) {
-                avisoSenha.innerHTML += `Sua senha deve conter ao menos uma letra maiúscula!<br>`;
-                return;
-            }
-
-            if(!letraMinuscula.test(senhaInput)) {
-                avisoSenha.innerHTML += `Sua senha deve conter ao menos uma letra minúscula!<br>`;
-                return;
-            }
-
-            if(!caracterEspecial.test(senhaInput)) {
-                avisoSenha.innerHTML += `Sua senha deve conter ao menos um caracter especial!`;
-                return;
-            }
-
-            if (senhaInput !== confirmarSenhaInput) {
-                alert("As senhas não coincidem.");
-                return;
-            }
-
-            if (emailInput === email1 || emailInput === email2 || emailInput === email3 ||
-                emailInput === email4 || emailInput === email5){
-                alert("Este e-mail já está cadastrado.");
-                return;
-            } 
-
-
-            if (!email4 && !senha4) {
-                email4 = emailInput;
-                senha4 = senhaInput;
-                alert("Cadastro realizado com sucesso!");
-            } else if (!email5 && !senha5) {
-                email5 = emailInput;
-                senha5 = senhaInput;
-                alert("Cadastro realizado com sucesso!");
-            } else {
-                alert("Limite de cadastros atingido.");
-                return;
-            }
-
-            entrar();
     }
 </script>
