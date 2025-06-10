@@ -10,27 +10,44 @@
 </head>
 
 <body>
-    <div class="sidebar">
-        <div class="logo"><img src="./assets/logo.png" alt="Imagem"></div>
-        <div class="nav">
-            <div>
-                <a href="dashboardAvisos.html" style="color: wheat;">⚠️ Avisos</a>
-            </div>
-            <div>
-                <a href="dashboardPlantios.html"><span style="color: wheat;">📊 Plantios</span></a>
-            </div>
-            <div>
-                <a href="dashboardConfiguracoes.html" style="color: wheat;">⚙️ Configurações</a>
-            </div>
-            <div>
-                <a href="login_cadastro.html" style="color: wheat;">❌ Sair</a>
-            </div>
+   <div class="sidebar">
+    <div class="logo"><img src="./assets/logo.png" alt="Imagem"></div>
+    <div class="nav">
+      <a href="dashboardAvisos.html" style="color: wheat;">
+        <div class="box1">
+          ⚠️ Avisos
         </div>
+      </a>
+      <a href="dashboardPlantios.html" style="color: wheat;">
+        <div class="box2">
+          📊 Plantios
+        </div>
+      </a>
+
+      <a href="dashboardCalendario.html" style="color: wheat;">
+        <div class="box3">
+          📅 Calendário
+        </div>
+      </a>
+      <a href="dashboardConfiguracoes.html" style="color: wheat;">
+        <div class="box4">
+          ⚙️ Configurações
+        </div>
+      </a>
+      <a href="login_cadastro.html" style="color: wheat;">
+        <div class="box5">
+          ❌ Sair
+        </div>
+      </a>
     </div>
+  </div>
 
     <div class="content">
         <div class="section">
-            <h2>Histórico de Alertas</h2>
+            <div>
+                <h2>Histórico de Alertas</h2>
+                <p>Tempo para atualização: </p>
+            </div>
             <div class="alertas" id="alertas">
                 <div class="cabecalho">
                     <div class="situacao">
@@ -55,6 +72,7 @@
 
 <script>
     let graficoRegiao = null;
+    let tempo = 30;
 
     let regioesArray = [];
     listarAvisosComLoop();
@@ -184,8 +202,18 @@
                             <img src="assets/chevron-down-solid.svg" alt="" style="height: 30px;" onclick="exibirGrafico(${i})">
                         </div>
                     </div>
-                        <div id="alertaGraficos${i}" class="hide alertaGraficos">
-                        <h3>Mapa do Plantio e Regiões</h3>
+                        <div id="alertaGraficos${i}" class="alertaGraficos">
+                        <div class="titulos">
+                            <div class="titulo">
+                                <h3>Mapa do Plantio e Regiões</h3>
+                                <p>Clique em uma região para ver mais informações</p>
+                            </div>
+                            <div class="hide titulo" id="tituloGrafico${i}">
+                                <h3>Umidade das Últimas 24 Horas</h3>
+                                <p style="color: #FFC219; margin-bottom: 0px">Estado de alerta: umidade menor que 32% ou maior que 38%</p>
+                                <p style="color: red">Estado cŕitico: umidade maior que 30% ou menor que 40%</p>
+                            </div>
+                        </div>
                         <div class="conteudo">
                             <div class="mapa">
                                 <div class="linha">
@@ -236,7 +264,7 @@
             }
         } else {
             console.log("Houve um erro ao tentar buscar o plantio");
-            
+
             respostaPlantios.text().then(texto => {
                 console.error(texto);
             });
@@ -245,29 +273,52 @@
 
     async function listarAvisosComLoop() {
         await listarAvisos();
-        setTimeout(listarAvisosComLoop, 10000); // executa novamente após 10 segundos
+
+        setTimeout(listarAvisosComLoop, 1000000000); // executa novamente após 10 segundos
     }
 
     function estatisticasRegiao(idRegiao, idPlantio) {
-        var ctx = document.getElementById(`graficoPlantio${idPlantio}`);
+        let graficoTitulo = document.getElementById(`tituloGrafico${idPlantio}`);
+        graficoTitulo.classList.remove('hide');
+
+        let ctx = document.getElementById(`graficoPlantio${idPlantio}`);
 
         let regiao = regioesArray[idPlantio][idRegiao];
 
         let labels = [];
         let data = [];
+        let alertasAcima40 = [];
+        let alertasAbaixo30 = [];
+
+        let menorValor = 40;
+        let maiorValor = 40;
 
         for (let i = regiao.length - 1; i >= 0; i--) {
             let dataHorario = regiao[i].data.split('T');
+            // exibibação da data  
             let dataRegiao = dataHorario[0].replaceAll("-", "/");
+            dataRegiao = dataRegiao.split('/');
+            let dataExibir =  `${dataRegiao[2]}/${dataRegiao[1]}`;
+
+            //exibição do horário
             let horario = dataHorario[1].split(".");
             horario = horario[0];
-            let horarioExibir = `${dataRegiao} ${horario}`;
-            
+            horario = horario.split(':');
+            let horarioExibir = `${dataExibir} ${horario[0]}:${horario[2]}`;
+
             let umidade = regiao[i].umidade;
+
+            maiorValor = umidade > maiorValor ? umidade : maiorValor;
+            menorValor = umidade < menorValor ? umidade : menorValor;
 
             labels.push(horarioExibir);
             data.push(umidade);
+            alertasAbaixo30.push(30);
+            alertasAcima40.push(40);
         }
+
+        console.log(alertasAbaixo30);
+        console.log(alertasAcima40)
 
         if (graficoRegiao !== null) {
             graficoRegiao.destroy();
@@ -280,12 +331,66 @@
                 datasets: [{
                     label: 'Umidade do Solo',
                     data,
-                    borderWidth: 1
+                    borderWidth: 2,
+                    borderColor: '#5f422c',
+                    backgroundColor: 'transparent',
+                    pointBackgroundColor: '#5f422c',
+                    pontBorderColor: '#5f422c',
+                    tension: 0.2
+                }, {
+                    label: 'Problema crítico',
+                    data: alertasAbaixo30,
+                    borderWidth: 1,
+                    borderColor: 'red',
+                    backgroundColor: 'transparent',
+                    pointRadius: 0,
+                    tension: 0
+                }, {
+                    label: 'Problema crítico',
+                    data: alertasAcima40,
+                    borderWidth: 1,
+                    borderColor: 'red',
+                    backgroundColor: 'transparent',
+                    pointRadius: 0,
+                    tension: 0
                 }],
             },
             options: {
                 scales: {
-
+                    y: {
+                        beginAtZero: false,
+                        suggestedMin: menorValor - 5,
+                        suggestedMax: maiorValor + 5,
+                        title: {
+                            display: true,
+                            text: 'Umidade (%)',
+                            color: '#5f422c',
+                            font: {
+                                size: 20,
+                                weight: 600
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Data e Hora',
+                            color: '#5f422c',
+                            font: {
+                                size: 20,
+                                weight: 600
+                            }
+                        },
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
                 }
             }
         });

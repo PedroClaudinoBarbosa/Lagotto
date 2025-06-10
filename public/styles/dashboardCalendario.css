@@ -1,0 +1,125 @@
+/* Estilos gerais */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.logo img {
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+.nav a {
+    text-decoration: none;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.nav div {
+    padding: 10px;
+    background-color: #4e2d1f;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+}
+
+.nav a:hover div {
+    background-color: #6a3d28;
+}
+
+.container-calendario {
+    margin-left: 270px; /* espaço para a sidebar */
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.container-geral {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.container-conteudo {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: #31221b;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+}
+
+#data_select {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #4e2d1f;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 250px;
+    background-color: #f1f1f1;
+}
+
+input[type="date"]:focus {
+    outline: none;
+    border-color: #6a3d28;
+}
+
+#containerSensores {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.imgSensor-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.imgSensor-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.imgSensor-item img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.imgSensor-item p {
+    text-align: center;
+    margin: 5px 0;
+    color: #333;
+    font-size: 14px;
+}
+
+#graficoDeLinha {
+    width: 100%;
+    height: 400px;
+    max-width: 800px;
+    margin-top: 40px;
+}
+
+/* Melhorando a exibição do gráfico */
+canvas {
+    max-width: 100% !important;
+    margin: 0 auto;
+    display: block;
+}

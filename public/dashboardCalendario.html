@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lagotto Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/dashboardCalendario.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo"><img src="./assets/logo.png" alt="Imagem"></div>
+        <div class="nav">
+          <a href="dashboardAvisos.html" style="color: wheat;">
+            <div class="box11">
+              ⚠️ Avisos
+            </div>
+          </a>
+          <a href="dashboardPlantios.html" style="color: wheat;">
+            <div class="box12">
+              📊 Plantios
+            </div>
+          </a>
+    
+          <a href="dashboardCalendario.html" style="color: wheat;">
+            <div class="box13">
+              📅 Calendário
+            </div>
+          </a>
+          <a href="dashboardConfiguracoes.html" style="color: wheat;">
+            <div class="box14">
+              ⚙️ Configurações
+            </div>
+          </a>
+          <a href="login_cadastro.html" style="color: wheat;">
+            <div class="box15">
+              ❌ Sair
+            </div>
+          </a>
+        </div>
+      </div>
+
+
+    <div class="container-calendario">
+        <div class="container-geral">
+            <div class="container-conteudo">
+                <input type="date" id="data_select" onchange="buscarDadosPorData()">
+                <div id="containerSensores"></div>
+                <div id="graficoDeLinha"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        async function buscarDadosPorData() {
+            let dataSelecionada = document.getElementById('data_select').value;
+
+            let dadosSensores = await fetchDadosPorData(dataSelecionada);
+
+            exibirSensores(dadosSensores);
+            exibirGraficoDeLinha(dadosSensores);
+        }
+
+        async function fetchDadosPorData(data) {
+            let resposta = await fetch(`/calendario/${data}/${sessionStorage.ID_EMPRESA}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!resposta.ok) {
+                console.error('Erro ao buscar dados de sensores');
+                return [];
+            }
+
+            let dados = await resposta.json();
+            return dados;
+        }
+
+        function exibirSensores(dados) {
+            const container = document.getElementById('containerSensores');
+            let sensoresHtml = '';
+
+            if (dados.length > 0) {
+                dados.forEach(sensor => {
+                    let umidade = sensor.umidade;
+                    let status = umidade >= 30 && umidade <= 40 ? 'Normal' : 'Crítico';
+                    let imageSrc = status === 'Normal' ? 'assets/sinal_radio_verde.png' : 'assets/signal_radio_vermelho.png';
+
+                    sensoresHtml += `
+                        <div class="imgSensor-item">
+                            <img src="${imageSrc}" class="sensor-click" data-id="${sensor.idDadosSensor}" alt="Sinal do Sensor">
+                            <p><strong>Nome Plantio:</strong> ${sensor.nome_plantio || 'N/A'}</p>
+                            <p><strong>Região:</strong> ${sensor.descricao_regiao || 'N/A'}</p>
+                            <p><strong>Umidade:</strong> ${umidade}% (${status})</p>
+                        </div>
+                    `;
+                });
+            } else {
+                sensoresHtml = `<p style="text-align: center;">Nenhum dado encontrado para a data selecionada.</p>`;
+            }
+
+            container.innerHTML = sensoresHtml;
+        }
+
+        function exibirGraficoDeLinha(dados) {
+            const containerGrafico = document.getElementById('graficoDeLinha');
+            let labels = [];
+            let umidadeData = [];
+
+            dados.forEach(sensor => {
+                labels.push(sensor.descricao); 
+                umidadeData.push(sensor.umidade); 
+            });
+
+            if (umidadeData.length === 0) {
+                containerGrafico.innerHTML = '<p>Sem dados para exibir gráfico.</p>';
+                return;
+            }
+
+            const ctx = document.createElement('canvas');
+            containerGrafico.innerHTML = ''; 
+            containerGrafico.appendChild(ctx);
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Variação de Umidade',
+                        data: umidadeData,
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>
