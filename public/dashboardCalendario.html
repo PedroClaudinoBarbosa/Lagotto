@@ -35,12 +35,13 @@
     <div class="container-calendario">
         <div class="container-geral">
             <div class="container-conteudo">
-
-                <input type="date" id="data_select" onchange="buscarDadosPorData()">
-                <button id="visualizarButton" onclick="toggleSensores()">Visualizar Tudo</button>
-                
-                <div id="containerSensores" on class="hidden"></div>
+                <div class="data-container">
+                    <input type="date" id="data_select" onchange="buscarDadosPorData()">
+                    <button id="visualizarButton" onclick="toggleSensores()">Visualizar Tudo</button>
+                </div>
                 <div id="graficoDeLinha"></div>
+                <div id="containerSensores" class="hide"></div>
+
             </div>
         </div>
     </div>
@@ -50,8 +51,8 @@
         async function buscarDadosPorData() {
             let dataSelecionada = document.getElementById('data_select').value;
             let dadosSensores = await fetchDadosPorData(dataSelecionada);
-            exibirSensores(dadosSensores);
             exibirGraficoDeLinha(dadosSensores);
+            exibirSensores(dadosSensores);
         }
 
         async function fetchDadosPorData(data) {
@@ -69,32 +70,6 @@
 
             let dados = await resposta.json();
             return dados;
-        }
-
-        function exibirSensores(dados) {
-            const container = document.getElementById('containerSensores');
-            let sensoresHtml = '';
-
-            if (dados.length > 0) {
-                dados.forEach(sensor => {
-                    let umidade = sensor.umidade;
-                    let status = umidade >= 30 && umidade <= 40 ? 'Normal' : 'Crítico';
-                    let imageSrc = status === 'Normal' ? 'assets/sinal_radio_verde.png' : 'assets/signal_radio_vermelho.png';
-
-                    sensoresHtml += `
-                        <div class="imgSensor-item">
-                            <img src="${imageSrc}" class="sensor-click" data-id="${sensor.idDadosSensor}" alt="Sinal do Sensor">
-                            <p><strong>Nome Plantio:</strong> ${sensor.nome_plantio || 'N/A'}</p>
-                            <p><strong>Região:</strong> ${sensor.descricao_regiao || 'N/A'}</p>
-                            <p><strong>Umidade:</strong> ${umidade}% (${status})</p>
-                        </div>
-                    `;
-                });
-            } else {
-                sensoresHtml = '<p style="text-align: center;">Nenhum dado encontrado para a data selecionada.</p>';
-            }
-
-            container.innerHTML = sensoresHtml;
         }
 
         function exibirGraficoDeLinha(dados) {
@@ -137,15 +112,42 @@
             });
         }
 
+        function exibirSensores(dados) {
+            const container = document.getElementById('containerSensores');
+            let sensoresHtml = '';
+
+            if (dados.length > 0) {
+                dados.forEach(sensor => {
+                    let umidade = sensor.umidade;
+                    let status = umidade >= 30 && umidade <= 40 ? 'Normal' : 'Crítico';
+                    let imageSrc = status === 'Normal' ? 'assets/sinal_radio_verde.png' : 'assets/signal_radio_vermelho.png';
+
+                    sensoresHtml += 
+                        `<div class="imgSensor-item">
+                            <img src="${imageSrc}" class="sensor-click" data-id="${sensor.idDadosSensor}" alt="Sinal do Sensor">
+                            <p><strong>Nome Plantio:</strong> ${sensor.nome_plantio || 'N/A'}</p>
+                            <p><strong>Região:</strong> ${sensor.descricao_regiao || 'N/A'}</p>
+                            <p><strong>Umidade:</strong> ${umidade}% (${status})</p>
+                        </div>`;
+                });
+            } else {
+                sensoresHtml = '<p style="text-align: center;">Nenhum dado encontrado para a data selecionada.</p>';
+            }
+
+            container.innerHTML = sensoresHtml;
+        }
+
+        
+
         function toggleSensores() {
             const container = document.getElementById('containerSensores');
             const visualizarButton = document.getElementById('visualizarButton');
             
-            if (container.classList.contains('hidden')) {
-                container.classList.remove('hidden');
+            if (container.classList.contains('hide')) {
+                container.classList.remove('hide');
                 visualizarButton.textContent = 'Esconder Tudo';
             } else {
-                container.classList.add('hidden');
+                container.classList.add('hide');
                 visualizarButton.textContent = 'Visualizar Tudo';
             }
         }

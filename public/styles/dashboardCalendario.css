@@ -1,4 +1,3 @@
-/* Estilizando a página */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -30,15 +29,27 @@ body {
     max-width: 1200px;
 }
 
+/* Estilização do campo de data */
+.data-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
 #data_select {
     padding: 10px;
     font-size: 16px;
     border: 2px solid #4e2d1f;
     border-radius: 5px;
-    margin-bottom: 20px;
-    width: 100%;
-    max-width: 250px;
+    width: 200px;
     background-color: #f1f1f1;
+    transition: border 0.3s ease;
+}
+
+#data_select:focus {
+    border-color: #6a3d28;
+    outline: none;
 }
 
 #visualizarButton {
@@ -56,10 +67,7 @@ body {
     background-color: #6a3d28;
 }
 
-.hidden {
-    display: none;
-}
-
+/* Layout de sensores */
 #containerSensores {
     display: flex;
     flex-wrap: wrap;
@@ -98,18 +106,8 @@ body {
     text-align: center;
     margin: 5px 0;
     color: #333;
-    font-size: 14px;
 }
 
-#graficoDeLinha {
-    width: 100%;
-    height: 400px;
-    max-width: 800px;
-    margin-top: 40px;
-}
-
-canvas {
-    max-width: 100% !important;
-    margin: 0 auto;
-    display: block;
+.hide {
+    display: flex;
 }
