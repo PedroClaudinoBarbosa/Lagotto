@@ -5,6 +5,7 @@ body {
     padding: 0;
 }
 
+    
 .container-calendario {
     margin-left: 270px;
     padding: 20px;
@@ -58,7 +59,7 @@ body {
 
 #visualizarButton {
     padding: 10px 20px;
-    background-color: #4e2d1f;
+    background-color: #d6711e;
     color: white;
     border: none;
     border-radius: 5px;
@@ -115,3 +116,4 @@ body {
 .hide {
     display: flex;
 }
+
