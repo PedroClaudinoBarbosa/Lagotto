@@ -1,4 +1,4 @@
-/* Estilos gerais */
+/* Estilizando a página */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -6,33 +6,8 @@ body {
     padding: 0;
 }
 
-
-
-.logo img {
-    width: 150px;
-    margin-bottom: 20px;
-}
-
-.nav a {
-    text-decoration: none;
-    display: block;
-    margin-bottom: 15px;
-}
-
-.nav div {
-    padding: 10px;
-    background-color: #4e2d1f;
-    border-radius: 10px;
-    color: white;
-    text-align: center;
-}
-
-.nav a:hover div {
-    background-color: #6a3d28;
-}
-
 .container-calendario {
-    margin-left: 270px; /* espaço para a sidebar */
+    margin-left: 270px;
     padding: 20px;
     min-height: 100vh;
 }
@@ -52,7 +27,7 @@ body {
     border-radius: 10px;
     padding: 20px;
     width: 100%;
-    max-width: 800px;
+    max-width: 1200px;
 }
 
 #data_select {
@@ -66,15 +41,30 @@ body {
     background-color: #f1f1f1;
 }
 
-input[type="date"]:focus {
-    outline: none;
-    border-color: #6a3d28;
+#visualizarButton {
+    padding: 10px 20px;
+    background-color: #4e2d1f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+#visualizarButton:hover {
+    background-color: #6a3d28;
+}
+
+.hidden {
+    display: none;
 }
 
 #containerSensores {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 20px;
+    justify-content: center;
     margin-bottom: 40px;
 }
 
@@ -88,8 +78,9 @@ input[type="date"]:focus {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     width: 100%;
-    max-width: 300px;
+    max-width: 250px;
     margin: 0 auto;
+    text-align: center;
 }
 
 .imgSensor-item:hover {
@@ -117,7 +108,6 @@ input[type="date"]:focus {
     margin-top: 40px;
 }
 
-/* Melhorando a exibição do gráfico */
 canvas {
     max-width: 100% !important;
     margin: 0 auto;

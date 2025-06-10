@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,53 +13,43 @@
     <div class="sidebar">
         <div class="logo"><img src="./assets/logo.png" alt="Imagem"></div>
         <div class="nav">
-          <a href="dashboardAvisos.html" style="color: wheat;">
-            <div class="box11">
-              ⚠️ Avisos
-            </div>
-          </a>
-          <a href="dashboardPlantios.html" style="color: wheat;">
-            <div class="box12">
-              📊 Plantios
-            </div>
-          </a>
-    
-          <a href="dashboardCalendario.html" style="color: wheat;">
-            <div class="box13">
-              📅 Calendário
-            </div>
-          </a>
-          <a href="dashboardConfiguracoes.html" style="color: wheat;">
-            <div class="box14">
-              ⚙️ Configurações
-            </div>
-          </a>
-          <a href="login_cadastro.html" style="color: wheat;">
-            <div class="box15">
-              ❌ Sair
-            </div>
-          </a>
-        </div>
-      </div>
+            <a href="dashboardAvisos.html" style="color: wheat;">
+                <div class="box11">⚠️ Avisos</div>
+            </a>
+            <a href="dashboardPlantios.html" style="color: wheat;">
+                <div class="box12">📊 Plantios</div>
+            </a>
 
+            <a href="dashboardCalendario.html" style="color: wheat;">
+                <div class="box13">📅 Calendário</div>
+            </a>
+            <a href="dashboardConfiguracoes.html" style="color: wheat;">
+                <div class="box14">⚙️ Configurações</div>
+            </a>
+            <a href="login_cadastro.html" style="color: wheat;">
+                <div class="box15">❌ Sair</div>
+            </a>
+        </div>
+    </div>
 
     <div class="container-calendario">
         <div class="container-geral">
             <div class="container-conteudo">
+
                 <input type="date" id="data_select" onchange="buscarDadosPorData()">
-                <div id="containerSensores"></div>
+                <button id="visualizarButton" onclick="toggleSensores()">Visualizar Tudo</button>
+                
+                <div id="containerSensores" on class="hidden"></div>
                 <div id="graficoDeLinha"></div>
             </div>
         </div>
     </div>
 
     <script>
-
+        // Função para buscar dados da API
         async function buscarDadosPorData() {
             let dataSelecionada = document.getElementById('data_select').value;
-
             let dadosSensores = await fetchDadosPorData(dataSelecionada);
-
             exibirSensores(dadosSensores);
             exibirGraficoDeLinha(dadosSensores);
         }
@@ -102,7 +91,7 @@
                     `;
                 });
             } else {
-                sensoresHtml = `<p style="text-align: center;">Nenhum dado encontrado para a data selecionada.</p>`;
+                sensoresHtml = '<p style="text-align: center;">Nenhum dado encontrado para a data selecionada.</p>';
             }
 
             container.innerHTML = sensoresHtml;
@@ -114,8 +103,8 @@
             let umidadeData = [];
 
             dados.forEach(sensor => {
-                labels.push(sensor.descricao); 
-                umidadeData.push(sensor.umidade); 
+                labels.push(sensor.descricao);
+                umidadeData.push(sensor.umidade);
             });
 
             if (umidadeData.length === 0) {
@@ -124,7 +113,7 @@
             }
 
             const ctx = document.createElement('canvas');
-            containerGrafico.innerHTML = ''; 
+            containerGrafico.innerHTML = '';
             containerGrafico.appendChild(ctx);
 
             new Chart(ctx, {
@@ -148,8 +137,19 @@
             });
         }
 
+        function toggleSensores() {
+            const container = document.getElementById('containerSensores');
+            const visualizarButton = document.getElementById('visualizarButton');
+            
+            if (container.classList.contains('hidden')) {
+                container.classList.remove('hidden');
+                visualizarButton.textContent = 'Esconder Tudo';
+            } else {
+                container.classList.add('hidden');
+                visualizarButton.textContent = 'Visualizar Tudo';
+            }
+        }
     </script>
 
 </body>
-
 </html>
