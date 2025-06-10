@@ -1,6 +1,7 @@
 # Monitoramento de Umidade do Solo para Cultivo de Trufas Negras
+<p align="center"><img src="https://i.imgur.com/XJ5UMJZ.png" /></p>
 
-## Lagotto - Grupo 05:
+## Grupo 05:
 ### [Fabrizzio Puttini](https://github.com/FabPuttini)
 ### [João Carlos](https://github.com/JoaoCDVancea)
 ### [Luiz Souza](https://github.com/LuizSouzaSP)
