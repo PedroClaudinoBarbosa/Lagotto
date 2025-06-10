@@ -7,6 +7,7 @@
     <title> Lagotto Dashboard </title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="shortcut icon" href="assets/icon/lagotto-icon.png" type="image/x-icon">
 </head>
 
 <body>
@@ -34,7 +35,7 @@
           ⚙️ Configurações
         </div>
       </a>
-      <a href="login_cadastro.html" style="color: wheat;">
+      <a onclick="sair()" href="login_cadastro.html" style="color: wheat;">
         <div class="box5">
           ❌ Sair
         </div>
@@ -69,7 +70,7 @@
 </body>
 
 </html>
-
+<script src="./scripts/sessionStorage.js"></script>
 <script>
     let graficoRegiao = null;
     let tempo = 30;
@@ -211,7 +212,7 @@
                             <div class="hide titulo" id="tituloGrafico${i}">
                                 <h3>Umidade das Últimas 24 Horas</h3>
                                 <p style="color: #FFC219; margin-bottom: 0px">Estado de alerta: umidade menor que 32% ou maior que 38%</p>
-                                <p style="color: red">Estado cŕitico: umidade maior que 30% ou menor que 40%</p>
+                                <p style="color: red">Estado cŕitico: umidade menor que 30% ou maior que 40%</p>
                             </div>
                         </div>
                         <div class="conteudo">
@@ -405,6 +406,8 @@
             element.classList.add('hide');
         }
     }
-
+    function sair(){
+        sessionStorage.CONECTADO = 'desconectado'
+    }
 
 </script>

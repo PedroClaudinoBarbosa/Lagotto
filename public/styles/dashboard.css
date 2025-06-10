@@ -145,6 +145,10 @@ h2 {
     margin-bottom: 10px;
 }
 
+h1{
+    font-size: 60px;
+}
+
 .alert {
     color: #e53935;
     font-weight: bold;
@@ -414,4 +418,62 @@ a {
 .titulos .titulo p{
     font-size: 20px;
     color: #8F8F8F;
+}
+.cadastrar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    border-radius: 20px;
+    left: 44vw;
+    top: 10vh;
+    height: 75vh;
+    width: 30vw;
+    box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.4);
+    transition: 0.2s linear;
+}
+.cadastrar h1 {
+    transform: translateY(20px);
+    transform: translateX(60px);
+}
+.cadastrar:hover{
+    top:9.5vh
+}
+.cadastrar .box{
+    display: flex;
+    flex-direction: column;
+}
+.cadastrar .box span{
+    margin-top: 40px;
+}
+.cadastrar input {
+    width: 300px;
+    height: 50px;
+    border: 0;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.4);
+    font-size: 15px;
+    transition: 0.3s ease-out;
+}
+.cadastrar button{
+    margin-top: 30px;
+    width: 300px;
+    height: 50px;
+    border-radius: 20px;
+    border: 0;
+    background: linear-gradient(to right, #20130f, #3c261d);
+    color: beige;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    box-shadow: 5px 5px 10px rgba(117, 79, 79, 0.4);
+}
+.cadastrar button:hover {
+    transform: translateY(-5px);
+}
+.cadastrar input:hover{
+    transform: translateY(-5px);
+}
+
+.cadastrar button:active {
+    transform: translateY(5px);
 }

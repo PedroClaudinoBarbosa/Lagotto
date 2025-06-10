@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/suporte.css">
+    <link rel="shortcut icon" href="assets/icon/lagotto-icon.png" type="image/x-icon">
     <title>Suporte</title>
 </head>
 
@@ -15,6 +16,11 @@
             <div>
                 <a href="dashboardSuporte.html" style="color: wheat;">📞 Suporte</a>
             </div>
+            <a onclick="sair()" href="login_cadastro.html" style="color: wheat;">
+                <div class="box10">
+                  ❌ Sair
+                </div>
+              </a>
         </div>
     </div>
     <div class="content">
@@ -25,6 +31,7 @@
         <h3>Resposta da IA:</h3>
         <div id="resposta"></div>
     </div>
+    <script src="./scripts/sessionStorage.js"></script>
 
     <script>
 
@@ -45,6 +52,9 @@
             document.getElementById('resposta').innerText = data.resultado;
         }
 
+        function sair(){
+            sessionStorage.CONECTADO = 'desconectado'
+        }
     </script>
 </body>
 
