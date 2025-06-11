@@ -510,3 +510,21 @@ a {
     margin-top: 10px;
     text-align: center;
 }
+
+.quadradoRegiao {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.quadradoRegiao h1 {
+    margin:  0px;
+}
+
+.quadradoRegiao p {
+    margin: 0px;
+}
+
+.selecionado {
+    height: 300px;
+}

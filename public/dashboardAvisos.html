@@ -245,7 +245,10 @@
                     }
 
                     alertaHTML += `
-                        <div class="${classeCor}" onclick="estatisticasRegiao(${m}, ${i})">${regiaoNome}</div>
+                        <div id="regiao${m}${i}" class="${classeCor} quadradoRegiao" onclick="estatisticasRegiao(${m}, ${i})">
+                                <h1>${regiaoNome}</h1>
+                                <p><span class="umidade">${Math.floor(ultimaUmidade)}%</span></p>
+                        </div>
                     `;
                 }
 
@@ -289,6 +292,9 @@
     }
 
     function estatisticasRegiao(idRegiao, idPlantio) {
+        let quadradoRegiao = document.getElementById(`regiao${idRegiao}${idPlantio}`);
+        quadradoRegiao.classList.add('selecionado');
+
         let graficoTitulo = document.getElementById(`tituloGrafico${idPlantio}`);
         graficoTitulo.classList.remove('hide');
 
