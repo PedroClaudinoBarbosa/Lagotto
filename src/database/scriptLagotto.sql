@@ -75,13 +75,14 @@ CONSTRAINT fkDadosRegiao
 -- Inserindo endereços (8 no total: 2 empresas + 4 plantios + 2 funcionários fictícios se quiser depois)
 INSERT INTO Endereco (cep, logradouro, numero, cidade, estadoSigla, coordX, coordY) VALUES
 ('12345-000', 'Rua das Trufas', 100, 'TrufaVille', 'SP', 250, 150),       -- id 1 - Empresa 1
-('23456-000', 'Av. dos Fungos', 200, 'TrufaVille', 'SP', 260, 160),       -- id 2 - Empresa 2
-('34567-000', 'Sítio das Árvores', 1, 'Campestre', 'MG', 270, 170),       -- id 3 - Plantio 1 da Empresa 1
-('45678-000', 'Fazenda do Carvalho', 2, 'Campestre', 'MG', 280, 180),     -- id 4 - Plantio 2 da Empresa 1
+('23456-000', 'Av. dos Fungos', 200, 'Belo Horizonte', 'SP', 260, 160),       -- id 2 - Empresa 2
+('34567-000', 'Sítio das Árvores', 1, 'São Paulo', 'SP', 190, 90),       -- id 3 - Plantio 1 da Empresa 1
+('45678-000', 'Fazenda do Carvalho', 2, 'Campestre', 'MG', 220, 180),     -- id 4 - Plantio 2 da Empresa 1
 ('56789-000', 'Trufalândia Norte', 3, 'Interiorzão', 'PR', 290, 190),     -- id 5 - Plantio 1 da Empresa 2
 ('67890-000', 'Trufalândia Sul', 4, 'Interiorzão', 'PR', 300, 200),       -- id 6 - Plantio 2 da Empresa 2
 ('01414-000', 'Haddock Lobo', 200, 'Av. Paulista', 'SP', 310, 210);       -- id 7 - Lagotto
 
+SELECT * FROM Endereco;
 -- Inserindo empresas
 INSERT INTO Empresa (nome, cnpj, ativo, fkEndereco) VALUES
 ('Trufas Nobres LTDA', '12345678000199', 1, 1),
@@ -160,3 +161,32 @@ INSERT INTO DadosSensor(umidade, fkPlantio, fkRegiao) VALUES
     (28, 2, 6),
     (33, 1, 6),
     (44, 1, 6);
+    
+SELECT 
+	end.coordX, 
+	end.coordY,
+	end.logradouro,
+	end.cidade, 
+	end.estadoSigla
+FROM Plantio
+INNER JOIN Endereco end ON end.idEndereco = Plantio.fkEndereco
+WHERE Plantio.fkEmpresa = 1;
+
+TRUNCATE TABLE DadosSensor;
+
+SELECT COUNT(*) FROM DadosSensor;
+
+SELECT * FROM DadosSensor
+ORDER BY data DESC
+LIMIT 10;
+
+SELECT  DadosSensor.idDadosSensor,
+		Regiao.descricao,
+		DATE_FORMAT(DadosSensor.data, "%d/%m %H:%i:%S") as data,
+		DadosSensor.umidade
+FROM DadosSensor
+INNER JOIN Regiao ON DadosSensor.fkRegiao = Regiao.idRegiao AND DadosSensor.fkPlantio = Regiao.fkPlantio
+WHERE DadosSensor.fkPlantio = 1
+	AND DadosSensor.fkRegiao = 1
+ORDER BY data DESC
+LIMIT 10;
