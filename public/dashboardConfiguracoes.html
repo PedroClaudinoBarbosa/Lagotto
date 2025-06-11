@@ -13,6 +13,7 @@
   <div class="sidebar">
     <div class="logo"><img src="./assets/logo.png" alt="Imagem"></div>
     <div class="nav">
+      <h4 id="b_usuario" style="color: white;  text-align: center;"></h4>
       <a href="dashboardAvisos.html" style="color: wheat;">
         <div class="box11">
           ⚠️ Avisos
@@ -29,12 +30,12 @@
           📅 Calendário
         </div>
       </a>
-      <a href="dashboardConfiguracoes.html" style="color: wheat;">
-        <div class="box13">
+      <a id="config" href="dashboardConfiguracoes.html" style="color: wheat;">
+        <div  class="box13">
           ⚙️ Configurações
         </div>
       </a>
-      <a onclick="sair()" href="login_cadastro.html" style="color: wheat;">
+      <a href="login_cadastro.html" style="color: wheat;">
         <div class="box15">
           ❌ Sair
         </div>
@@ -44,20 +45,23 @@
   <div class="cadastrar">
     <h1>Cadastrar Novos Funcionários</h1>
     <div class="box">
-        <span>Nome:</span>
+        <span style="color: wheat;">Nome:</span>
         <input type="text" id="nome_funcionario" placeholder="exemplo@exemplo.com">
-        <span>Email:</span>
+        <span style="color: wheat;">Email:</span>
         <input type="text" id="email_funcionario" placeholder="exemplo@exemplo.com">
-        <div id="avisoEmail"></div>
-        <span>Senha:</span>
+        <div id="avisoEmail" class="avisos"></div>
+        <span style="color: wheat;">Senha:</span>
         <input type="password" id="senha_funcionario" placeholder="********">
-        <div id="avisoSenha"></div>
+        <div id="avisoSenha" class="avisos"></div>
         <button onclick="cadastrar()">Cadastrar Funcionário</button>
+        <div id="aviso" class="avisos"></div>
     </div>
 </div>
 <script src="./scripts/sessionStorage.js"></script>
 <script>
     function cadastrar() {
+      avisoEmail.innerHTML += ``;
+      aviso.innerHTML = ``;
       const nomeInput = nome_funcionario.value;
       const emailInput = email_funcionario.value;
       const senhaInput = senha_funcionario.value;
@@ -113,18 +117,26 @@
 
         if (resposta.ok) {
           console.log('Dados recebidos!')
+              aviso.innerHTML = `Usuário Cadastrado com Sucesso!`;
+
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
+        
+
         }
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
+        avisoEmail.innerHTML += `Email Inválido!<br>`;
       });
 
     return false;
     }
-    
-    function sair(){
-        sessionStorage.CONECTADO = 'desconectado'
-    }
+
   </script>
+  <script>
+      if (sessionStorage.ADMIN != 1){
+        document.getElementById('config').remove();
+    }
+    b_usuario.innerHTML = `Olá ${sessionStorage.NOME_USUARIO}</span>!`;
+</script>

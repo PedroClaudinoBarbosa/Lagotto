@@ -647,8 +647,9 @@ section .videoFundo {
 }
 
 .login .aviso {
-    color: gray;
+    color: rgb(255, 255, 50);
     font-size: 16px;
+    margin-top: 10px;
 }
 
 .login img {

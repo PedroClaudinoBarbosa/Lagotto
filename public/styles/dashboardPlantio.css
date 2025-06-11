@@ -1,3 +1,9 @@
+
+
+* {
+    font-family: DM Sans, sans-serif;
+}
+
 .containerGeralGraficos {
     display: flex;
     flex-direction: row;
@@ -23,7 +29,7 @@
     flex-direction: row;
     background-color: #31221b;
     border-radius: 20px;
-    padding: 30px;
+    padding: 10px;
 
 }
 
@@ -164,12 +170,12 @@
     justify-content: space-evenly;
     align-items: stretch;
     flex-wrap: wrap;
-
 }
 
 .imgSensor img {
     align-self: center;
     justify-self: center;
+    margin: 0 auto; 
 }
 
 .imgSensro1 {

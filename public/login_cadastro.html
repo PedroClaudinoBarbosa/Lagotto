@@ -25,14 +25,13 @@
             <div>
                 <p>Endereço de email</p>
                 <input type="text" placeholder="Email" id="ipt_email">
-                <div id="avisoEmail" class="aviso"></div>
             </div>
             <div>
                 <p>Senha</p>
                 <input type="password" placeholder="Senha" id="ipt_senha">
-                <div id="avisoSenha" class="aviso"></div>
             </div>
             <div>
+                <div id="aviso" class="aviso"></div>
                 <button onclick="login()">Entrar</button>
             </div>
 
@@ -76,45 +75,9 @@
 </html>
 <script>
 
-    var email1 = 'sptechtrufas@gmail.com';
-    var senha1 = 'sptech123';
-    var email2 = 'trufarancheira@outlook.com';
-    var senha2 = 'trufa123';
-    var email3 = 'paulistatrufas@gmail.com';
-    var senha3 = 1234;
-
-    var email4;
-    var senha4;
-    var email5;
-    var senha5;
-
-
-    function entrar() {
-        div_login.innerHTML = `
-            <img src="./assets/logo.png" alt="Imagem">
-            <h1>Login</h1>
-            <div>
-                <p>Endereço de email</p>
-                <input type="text" placeholder="Email" id="ipt_email">
-            </div>
-            <div>
-                <p>Senha</p>
-                <input type="text" placeholder="Senha" id="ipt_senha">
-            </div>
-            <div>
-                <button onclick="login()">Entrar</button>
-            </div>
-
-
-            <div>
-                <p style="color: rgba(255, 255, 255, 0.651);">Esqueceu a senha?</p>
-                <p>Ainda não é um cliente? <span id="clicavel" onclick="cadastro()">Cadastre-se</span></p>
-            </div>
-        `
-            ;
-    }
 
     function login() {
+        aviso.innerHTML = '';
         var emailEscrito = ipt_email.value;
         var senhaEscrita = ipt_senha.value;
 
@@ -140,6 +103,7 @@
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.idUsuario;
                     sessionStorage.ID_EMPRESA = json.fkEmpresa;
+                    sessionStorage.ADMIN = json.isAdmin;
                     sessionStorage.CONECTADO = "conectado";
 
                     setTimeout(function () {
@@ -155,13 +119,19 @@
 
             } else {
                 console.log("Houve um erro ao tentar realizar o login!");
+                aviso.innerHTML = 'Email ou Senha Inválidos!';
 
                 resposta.text().then(texto => {
                     console.error(texto);
+                    aviso.innerHTML = 'Email ou Senha Inválidos!';
+
+
                 });
             }
         }).catch(function (erro) {
             console.log(erro);
+            aviso.innerHTML = 'Email ou Senha Inválidos!';
+
         })
 
         return false;

@@ -13,6 +13,7 @@
     <div class="sidebar">
         <div class="logo"><img src="./assets/logo.png" alt="Imagem"></div>
         <div class="nav">
+            <h4 id="b_usuario" style="color: white;  text-align: center;"></h4>
             <div>
                 <a href="dashboardSuporte.html" style="color: wheat;">📞 Suporte</a>
             </div>
@@ -59,3 +60,6 @@
 </body>
 
 </html>
+<script>
+    b_usuario.innerHTML = `Olá ${sessionStorage.NOME_USUARIO}</span>!`;
+</script>
