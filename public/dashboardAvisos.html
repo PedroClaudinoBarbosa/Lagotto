@@ -45,9 +45,9 @@
 
     <div class="content">
         <div class="section">
-            <div>
+            <div class="titulo">
                 <h2>Histórico de Alertas</h2>
-                <p>Tempo para atualização: </p>
+                <p id="tempoAtualizacao">Tempo para atualização: </p>
             </div>
             <div class="alertas" id="alertas">
                 <div class="cabecalho">
@@ -76,6 +76,7 @@
     let tempo = 30;
 
     let regioesArray = [];
+    listarAvisos();
     listarAvisosComLoop();
 
     async function listarAvisos() {
@@ -273,9 +274,16 @@
     }
 
     async function listarAvisosComLoop() {
-        await listarAvisos();
+        --tempo;
+        tempoAtualizacao.innerHTML = 'Tempo para atualização: ';
+        tempoAtualizacao.innerHTML += `${tempo} segundos`;
 
-        setTimeout(listarAvisosComLoop, 1000000000); // executa novamente após 10 segundos
+        if(tempo == 0) {
+            await listarAvisos();
+            tempo = 31;
+        }
+
+        setTimeout(listarAvisosComLoop, 1000); // executa novamente após 1 segundos
     }
 
     function estatisticasRegiao(idRegiao, idPlantio) {
