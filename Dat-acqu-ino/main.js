@@ -71,7 +71,7 @@ const serial = async (
                         numeroSomar *= -1;
                     }
 
-                    let  = sensorAnalogico + numeroSomar;
+                    let umidade = sensorAnalogico + numeroSomar;
 
                     await poolBancoDados.execute(
                         'INSERT INTO DadosSensor (umidade, fkPlantio, fkRegiao) VALUES (?, ?, ?)',
