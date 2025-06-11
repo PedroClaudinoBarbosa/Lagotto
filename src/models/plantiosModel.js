@@ -57,7 +57,7 @@ function exibirGraficoBarra(idDadosSensor) {
     let instrucaoSql = `
         select 
             date(data) as dia,
-            avg (umidade * 10) as media_diairia
+            avg (umidade ) as media_diairia
             from DadosSensor
             inner join Regiao on DadosSensor.fkRegiao = Regiao.idRegiao
             join Plantio on Regiao.fkPlantio = Plantio.idPlantio
