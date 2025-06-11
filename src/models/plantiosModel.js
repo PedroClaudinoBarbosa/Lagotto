@@ -57,7 +57,7 @@ function exibirGraficoBarra(idDadosSensor) {
     let instrucaoSql = `
         select 
             date(data) as dia,
-            avg (umidade) as media_diairia
+            avg (umidade * 10) as media_diairia
             from DadosSensor
             inner join Regiao on DadosSensor.fkRegiao = Regiao.idRegiao
             join Plantio on Regiao.fkPlantio = Plantio.idPlantio
@@ -70,9 +70,28 @@ function exibirGraficoBarra(idDadosSensor) {
 }
 
 
+function exibirGraficoLinha(idDadosSensor)
+{
+    let instrucaoSql = `
+    SELECT 
+  AVG(umidade * 10) AS MEDIA_SENSOR,
+  MAX(data) AS dia -- opcional: mostra a data mais recente
+FROM (
+  SELECT umidade, data
+  FROM DadosSensor
+  WHERE idDadosSensor = '${idDadosSensor}'
+  ORDER BY data DESC
+  LIMIT 10
+) AS ultimos_dados;
+ `;
+  return database.executar(instrucaoSql);
+}
+
+
 
 module.exports = {
     buscarTodosPlantios,
     exibirPlantio, 
-    exibirGraficoBarra
+    exibirGraficoBarra,
+    exibirGraficoLinha
 };

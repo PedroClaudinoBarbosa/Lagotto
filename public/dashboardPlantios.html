@@ -66,7 +66,6 @@
   <script src="./scripts/sessionStorage.js"></script>
   <script>
     gerarMapaPlantios();
-    gerarGraficoDeLinha();
 
     async function gerarMapaPlantios() {
       let data = await buscarTodosPlantios();
@@ -150,7 +149,7 @@
 
     async function exibirPlantio(ponto, estado) {
 
-      let buscaporCep = await fetch(`plantios/${ponto.estado}/${sessionStorage.ID_EMPRESA}`, {
+      let buscaporCep = await fetch(`/plantios/exibirPlantio/${ponto.estado}/${sessionStorage.ID_EMPRESA}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -189,7 +188,7 @@
             <div class="imgSensor-item">
         <img src="${imageSrc}" class="sensor-click" data-id="${sensor.idDadosSensor}" alt="Sinal do Sensor">
         <p><strong>Nome Plantio:</strong> ${sensor.nomePlantio || 'N/A'}</p>
-        <p><strong>Região:</strong> ${sensor.logradouro || 'N/A'}</p>
+        <p><strong>Logradouro:</strong> ${sensor.logradouro || 'N/A'}</p>
         <p><strong>Umidade:</strong> ${umidadeEd}% (${umidadeStatus})</p>
     </div>
         `;
@@ -216,9 +215,9 @@
 
       document.querySelectorAll('.sensor-click').forEach((img, indice) => {
         img.addEventListener('click', () => {
+          const sensorId = img.getAttribute('data-id');
           exibirGraficoBarra(ponto, indice + 1);
-          // exbirGraficoDeLinha(ponto, indice + 1);
-
+          exibirGraficoDeLinha(ponto, indice + 1, sensorId);
         });
       });
     }
@@ -232,103 +231,155 @@
     async function exibirGraficoBarra(ponto, indice) {
       const graficoCanva = document.getElementById('graficoCanva');
       graficoCanva.innerHTML = `
-        <div class="GraficoBarra">
-          <canvas id="myChart" width="400" height="200"></canvas>
-        </div>
-      `;
-      let dadosGraficoBarra = await fetch(`/plantios/exibirGraficoBarra/${indice}`, {
-        method: 'GET',
-        headers: { 'Content-type': 'application/json' }
-      })
+    <div class="GraficoBarra">
+      <canvas id="myChart" width="450" height="400"></canvas>
 
-      let dados = await dadosGraficoBarra.json()
+    </div>
+  `;
 
-      if (!dados.ok) {
-        throw new Error(`HTTP error! status: ${dadosGraficoBarra.status}`)
-        return [];
-      }
+      try {
+        // Aqui realizamos o fetch que faz a requisição para o back  e armazena essa resposta em dadosSensor que é uma constante
+        const dadosSensor = await fetch(`/plantios/exibirGraficoBarra/${indice}`, {
+          method: 'GET',
+          headers: { 'Content-type': 'application/json' }
+        });
 
-      let dadosGrafi = dadosGraficoBarra.json()
-      let dadosSensor = []
-      if (dadosGraficoBarra.length > 0) {
-        dadosGraficoBarra.forEach(sensor => {
-          dadosGraficoBarra.push(dadosSensor)
-        })
-      }
-      else {
-        console.log('erro a carregar os dados', response)
-
-      }
-
-      const sensorData = await dadosGraficoBarra.json();
-      const media_diairia = sensorData.umidade;
-
-      const ctx = document.getElementById('myChart').getContext('2d');
-
-      new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['Umidade'],
-          datasets: [{
-            label: `Sensor ${ponto.media_diairia} - ${ponto.dia}`,
-            data: [30, 22],
-            backgroundColor: ['#4CAF50', '#2196F3'],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: { beginAtZero: true }
-          }
+        if (!dadosSensor.ok) {
+          throw new Error(`Erro HTTP: ${dadosSensor.status}`);
+          // valdida primeiro se vai dar erro se der erro na resposta
         }
-      });
+        // Agora  transformamos em JSON
+        const dados = await dadosSensor.json();
+
+
+        if (dados.length === 0) {
+          console.log("Nenhum dado retornado do backend.");
+          return; // se dados(requisição.json()) o tamanho dela for igual a 0, então deu algo errado e não retornou nada no back end
+        }
+
+        //coloca o valor do json em um novo array chamado dia atraves do .map, ele cria sempre um array novo pegando os dados do json e insreindo direto nesse novo array criando com o nome de dia e nesse outro media_diaria
+        const dia = dados.map(item => new Date(item.dia).toLocaleDateString());
+        const media_diaria = dados.map(item => parseFloat(item.media_diairia));
+        // depois de capturar esses dados no front end eu rendernizo na tela passando os arrays dentro da lables e da data
+
+
+        const media_ideal = dia.map(() => 50 * 10);
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        new Chart(ctx, {
+          type: 'bar',
+          options: {
+            indexAxis: 'x'
+          },
+          data: {
+            labels: dia,
+            datasets: [{
+              label: 'Média Diária dos Sensores',
+              data: media_diaria,
+              backgroundColor: '#4CAF50',
+              borderWidth: 1,
+              barThickenss: 30
+            },
+            {
+              label: 'Media Ideal',
+              data: media_ideal,
+              backgroundColor: '#FF9800',
+              varThickness: 30
+            }
+            ]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              x: { beginAtZero: true }
+            }
+          }
+        });
+
+      } catch (erro) {
+        console.error("Erro ao carregar gráfico:", erro);
+      }
+    }
+
+    let chartGlobal = null;
+
+    async function exibirGraficoDeLinha(ponto, indice, sensorId) {
+      const containerGrafico = document.getElementById('containerGraficoLinha');
+      containerGrafico.innerHTML = `
+    <div class="graicoDeLinha">
+      <h1>Localização Plantio</h1>
+     <canvas id="graficoLinhaCanvas"></canvas>
+
+    </div>
+    <div class="cubo-plantio"><h3>Plantio - Umidade Atual: 30%</h3></div>
+  `;
+
+      async function atualizarGraficoDeLinha() {
+        try {
+          const response = await fetch(`/plantios/exibirGraficoLinha/${indice}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+          });
+
+          if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+
+          const dadosSensor = await response.json();
+          if (dadosSensor.length === 0) {
+            console.log("Nenhum dado retornado do backend.");
+            return;
+          }
+
+          const labels = dadosSensor.map(item => {
+            const data = new Date(item.dia);
+            return data.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          });
+
+          const media = dadosSensor.map(item => parseFloat(item.MEDIA_SENSOR)); 
+          const ctx = document.getElementById('graficoLinhaCanvas').getContext('2d');
+
+          
+          if (chartGlobal !== null) {
+            chartGlobal.destroy();
+          }
+
+          console.log("Labels:", labels);
+console.log("Media:", media);
+
+
+          chartGlobal = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: `Sensor ${sensorId} - Variação de Umidade`,
+                data: media,
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.4
+              }]
+            },
+            options: {
+              responsive: true,
+              animation: false,
+              scales: {
+                y: { beginAtZero: true }
+              }
+            }
+          });
+        } catch (erro) {
+          console.error("Erro ao atualizar gráfico de linha:", erro);
+        }
+      }
+
+
+      await atualizarGraficoDeLinha();
+
+      setInterval(atualizarGraficoDeLinha, 20000);
     }
 
 
-  //   function exbirGraficoDeLinha(ponto, sensorId) {
-  //     const containerGrafico = document.getElementById('containerGraficoLinha');
-  //     containerGrafico.innerHTML = `
-  //   <div class="graicoDeLinha">
-  //     <h1>Localização Plantio</h1>
-  //     <canvas id="graficoLinhaCanvas"height: 272px;
-  //   width: 609px;></canvas>
-  //   </div>
-    
-  //     <div class="cubo-plantio"><h3>Plantio - Umidade Atual: 30%</h3></div>
-      
-  // `;
-
-  //     const ctx = document.getElementById('graficoLinhaCanvas').getContext('2d');
-
-  //     const labels = ['Jan', 'Fev', 'Mar'];
-  //     const data = {
-  //       labels: labels,
-  //       datasets: [{
-  //         label: `Sensor ${sensorId} - Variação de Umidade`,
-  //         data: [65, 59, 80, 81], // Dados fictícios
-  //         fill: false,
-  //         borderColor: 'rgb(75, 192, 192)',
-  //         tension: 0.1
-  //       }]
-  //     };
-
-  //     new Chart(ctx, {
-  //       type: 'line',
-  //       data: data,
-  //       options: {
-  //         responsive: true,
-  //         scales: {
-  //           y: {
-  //             beginAtZero: true
-  //           }
-  //         }
-  //       }
-  //     });
-  //   }
-
-    function sair(){
-        sessionStorage.CONECTADO = 'desconectado'
+    function sair() {
+      sessionStorage.CONECTADO = 'desconectado'
     }
   </script>
 
