@@ -46,7 +46,7 @@
     <div class="content">
         <div class="section">
             <div class="titulo">
-                <h2>Histórico de Alertas</h2>
+                <h2>Plantios Atualmente Comprometidos</h2>
                 <p id="tempoAtualizacao">Tempo para atualização: </p>
             </div>
             <div class="alertas" id="alertas">
@@ -159,11 +159,11 @@
                 for (let l = 0; l < regioesPreocupantes.length; l++) {
                     let regiaoPreocupante = regioesPreocupantes[l];
 
-                    if (regiaoPreocupante > 38) {
+                    if (regiaoPreocupante.umidade > 38) {
                         if ((regiaoPreocupante.umidade - 38) > (regiaoComUmidadeMaisPerigosa.umidade - 38)) {
                             regiaoComUmidadeMaisPerigosa = regiaoPreocupante;
                         }
-                    } else if (regiaoPreocupante < 32) {
+                    } else if (regiaoPreocupante.umidade < 32) {
                         if ((32 - regiaoPreocupante.umidade) > (32 - regiaoComUmidadeMaisPerigosa.umidade)) {
                             regiaoComUmidadeMaisPerigosa = regiaoPreocupante;
                         }
@@ -184,7 +184,7 @@
                     corTexto = 'red';
                 } else if (umidade > 38 || umidade < 32) {
                     avisoImagem = '⚠️';
-                    corTexto = 'yellow';
+                    corTexto = '#FFC219';
                 }
 
                 let alertaHTML = `
