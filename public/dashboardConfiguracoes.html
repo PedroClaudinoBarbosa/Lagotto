@@ -52,6 +52,14 @@
         <div id="avisoEmail" class="avisos"></div>
         <span style="color: wheat;">Senha:</span>
         <input type="password" id="senha_funcionario" placeholder="********">
+        <span style="color: wheat;">Senha novamente:</span>
+        <input type="password" id="senha_novamente" placeholder="********">
+        <span style="color: wheat;" id="adm2">Adm:</span>
+        <span id="adm">Adms tem a possibilidade de criar novos funcionarios</span>
+        <select id="isAdmin">
+          <option value="0">Não</option>
+          <option value="1">Sim</option>
+        </select>
         <div id="avisoSenha" class="avisos"></div>
         <button onclick="cadastrar()">Cadastrar Funcionário</button>
         <div id="aviso" class="avisos"></div>
@@ -65,7 +73,9 @@
       const nomeInput = nome_funcionario.value;
       const emailInput = email_funcionario.value;
       const senhaInput = senha_funcionario.value;
+      const senhaInputNovamente = senha_novamente.value;
         const fkEmpresa = sessionStorage.ID_EMPRESA;
+        const adminInput = isAdmin.value;
         let indiceArroba = emailInput.indexOf('@');
         let indicePontoCom = emailInput.indexOf('.com');
         let arrobaAntesPontoCom = indiceArroba < indicePontoCom;
@@ -97,6 +107,9 @@
               avisoSenha.innerHTML += `Sua senha deve conter ao menos um caracter especial!`;
               return;
           }
+          if(senhaInput != senhaInputNovamente) {
+            avisoSenha.innerHTML = `As senhas não coincidem!`;
+          }
       fetch("/usuarios/cadastrar", {
       method: "POST", 
       headers: {
@@ -109,7 +122,7 @@
         senhaServer: senhaInput,
         fkEmpresaServer: fkEmpresa,
         ativoServer: 1,
-        isAdminServer: 0
+        isAdminServer: adminInput
       }),
     })
       .then(function (resposta) {
