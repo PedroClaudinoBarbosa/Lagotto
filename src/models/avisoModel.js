@@ -1,5 +1,19 @@
 let database = require("../database/config");
 
+function listarDiaSemana(idEmpresa) {
+    let instrucaoSql = `
+    SELECT Empresa.idEmpresa,
+           Plantio.idPlantio,
+	       Regiao.descricao,
+	       date_format(DadosSensor.data, '%a') Dia_Semana
+    FROM Empresa
+    INNER JOIN Plantio ON Empresa.idEmpresa = Plantio.fkEmpresa
+    INNER JOIN Regiao ON Plantio.idPlantio = Regiao.fkPlantio
+    INNER JOIN DadosSensor ON Regiao.idRegiao = DadosSensor.fkRegiao
+    WHERE idEmpresa = '${idEmpresa}'
+    ORDER BY idPlantio;
+    `;
+}
 function listarAvisos(idEmpresa) {
     let instrucaoSql = `
         SELECT  DadosSensor.data,
@@ -54,6 +68,7 @@ function buscarRegiao(idPlantio, idRegiao) {
 
 
 module.exports = {
+    listarDiaSemana,
     listarAvisos,
     buscarPlantios,
     buscarRegiao

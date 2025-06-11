@@ -75,7 +75,7 @@
 <script src="./scripts/sessionStorage.js"></script>
 <script>
     let graficoRegiao = null;
-    let tempo = 30;
+    let tempo = 9999999999;
 
     let regioesArray = [];
     listarAvisos();
@@ -208,6 +208,10 @@
                     </div>
                         <div id="alertaGraficos${i}" class="alertaGraficos">
                         <div class="titulos">
+                            <h3>Dia da Semana mais Comprometido</h3>
+                        </div>
+                        <div id="diaSemanaComprometido" class="diaSemanaComprometido"></div>
+                        <div class="titulos">
                             <div class="titulo">
                                 <h3>Mapa do Plantio e Regiões</h3>
                                 <p>Clique em uma região para ver mais informações</p>
@@ -222,6 +226,9 @@
                             <div class="mapa">
                                 <div class="linha">
                 `;
+
+
+                
 
                 for (let m = 0; m < regioes.length; m++) {
                     let regiao = regioes[m];
@@ -255,7 +262,7 @@
                 regioesArray[i] = regioes;
 
                 alertaHTML += `
-                                </div>
+                        </div>
                             </div>
                             <div class="canvas">
                                 <canvas id="graficoPlantio${i}"</canvas>
@@ -276,6 +283,21 @@
                 console.error(texto);
             });
         }
+    }
+
+    async function listarDiaSemana() {
+        const diasSemana = 
+            fetch('/avisos/listarDiaSemana', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                diaDaSemanaSever: 
+            })
+        });
+
+
     }
 
     async function listarAvisosComLoop() {

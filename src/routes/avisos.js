@@ -3,6 +3,10 @@ var router = express.Router();
 
 var avisoController = require("../controllers/avisoController");
 
+router.get("/listarDiaSemana/:idEmpresa", function(req,res) {
+    avisoController.listarDiaSemana(req, res);
+});
+
 router.get("/listarAvisos/:idEmpresa", function(req,res) {
     avisoController.listarAvisos(req, res);
 });

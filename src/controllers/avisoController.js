@@ -1,5 +1,12 @@
 let avisoModel = require("../models/avisoModel");
 
+function listarDiaSemana(req, res) {
+    let idEmpresa = req.params.idEmpresa;
+
+    avisoModel.listarDiaSemana(idEmpresa).then((resultado) => {
+        res.status(200).json(resultado);
+    });
+}
 function listarAvisos(req, res) {
     let idEmpresa = req.params.idEmpresa;
 
@@ -38,6 +45,7 @@ function exibirGraficoBarra(req, res){
 }
 
 module.exports = {
+    listarDiaSemana,
     listarAvisos,
     buscarPlantios,
     buscarRegiao,
