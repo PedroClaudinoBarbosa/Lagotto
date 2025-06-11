@@ -57,9 +57,7 @@
       </div>
       <div id="containerSensores"></div>
     </div>
-    <!-- <div class="container_GraficoLinha">
-      <div class="cotent_grafico_linha" id="containerGraficoLinha"></div>
-    </div> -->  
+
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -263,7 +261,7 @@
         // depois de capturar esses dados no front end eu rendernizo na tela passando os arrays dentro da lables e da data
 
 
-        const media_ideal = dia.map(() => 50 * 10);
+        const media_ideal = dia.map(() => 50);
         const ctx = document.getElementById('myChart').getContext('2d');
 
         new Chart(ctx, {
