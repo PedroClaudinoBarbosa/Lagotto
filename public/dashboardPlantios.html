@@ -7,7 +7,6 @@
   <title>Lagotto Dashboard</title>
   <link rel="stylesheet" href="styles/dashboard.css">
   <link rel="stylesheet" href="styles/dashboardPlantio.css">
-  <link rel="stylesheet" href="styles/style.css">
   <link rel="shortcut icon" href="assets/icon/lagotto-icon.png" type="image/x-icon">
 </head>
 
@@ -15,6 +14,7 @@
   <div class="sidebar">
     <div class="logo"><img src="./assets/logo.png" alt="Imagem"></div>
     <div class="nav">
+      <h4 id="b_usuario" style="color: white;  text-align: center;"></h4>
       <a href="dashboardAvisos.html" style="color: wheat;">
         <div class="box6">
           ⚠️ Avisos
@@ -31,7 +31,7 @@
           📅 Calendário
         </div>
       </a>
-      <a href="dashboardConfiguracoes.html" style="color: wheat;">
+      <a id="config" href="dashboardConfiguracoes.html" style="color: wheat;">
         <div class="box9">
           ⚙️ Configurações
         </div>
@@ -386,3 +386,9 @@ console.log("Media:", media);
 </body>
 
 </html>
+<script>
+    if (sessionStorage.ADMIN != 1){
+        document.getElementById('config').remove();
+    }
+    b_usuario.innerHTML = `Olá ${sessionStorage.NOME_USUARIO}</span>!`;
+</script>

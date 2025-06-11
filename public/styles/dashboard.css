@@ -1,9 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
+* {
+    font-family: DM Sans, sans-serif;
+}
+
 body {
     margin: 0;
     font-family: DM Sans, sans-serif;
-    background-color: #fff;
+    background-color: #ffe7c8;
     color: #815a48;
 }
 
@@ -255,6 +259,7 @@ h1{
 }
 
 .summary-cards {
+
     display: flex;
     gap: 20px;
 }
@@ -301,7 +306,7 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: #FFFFFF solid 1px;
+    border: #000000 solid 2px;
 }
 
 .alerta div {
@@ -364,9 +369,9 @@ a {
 
 .alertaGraficos .mapa div {
     width: 25%;
-    height: 160px;
+    height: 120px;
     text-align: center;
-    border: #000000 1px solid;
+    border: #ffe7c8 3px solid;
     font-size: 60px;
     display: flex;
     justify-content: center;
@@ -375,12 +380,14 @@ a {
     font-weight: bold;
 }
 
+
+
 .verde {
-    background-color: #78FF71;
+    background-color: #1fdf15;
 }
 
 .vermelho {
-    background-color: #FF7171;
+    background-color: #e92727;
 }
 
 .amarelo {
@@ -420,6 +427,7 @@ a {
     color: #8F8F8F;
 }
 .cadastrar{
+    background-color: rgb(49, 16, 16);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -435,6 +443,7 @@ a {
 .cadastrar h1 {
     transform: translateY(20px);
     transform: translateX(60px);
+    color: white;
 }
 .cadastrar:hover{
     top:9.5vh
@@ -447,6 +456,10 @@ a {
     margin-top: 40px;
 }
 .cadastrar input {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 10px;
     width: 300px;
     height: 50px;
     border: 0;
@@ -460,15 +473,19 @@ a {
     width: 300px;
     height: 50px;
     border-radius: 20px;
+    font-size: 20px;
     border: 0;
     background: linear-gradient(to right, #20130f, #3c261d);
     color: beige;
     cursor: pointer;
     transition: 0.3s ease-in-out;
-    box-shadow: 5px 5px 10px rgba(117, 79, 79, 0.4);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
 .cadastrar button:hover {
     transform: translateY(-5px);
+    background: linear-gradient(to right, #000000, #000000);
+    color: white;
+    font-size: 22px;
 }
 .cadastrar input:hover{
     transform: translateY(-5px);
@@ -486,4 +503,10 @@ a {
 
 .titulo p {
     align-self: flex-end;
+}
+
+.avisos {
+    color: rgb(255, 255, 106);
+    margin-top: 10px;
+    text-align: center;
 }
