@@ -2,11 +2,20 @@ let avisoModel = require("../models/avisoModel");
 
 function listarDiaSemana(req, res) {
     let idEmpresa = req.params.idEmpresa;
+    console.log("ID da empresa recebido:", idEmpresa);
 
-    avisoModel.listarDiaSemana(idEmpresa).then((resultado) => {
-        res.status(200).json(resultado);
-    });
+    avisoModel.listarDiaSemana(idEmpresa)
+        .then(resultado => {
+            console.log("Resultado da model:", resultado);
+            res.json(resultado);
+        })
+        .catch(erro => {
+            console.error("Erro ao buscar dia mais comprometido:", erro);
+            res.status(500).json({ erro: "Erro ao buscar dia mais comprometido" });
+        });
 }
+
+
 function listarAvisos(req, res) {
     let idEmpresa = req.params.idEmpresa;
 

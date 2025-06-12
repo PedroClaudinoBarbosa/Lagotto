@@ -2,17 +2,21 @@ let database = require("../database/config");
 
 function listarDiaSemana(idEmpresa) {
     let instrucaoSql = `
-    SELECT Empresa.idEmpresa,
-           Plantio.idPlantio,
-	       Regiao.descricao,
-	       date_format(DadosSensor.data, '%a') Dia_Semana
+    SELECT 
+        date_format(DadosSensor.data, '%a') AS Dia_Semana,
+        COUNT(*) AS total
     FROM Empresa
     INNER JOIN Plantio ON Empresa.idEmpresa = Plantio.fkEmpresa
     INNER JOIN Regiao ON Plantio.idPlantio = Regiao.fkPlantio
     INNER JOIN DadosSensor ON Regiao.idRegiao = DadosSensor.fkRegiao
-    WHERE idEmpresa = '${idEmpresa}'
-    ORDER BY idPlantio;
+    WHERE Empresa.idEmpresa = '${idEmpresa}' AND (umidade < 30 OR umidade > 40)
+    GROUP BY Dia_Semana
+    ORDER BY total DESC
+    LIMIT 1;
     `;
+
+    return database.executar(instrucaoSql);
+
 }
 function listarAvisos(idEmpresa) {
     let instrucaoSql = `

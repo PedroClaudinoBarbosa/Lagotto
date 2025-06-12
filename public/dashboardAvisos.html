@@ -11,39 +11,39 @@
 </head>
 
 <body>
-   <div class="sidebar">
-    <div class="logo"><img src="./assets/logo.png" alt="Imagem"></div>
-    <div class="nav">
-      <h4 id="b_usuario" style="color: white;  text-align: center;"></h4>
+    <div class="sidebar">
+        <div class="logo"><img src="./assets/logo.png" alt="Imagem"></div>
+        <div class="nav">
+            <h4 id="b_usuario" style="color: white;  text-align: center;"></h4>
 
-      <a href="dashboardAvisos.html" style="color: wheat;">
-        <div class="box1">
-          ⚠️ Avisos
-        </div>
-      </a>
-      <a href="dashboardPlantios.html" style="color: wheat;">
-        <div class="box2">
-          📊 Plantios
-        </div>
-      </a>
+            <a href="dashboardAvisos.html" style="color: wheat;">
+                <div class="box1">
+                    ⚠️ Avisos
+                </div>
+            </a>
+            <a href="dashboardPlantios.html" style="color: wheat;">
+                <div class="box2">
+                    📊 Plantios
+                </div>
+            </a>
 
-      <a href="dashboardCalendario.html" style="color: wheat;">
-        <div class="box3">
-          📅 Calendário
+            <a href="dashboardCalendario.html" style="color: wheat;">
+                <div class="box3">
+                    📅 Calendário
+                </div>
+            </a>
+            <a id="config" href="dashboardConfiguracoes.html" style="color: wheat;">
+                <div class="box4">
+                    ⚙️ Configurações
+                </div>
+            </a>
+            <a onclick="sair()" href="login_cadastro.html" style="color: wheat;">
+                <div class="box5">
+                    ❌ Sair
+                </div>
+            </a>
         </div>
-      </a>
-      <a id="config" href="dashboardConfiguracoes.html" style="color: wheat;">
-        <div class="box4">
-          ⚙️ Configurações
-        </div>
-      </a>
-      <a onclick="sair()" href="login_cadastro.html" style="color: wheat;">
-        <div class="box5">
-          ❌ Sair
-        </div>
-      </a>
     </div>
-  </div>
 
     <div class="content">
         <div class="section">
@@ -207,9 +207,7 @@
                         </div>
                     </div>
                         <div id="alertaGraficos${i}" class="alertaGraficos">
-                        <div class="titulos">
-                            <h3>Dia da Semana mais Comprometido</h3>
-                        </div>
+                        <div id= "diaComprometidoTitulo" class="titulos"></div>
                         <div id="diaSemanaComprometido" class="diaSemanaComprometido"></div>
                         <div class="titulos">
                             <div class="titulo">
@@ -228,7 +226,7 @@
                 `;
 
 
-                
+
 
                 for (let m = 0; m < regioes.length; m++) {
                     let regiao = regioes[m];
@@ -285,19 +283,35 @@
         }
     }
 
-    async function listarDiaSemana() {
-        const diasSemana = 
-            fetch('/avisos/listarDiaSemana', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                diaDaSemanaSever: 
+    function listarDiaSemana(idEmpresa) {
+        console.log("Função listarDiaSemana chamada com:", idEmpresa);
+        fetch(`/avisos/listarDiaSemana/${idEmpresa}`)
+            .then(res => res.json())
+            .then(dadosColetados => {
+                if (dadosColetados && dadosColetados.length > 0) {
+                    const traducaoDias = {
+                        'Mon': 'Segunda-Feira',
+                        'Tue': 'Terça-Feira',
+                        'Wed': 'Quarta-Feira',
+                        'Thu': 'Quinta-Feira',
+                        'Fri': 'Sexta-Feira',
+                        'Sat': 'Sábado',
+                        'Sun': 'Domingo'
+                    };
+
+                    const diaAbreviado = dadosColetados[0].Dia_Semana;
+                    const diaTraduzido = traducaoDias[diaAbreviado];
+
+                    document.getElementById("diaComprometidoTitulo").innerHTML = "<h3>Dia da Semana mais Comprometido</h3>";
+                    document.getElementById("diaSemanaComprometido").innerText = diaTraduzido;
+                } else {
+                    document.getElementById("diaComprometidoTitulo").innerText = "";
+                    document.getElementById("diaSemanaComprometido").innerText = "";
+                }
             })
-        });
-
-
+            .catch(erro => {
+                console.error("Erro ao buscar o dia mais comprometido:", erro);
+            });
     }
 
     async function listarAvisosComLoop() {
@@ -305,7 +319,7 @@
         tempoAtualizacao.innerHTML = 'Tempo para atualização: ';
         tempoAtualizacao.innerHTML += `${tempo} segundos`;
 
-        if(tempo == 0) {
+        if (tempo == 0) {
             await listarAvisos();
             tempo = 31;
         }
@@ -337,7 +351,7 @@
             // exibibação da data  
             let dataRegiao = dataHorario[0].replaceAll("-", "/");
             dataRegiao = dataRegiao.split('/');
-            let dataExibir =  `${dataRegiao[2]}/${dataRegiao[1]}`;
+            let dataExibir = `${dataRegiao[2]}/${dataRegiao[1]}`;
 
             //exibição do horário
             let horario = dataHorario[1].split(".");
@@ -444,13 +458,16 @@
             element.classList.add('hide');
         }
     }
-    function sair(){
+    function sair() {
         sessionStorage.CONECTADO = 'desconectado'
     }
 
+    window.onload = () => {
+        listarDiaSemana(sessionStorage.ID_EMPRESA);
+    };
 </script>
 <script>
-    if (sessionStorage.ADMIN != 1){
+    if (sessionStorage.ADMIN != 1) {
         document.getElementById('config').remove();
     }
     b_usuario.innerHTML = `Olá ${sessionStorage.NOME_USUARIO}</span>!`;
