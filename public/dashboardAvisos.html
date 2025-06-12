@@ -225,6 +225,7 @@
                     let ultimaUmidade = regiao[0].umidade;
                     let classeCor;
                     let regiaoNome = regiao[0].descricao.slice(-1);
+                    let umidade = regiao[0].umidade;
 
                     if (ultimaUmidade >= 40 || ultimaUmidade <= 30) {
                         classeCor = 'vermelho';
@@ -242,7 +243,7 @@
                     }
 
                     alertaHTML += `
-                        <div class="${classeCor}" onclick="estatisticasRegiao(${m}, ${i})">${regiaoNome}</div>
+                        <div class="${classeCor}" onclick="estatisticasRegiao(${m}, ${i})">${regiaoNome} <br> ${regiao[0].umidade}</div>
                     `;
                 }
 
@@ -422,5 +423,6 @@
     if (sessionStorage.ADMIN != 1){
         document.getElementById('config').remove();
     }
+
     b_usuario.innerHTML = `Olá ${sessionStorage.NOME_USUARIO}</span>!`;
 </script>
