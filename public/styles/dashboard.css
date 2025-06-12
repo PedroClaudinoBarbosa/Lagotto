@@ -15,7 +15,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 250px;
+    width: 100px;
     font-size: 18px;
     height: 100%;
     background-image: url('../assets/navBarDash.png');
@@ -23,94 +23,40 @@ body {
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 /* DashAvisos */
-.box1{
+
+
+.box_selecionado {
+    font-size: 14px;
     display: flex;
     justify-content: center;
-    border-top-right-radius: 40px;
+    border-top-right-radius: 10px;
     border-bottom-right-radius: 40px;
-    width: 270px;
+    width: 150px;
+    color: white;
     height: 9vh;
-    background: linear-gradient(to right, #20130f, #3c261d);
-    position: relative;
+    background: linear-gradient(to right, #2e2828, #634033);
     transition: 0.3s ease-in-out;
-    
-}
-.box1:hover {
-    padding: 3px;
-}
-.box2:hover, .box3:hover, .box4:hover, .box5:hover {
-    width: 270px;
-}
-.box2,  .box3, .box4, .box5 {
-    display: flex;
-    justify-content: center;
-    border-top-right-radius: 40px;
-    border-bottom-right-radius: 40px;
-    width: 210px;
-    height: 9vh;
-    background: linear-gradient(to right, #20130f, #3c261d);
-    transition: 0.3s ease-in-out;
-}
-/* DashPlantios */
-.box7{
-    display: flex;
-    justify-content: center;
-    border-top-right-radius: 40px;
-    border-bottom-right-radius: 40px;
-    width: 270px;
-    height: 9vh;
-    background: linear-gradient(to right, #20130f, #3c261d);
-    position: relative;
-    transition: 0.3s ease-in-out;
-    
-}
-.box7:hover {
-    padding: 3px;
 }
 
-.box6:hover, .box8:hover, .box9:hover, .box10:hover {
-    width: 270px;
-}
-.box6,  .box8, .box9, .box10 {
+.box {
+    font-size: 0px;
     display: flex;
     justify-content: center;
-    border-top-right-radius: 40px;
+    border-top-right-radius: 10px;
     border-bottom-right-radius: 40px;
-    width: 210px;
+    width: 70px;
     height: 9vh;
     background: linear-gradient(to right, #20130f, #3c261d);
     transition: 0.3s ease-in-out;
-}
-/* DashCalendario */
-.box13{
-    display: flex;
-    justify-content: center;
-    border-top-right-radius: 40px;
-    border-bottom-right-radius: 40px;
-    width: 270px;
-    height: 9vh;
-    background: linear-gradient(to right, #20130f, #3c261d);
-    position: relative;
-    transition: 0.3s ease-in-out;
-    
-}
-.box13:hover {
-    padding: 3px;
+    font-size: 0px;
+
 }
 
-.box11:hover, .box12:hover, .box14:hover, .box15:hover {
-    width: 270px;
+.box:hover {
+    width: 150px;
+    font-size: 14px;
 }
-.box11, .box12, .box14, .box15 {
-    display: flex;
-    justify-content: center;
-    border-top-right-radius: 40px;
-    border-bottom-right-radius: 40px;
-    width: 210px;
-    height: 9vh;
-    background: linear-gradient(to right, #20130f, #3c261d);
-    transition: 0.3s ease-in-out;
-}
+
 /*  */
 .logo {
     display: flex;
@@ -124,12 +70,15 @@ body {
 
 .nav {
     margin-top: 40px;
+
 }
 
 .nav div {
     margin: 20px 0;
     cursor: pointer;
     display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
     align-items: center;
     gap: 10px;
     font-weight: 500;
@@ -435,7 +384,7 @@ a {
     border-radius: 20px;
     left: 44vw;
     top: 10vh;
-    height: 125vh;
+    height: 75vh;
     width: 30vw;
     box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.4);
     transition: 0.2s linear;
@@ -456,7 +405,7 @@ a {
     margin-top: 40px;
 }
 .cadastrar input {
-    background-color: #3c261d;
+    background-color: #815a48;
     color: white;
     text-align: center;
     padding: 10px;
@@ -467,10 +416,6 @@ a {
     box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.4);
     font-size: 15px;
     transition: 0.3s ease-out;
-    margin-left: 69px;
-}
-.cadastrar span {
-    margin-left: 69px;
 }
 .cadastrar button{
     margin-top: 30px;
@@ -484,7 +429,6 @@ a {
     cursor: pointer;
     transition: 0.3s ease-in-out;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
-    margin-left: 76px;
 }
 .cadastrar button:hover {
     transform: translateY(-5px);
@@ -514,39 +458,4 @@ a {
     color: rgb(255, 255, 106);
     margin-top: 10px;
     text-align: center;
-}
-
-.quadradoRegiao {
-    display: flex;
-    flex-direction: column;
-    gap: 0px;
-}
-
-.quadradoRegiao h1 {
-    margin:  0px;
-}
-
-.quadradoRegiao p {
-    margin: 0px;
-}
-
-.selecionado {
-    height: 300px;
-}
-#isAdmin {
-    border-radius: 20px;
-    width: 320px;
-    height: 50px;
-    text-align: center;
-    margin-left: 69px;
-}
-#adm {
-    width: 50%;
-    transition: 0.3s ease-in-out;
-}
-#isAdmin:hover {
-    transform: translateY(-5px);
-}
-#isAdmin {
-    transition: 0.3s ease-in-out;
 }

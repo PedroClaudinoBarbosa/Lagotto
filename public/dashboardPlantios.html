@@ -11,38 +11,36 @@
 </head>
 
 <body>
-  <div class="sidebar">
-    <div class="logo"><img src="./assets/logo.png" alt="Imagem"></div>
-    <div class="nav">
-      <h4 id="b_usuario" style="color: white;  text-align: center;"></h4>
-      <a href="dashboardAvisos.html" style="color: wheat;">
-        <div class="box6">
-          ⚠️ Avisos
-        </div>
-      </a>
-      <a href="dashboardPlantios.html" style="color: wheat;">
-        <div class="box7">
-          📊 Plantios
-        </div>
-      </a>
+<div class="sidebar">
+        
+        <div class="nav"> 
+        <a href="dashboardAvisos.html" style="color: wheat;">
+          <div class="box">
+          Avisos <img src="../assets/icons/notification-bing.png" alt="">
+          </div>
+        </a>
+    
+            <div class="box_selecionado">
+            Plantios <img src="../assets/icons/field.png" alt="">
+            </div>
 
-      <a href="dashboardCalendario.html" style="color: wheat;">
-        <div class="box8">
-          📅 Calendário
+        <a href="dashboardCalendario.html" style="color: wheat;">
+            <div class="box"> 
+            Calendário <img src="../assets/icons/calendar.png" alt="">
+            </div>
+        </a>
+        <a id="config" href="dashboardConfiguracoes.html" style="color: wheat;">
+            <div class="box">
+            Configurações <img src="../assets/icons/setting.png" alt="">
+            </div>
+        </a>
+        <a onclick="sair()" href="login_cadastro.html" style="color: wheat;">
+            <div class="box">
+            Sair <img src="../assets/icons/logout.png" alt=""> 
+            </div>
+        </a>
         </div>
-      </a>
-      <a id="config" href="dashboardConfiguracoes.html" style="color: wheat;">
-        <div class="box9">
-          ⚙️ Configurações
-        </div>
-      </a>
-      <a onclick="sair()" href="login_cadastro.html" style="color: wheat;">
-        <div class="box10">
-          ❌ Sair
-        </div>
-      </a>
     </div>
-  </div>
 
   <div id="nomeUsuario"></div>
 
