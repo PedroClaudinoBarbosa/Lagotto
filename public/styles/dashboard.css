@@ -15,7 +15,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100px;
+    width: 150px;
     font-size: 18px;
     height: 100%;
     background-image: url('../assets/navBarDash.png');
@@ -85,7 +85,7 @@ body {
 }
 
 .content {
-    margin-left: 240px;
+    margin-left: 9%;
     padding: 30px;
 }
 
@@ -243,6 +243,10 @@ a {
     font-size: 30px;
 }
 
+.cabecalho {
+    width: 100%;
+}
+
 .cabecalho, .alerta {
     display: flex;
     justify-content: center;
@@ -255,26 +259,29 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: #000000 solid 2px;
 }
 
 .alerta div {
-    color: #000000;
+    color: #ffffff;
+    background-color: #3c261d;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 50px;
-    border: #000000 solid 1px;
     border-top: 0px;
     font-weight: 800px;
 }
 
 .situacao {
-    width: 15%;
+    width: 100%;
+    border-radius: 5px;
 }
 
 .plantio {
-    width: 30%;
+    width: 100%;
+    margin-left: 5px;
+    border-radius: 5px;
+
 }
 
 .plantio p {
@@ -283,7 +290,7 @@ a {
 }
 
 .horario, .umidade {
-    width: 25%;
+    width: 100%;
 }
 
 .umidade img {
@@ -291,42 +298,51 @@ a {
 }
 
 .alertaGraficos {
-    border: #000000 1px solid;
-    width: 95.4%;
-    margin: auto;
+    border-radius: 5px;
+    width: 100%;
+    background-color: #5f422c;
     height: fit-content;
+    margin-top: 5px;
     padding-bottom: 20px;
+    text-align: center;
 }
 
 .alertaGraficos h3 {
-    font-size: 40px;
+    font-size: 30px;
     margin-bottom: 0px;
 }
 
 .alertaGraficos .mapa {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 40%;
     justify-content: center;
     align-items: center;
 }
 
 .alertaGraficos .mapa .linha {
     display: flex;
-    width: 90%
+    width: 93%
 }
 
 .alertaGraficos .mapa div {
-    width: 25%;
-    height: 120px;
+    width: 22%;
+    height: 100px;
     text-align: center;
-    border: #ffe7c8 3px solid;
-    font-size: 60px;
+    border: #ffffff 3px solid;
+    border-radius: 10px;
+    font-size: 30px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     color: #FFFFFF;
     font-weight: bold;
+    transition: 0.3s ease-in-out;
+}
+.alertaGraficos .mapa div:hover{
+    font-size: 40px;
+    color: rgb(192, 240, 255);
 }
 
 
@@ -345,6 +361,8 @@ a {
 
 .verde, .vermelho, .amarelo {
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
 }
 
 .hide {
@@ -357,6 +375,7 @@ a {
 }
 
 .alertaGraficos .conteudo .canvas {
+    margin-left: 5%;
     width: 50%;
 }
 
@@ -368,12 +387,11 @@ a {
 .titulos .titulo {
     display: flex;
     flex-direction: column;
-    gap: 1px;
 }
 
 .titulos .titulo p{
     font-size: 20px;
-    color: #8F8F8F;
+    color: #945b25;
 }
 .cadastrar{
     background-color: rgb(49, 16, 16);
@@ -447,7 +465,7 @@ a {
 .titulo {
     display: flex;
     justify-content: space-between;
-    padding-right: 50px;
+    padding-right: 2%;
 }
 
 .titulo p {
@@ -457,5 +475,11 @@ a {
 .avisos {
     color: rgb(255, 255, 106);
     margin-top: 10px;
+    text-align: center;
+}
+
+.umidade {
+    width: 80%;
+    font-size: 15px;
     text-align: center;
 }

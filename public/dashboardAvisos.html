@@ -15,6 +15,7 @@
     <div class="nav"> 
 
           <div class="box_selecionado">
+        
           Avisos <img src="../assets/icons/notification-bing.png" alt="">
           </div>
         
@@ -87,12 +88,6 @@
                 </div>
                 <div class="plantio">
                     <p>Plantio</p>
-                </div>
-                <div class="horario">
-                    <p>Horário Inicial</p>
-                </div>
-                <div class="umidade">
-                    <p>Umidade Atual</p>
                 </div>
             </div>
         `;
@@ -195,13 +190,7 @@
                         <div class="plantio">
                             <p>${plantio.nome} - ${plantio.estadoSigla}</p>
                         </div>
-                        <div class="horario">
-                            <p>${data} - ${horario}</p>
-                        </div>
-                        <div class="umidade">
-                            <p><span style="color: ${corTexto};">${umidade.toFixed(0)}%</span> - ${regiaoComUmidadeMaisPerigosa.descricao}</p>
-                            <img src="assets/chevron-down-solid.svg" alt="" style="height: 30px;" onclick="exibirGrafico(${i})">
-                        </div>
+
                     </div>
                         <div id="alertaGraficos${i}" class="alertaGraficos">
                         <div class="titulos">
@@ -215,6 +204,7 @@
                                 <p style="color: red">Estado cŕitico: umidade menor que 30% ou maior que 40%</p>
                             </div>
                         </div>
+                    
                         <div class="conteudo">
                             <div class="mapa">
                                 <div class="linha">
@@ -243,7 +233,7 @@
                     }
 
                     alertaHTML += `
-                        <div class="${classeCor}" onclick="estatisticasRegiao(${m}, ${i})">${regiaoNome} <br> ${regiao[0].umidade}</div>
+                        <div class="${classeCor}" onclick="estatisticasRegiao(${m}, ${i})">${regiaoNome}<span class="umidade"><img src="../assets/icons/Union.png" alt=""><br>${Math.round(Number(regiao[0].umidade))}%</span></div>                        
                     `;
                 }
 
