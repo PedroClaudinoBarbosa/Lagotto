@@ -400,27 +400,36 @@ a {
     align-items: center;
     position: relative;
     border-radius: 20px;
-    left: 44vw;
+    left: 30vw;
     top: 10vh;
-    height: 75vh;
-    width: 30vw;
+    height: 105vh;
+    width: 50vw;
     box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.4);
     transition: 0.2s linear;
+    color: #FFFFFF;
 }
 .cadastrar h1 {
     transform: translateY(20px);
-    transform: translateX(60px);
     color: white;
 }
 .cadastrar:hover{
     top:9.5vh
 }
-.cadastrar .box{
+.cadastrar .box-cadastro{
     display: flex;
     flex-direction: column;
+    width: 100%;
+    align-items: center;
 }
-.cadastrar .box span{
+.cadastrar .box-cadastro span{
     margin-top: 40px;
+    color: #72594b;
+}
+#campo-senha {
+    margin-right: 150px;
+}
+#campo {
+    margin-right: 235px;
 }
 .cadastrar input {
     background-color: #815a48;
@@ -457,9 +466,19 @@ a {
 .cadastrar input:hover{
     transform: translateY(-5px);
 }
-
 .cadastrar button:active {
     transform: translateY(5px);
+}
+#isAdmin {
+    width: 300px;
+    height: 50px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    transition: 0.3s ease-in-out;
+}
+#isAdmin:hover {
+    transform: translateY(-5px);
 }
 
 .titulo {
