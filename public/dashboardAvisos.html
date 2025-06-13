@@ -11,37 +11,37 @@
 </head>
 
 <body>
-   <div class="sidebar">
-    <div class="nav"> 
+    <div class="sidebar">
+        <div class="nav">
 
-          <div class="box_selecionado">
-        
-          Avisos <img src="../assets/icons/notification-bing.png" alt="">
-          </div>
-        
-      <a href="dashboardPlantios.html" style="color: wheat;">
-        <div class="box">
-        Plantios <img src="../assets/icons/field.png" alt="">
-        </div>
-      </a>
+            <div class="box_selecionado">
 
-      <a href="dashboardCalendario.html" style="color: wheat;">
-        <div class="box"> 
-        Calendário <img src="../assets/icons/calendar.png" alt="">
+                Avisos <img src="../assets/icons/notification-bing.png" alt="">
+            </div>
+
+            <a href="dashboardPlantios.html" style="color: wheat;">
+                <div class="box">
+                    Plantios <img src="../assets/icons/field.png" alt="">
+                </div>
+            </a>
+
+            <a href="dashboardCalendario.html" style="color: wheat;">
+                <div class="box">
+                    Calendário <img src="../assets/icons/calendar.png" alt="">
+                </div>
+            </a>
+            <a id="config" href="dashboardConfiguracoes.html" style="color: wheat;">
+                <div class="box">
+                    Configurações <img src="../assets/icons/setting.png" alt="">
+                </div>
+            </a>
+            <a onclick="sair()" href="login_cadastro.html" style="color: wheat;">
+                <div class="box">
+                    Sair <img src="../assets/icons/logout.png" alt="">
+                </div>
+            </a>
         </div>
-      </a>
-      <a id="config" href="dashboardConfiguracoes.html" style="color: wheat;">
-        <div class="box">
-        Configurações <img src="../assets/icons/setting.png" alt="">
-        </div>
-      </a>
-      <a onclick="sair()" href="login_cadastro.html" style="color: wheat;">
-        <div class="box">
-        Sair <img src="../assets/icons/logout.png" alt=""> 
-        </div>
-      </a>
     </div>
-  </div>
 
     <div class="content">
         <div class="section">
@@ -67,6 +67,8 @@
             </div>
         </div>
     </div>
+    <div id="diaComprometidoTitulo" class="titulos"></div>
+    <div id="diaSemanaComprometido" class="titulos"></div>
 </body>
 
 </html>
@@ -78,6 +80,46 @@
     let regioesArray = [];
     listarAvisos();
     listarAvisosComLoop();
+
+
+    window.onload = () => {
+        listarDiaSemana(sessionStorage.ID_EMPRESA);
+        listarAvisos();
+        listarAvisosComLoop();
+    };
+
+    function listarDiaSemana(idEmpresa) {
+        console.log("Função listarDiaSemana chamada com:", idEmpresa);
+        fetch(`/avisos/listarDiaSemana/${idEmpresa}`)
+            .then(res => res.json())
+            .then(dadosColetados => {
+                console.log("Dados recebidos:", dadosColetados);
+                if (dadosColetados && dadosColetados.length > 0) {
+                    const traducaoDias = {
+                        'Mon': 'Segunda-Feira',
+                        'Tue': 'Terça-Feira',
+                        'Wed': 'Quarta-Feira',
+                        'Thu': 'Quinta-Feira',
+                        'Fri': 'Sexta-Feira',
+                        'Sat': 'Sábado',
+                        'Sun': 'Domingo'
+                    };
+
+                    const diaAbreviado = dadosColetados[0].Dia_Semana;
+                    const diaTraduzido = traducaoDias[diaAbreviado] || diaAbreviado;
+
+                    document.getElementById("diaComprometidoTitulo").innerHTML = "<h3>Dia da Semana mais Comprometido</h3>";
+                    document.getElementById("diaSemanaComprometido").innerText = diaTraduzido;
+                } else {
+                    document.getElementById("diaComprometidoTitulo").innerHTML = "";
+                    document.getElementById("diaSemanaComprometido").innerText = "";
+                }
+            })
+            .catch(erro => {
+                console.error("Erro ao buscar o dia mais comprometido:", erro);
+            });
+    }
+
 
     async function listarAvisos() {
 
@@ -268,7 +310,7 @@
         tempoAtualizacao.innerHTML = 'Tempo para atualização: ';
         tempoAtualizacao.innerHTML += `${tempo} segundos`;
 
-        if(tempo == 0) {
+        if (tempo == 0) {
             await listarAvisos();
             tempo = 31;
         }
@@ -297,7 +339,7 @@
             // exibibação da data  
             let dataRegiao = dataHorario[0].replaceAll("-", "/");
             dataRegiao = dataRegiao.split('/');
-            let dataExibir =  `${dataRegiao[2]}/${dataRegiao[1]}`;
+            let dataExibir = `${dataRegiao[2]}/${dataRegiao[1]}`;
 
             //exibição do horário
             let horario = dataHorario[1].split(".");
@@ -404,13 +446,13 @@
             element.classList.add('hide');
         }
     }
-    function sair(){
+    function sair() {
         sessionStorage.CONECTADO = 'desconectado'
     }
 
 </script>
 <script>
-    if (sessionStorage.ADMIN != 1){
+    if (sessionStorage.ADMIN != 1) {
         document.getElementById('config').remove();
     }
 
