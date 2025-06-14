@@ -1,0 +1,455 @@
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Lagotto Dashboard </title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="shortcut icon" href="assets/icon/lagotto-icon.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="nav">
+            <div class="box_selecionado">
+                Avisos <img src="../assets/icons/notification-bing.png" alt="">
+            </div>
+
+            <a href="dashboardPlantios.html" style="color: wheat;">
+                <div class="box">
+                    Plantios <img src="../assets/icons/field.png" alt="">
+                </div>
+            </a>
+
+            <a href="dashboardCalendario.html" style="color: wheat;">
+                <div class="box">
+                    Calendário <img src="../assets/icons/calendar.png" alt="">
+                </div>
+            </a>
+            <a id="config" href="dashboardConfiguracoes.html" style="color: wheat;">
+                <div class="box">
+                    Configurações <img src="../assets/icons/setting.png" alt="">
+                </div>
+            </a>
+            <a onclick="sair()" href="login_cadastro.html" style="color: wheat;">
+                <div class="box">
+                    Sair <img src="../assets/icons/logout.png" alt="">
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="section">
+            <div class="titulo">
+                <h2>Plantios Atualmente Comprometidos</h2>
+                <p id="tempoAtualizacao">Tempo para atualização: </p>
+            </div>
+            <div class="alertas" id="alertas">
+                <div class="cabecalho">
+                    <div class="situacao">
+                        <p>Situação</p>
+                    </div>
+                    <div class="plantio">
+                        <p>Plantio</p>
+                    </div>
+                    <div class="horario">
+                        <p>Horário Inicial</p>
+                    </div>
+                    <div class="umidade">
+                        <p>Umidade Atual</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="diaComprometidoTitulo" class="titulos"></div>
+    <div id="diaSemanaComprometido" class="titulos"></div>
+</body>
+
+</html>
+<script src="./scripts/sessionStorage.js"></script>
+<script>
+    let graficoRegiao = null;
+    let tempo = 30;
+
+    let regioesArray = [];
+    listarAvisos();
+    listarAvisosComLoop();
+
+
+    window.onload = () => {
+        listarDiaSemana(sessionStorage.ID_EMPRESA);
+        listarAvisos();
+        listarAvisosComLoop();
+    };
+
+    function listarDiaSemana(idEmpresa) {
+        console.log("Função listarDiaSemana chamada com:", idEmpresa);
+        fetch(`/avisos/listarDiaSemana/${idEmpresa}`)
+            .then(res => res.json())
+            .then(dadosColetados => {
+                console.log("Dados recebidos:", dadosColetados);
+                if (dadosColetados && dadosColetados.length > 0) {
+                    const traducaoDias = {
+                        'Mon': 'Segunda-Feira',
+                        'Tue': 'Terça-Feira',
+                        'Wed': 'Quarta-Feira',
+                        'Thu': 'Quinta-Feira',
+                        'Fri': 'Sexta-Feira',
+                        'Sat': 'Sábado',
+                        'Sun': 'Domingo'
+                    };
+
+                    const diaAbreviado = dadosColetados[0].Dia_Semana;
+                    const diaTraduzido = traducaoDias[diaAbreviado] || diaAbreviado;
+
+                    document.getElementById("diaComprometidoTitulo").innerHTML = "<h3>Dia da Semana mais Comprometido</h3>";
+                    document.getElementById("diaSemanaComprometido").innerText = diaTraduzido;
+                } else {
+                    document.getElementById("diaComprometidoTitulo").innerHTML = "";
+                    document.getElementById("diaSemanaComprometido").innerText = "";
+                }
+            })
+            .catch(erro => {
+                console.error("Erro ao buscar o dia mais comprometido:", erro);
+            });
+    }
+
+
+    async function listarAvisos() {
+
+        alertas.innerHTML = `
+            <div class="cabecalho">
+                <div class="situacao">
+                    <p>Situação</p>
+                </div>
+                <div class="plantio">
+                    <p>Plantio</p>
+                </div>
+            </div>
+        `;
+
+        let i = 0;
+
+        const respostaPlantios = await fetch(`/avisos/buscarPlantios/${sessionStorage.ID_EMPRESA}`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (respostaPlantios.ok) {
+            const plantios = await respostaPlantios.json();
+
+            for (const plantio of plantios) {
+                let idPlantio = plantio.idPlantio;
+                let qtdRegioes = plantio.qtdRegioes;
+
+                let regioes = [];
+
+                for (let j = 0; j < qtdRegioes + 1; j++) {
+                    const respostaRegiao = await fetch('/avisos/buscarRegiao', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            idPlantioServer: idPlantio,
+                            idRegiaoServer: j + 1
+                        })
+                    });
+
+                    if (respostaRegiao.ok) {
+                        respostaRegiao.json().then((regiao) => {
+                            regioes.push(regiao);
+                        });
+                    } else {
+                        console.log("Houve um erro ao tentar buscar as regiões");
+
+                        respostaPlantios.text().then(texto => {
+                            console.error(texto);
+                        });
+                    }
+                }
+
+                let regioesPreocupantes = [];
+
+                for (let k = 0; k < regioes.length; k++) {
+                    let regiao = regioes[k];
+
+                    if (regiao[0].umidade > 38 || regiao[0].umidade < 32) {
+                        regioesPreocupantes.push(regiao[0]);
+                    }
+                }
+
+                if (regioesPreocupantes.length == 0) {
+                    return;
+                }
+
+                let regiaoComUmidadeMaisPerigosa = regioesPreocupantes[0];
+                for (let l = 0; l < regioesPreocupantes.length; l++) {
+                    let regiaoPreocupante = regioesPreocupantes[l];
+
+                    if (regiaoPreocupante.umidade > 38) {
+                        if ((regiaoPreocupante.umidade - 38) > (regiaoComUmidadeMaisPerigosa.umidade - 38)) {
+                            regiaoComUmidadeMaisPerigosa = regiaoPreocupante;
+                        }
+                    } else if (regiaoPreocupante.umidade < 32) {
+                        if ((32 - regiaoPreocupante.umidade) > (32 - regiaoComUmidadeMaisPerigosa.umidade)) {
+                            regiaoComUmidadeMaisPerigosa = regiaoPreocupante;
+                        }
+                    }
+                }
+
+                let umidade = Number(regiaoComUmidadeMaisPerigosa.umidade);
+                let dataHorario = regiaoComUmidadeMaisPerigosa.data.split('T');
+
+                let data = dataHorario[0].replaceAll("-", "/");
+                let horario = dataHorario[1].split(".");
+                horario = horario[0];
+                let avisoImagem;
+                let corTexto;
+
+                if (umidade >= 40 || umidade <= 30) {
+                    avisoImagem = '🚨';
+                    corTexto = 'red';
+                } else if (umidade > 38 || umidade < 32) {
+                    avisoImagem = '⚠️';
+                    corTexto = '#FFC219';
+                }
+
+                let alertaHTML = `
+                    
+                    <div class="alerta" id="alerta${i}">
+                        <div class="situacao">
+                            <p>${avisoImagem}</p>
+                        </div>
+                        <div class="plantio">
+                            <p>${plantio.nome} - ${plantio.estadoSigla}</p>
+                        </div>
+
+                    </div>
+                        <div id="alertaGraficos${i}" class="alertaGraficos">
+                        <div class="titulos">
+                            <div class="titulo">
+                                <h3>Mapa do Plantio e Regiões</h3>
+                                <p>Clique em uma região para ver mais informações</p>
+                            </div>
+                            <div class="hide titulo" id="tituloGrafico${i}">
+                                <h3>Umidade das Últimas 24 Horas</h3>
+                                <p style="color: #FFC219; margin-bottom: 0px">Estado de alerta: umidade menor que 32% ou maior que 38%</p>
+                                <p style="color: red">Estado cŕitico: umidade menor que 30% ou maior que 40%</p>
+                            </div>
+                        </div>
+                    
+                        <div class="conteudo">
+                            <div class="mapa">
+                                <div class="linha">
+                `;
+
+                for (let m = 0; m < regioes.length; m++) {
+                    let regiao = regioes[m];
+                    let ultimaUmidade = regiao[0].umidade;
+                    let classeCor;
+                    let regiaoNome = regiao[0].descricao.slice(-1);
+                    let umidade = regiao[0].umidade;
+
+                    if (ultimaUmidade >= 40 || ultimaUmidade <= 30) {
+                        classeCor = 'vermelho';
+                    } else if (ultimaUmidade > 38 || ultimaUmidade < 32) {
+                        classeCor = 'amarelo';
+                    } else {
+                        classeCor = 'verde';
+                    }
+
+                    if (m == 4) {
+                        alertaHTML += `
+                            </div>
+                            <div class="linha">
+                        `;
+                    }
+
+                    alertaHTML += `
+                        <div class="${classeCor}" onclick="estatisticasRegiao(${m}, ${i})">${regiaoNome}<span class="umidade"><img src="../assets/icons/Union.png" alt=""><br>${Math.round(Number(regiao[0].umidade))}%</span></div>                        
+                    `;
+                }
+
+                regioesArray[i] = regioes;
+
+                alertaHTML += `
+                                </div>
+                            </div>
+                            <div class="canvas">
+                                <canvas id="graficoPlantio${i}"</canvas>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                alertas.innerHTML += alertaHTML;
+
+                i++;
+
+            }
+        } else {
+            console.log("Houve um erro ao tentar buscar o plantio");
+
+            respostaPlantios.text().then(texto => {
+                console.error(texto);
+            });
+        }
+    }
+
+    async function listarAvisosComLoop() {
+        --tempo;
+        tempoAtualizacao.innerHTML = 'Tempo para atualização: ';
+        tempoAtualizacao.innerHTML += `${tempo} segundos`;
+
+        if (tempo == 0) {
+            await listarAvisos();
+            tempo = 31;
+        }
+
+        setTimeout(listarAvisosComLoop, 1000); // executa novamente após 1 segundos
+    }
+
+    function estatisticasRegiao(idRegiao, idPlantio) {
+        let graficoTitulo = document.getElementById(`tituloGrafico${idPlantio}`);
+        graficoTitulo.classList.remove('hide');
+
+        let ctx = document.getElementById(`graficoPlantio${idPlantio}`);
+
+        let regiao = regioesArray[idPlantio][idRegiao];
+
+        let labels = [];
+        let data = [];
+        let alertasAcima40 = [];
+        let alertasAbaixo30 = [];
+
+        let menorValor = 40;
+        let maiorValor = 40;
+
+        for (let i = regiao.length - 1; i >= 0; i--) {
+            let dataHorario = regiao[i].data.split('T');
+            // exibibação da data  
+            let dataRegiao = dataHorario[0].replaceAll("-", "/");
+            dataRegiao = dataRegiao.split('/');
+            let dataExibir = `${dataRegiao[2]}/${dataRegiao[1]}`;
+
+            //exibição do horário
+            let horario = dataHorario[1].split(".");
+            horario = horario[0];
+            horario = horario.split(':');
+            let horarioExibir = `${dataExibir} ${horario[0]}:${horario[2]}`;
+
+            let umidade = regiao[i].umidade;
+
+            maiorValor = umidade > maiorValor ? umidade : maiorValor;
+            menorValor = umidade < menorValor ? umidade : menorValor;
+
+            labels.push(horarioExibir);
+            data.push(umidade);
+            alertasAbaixo30.push(30);
+            alertasAcima40.push(40);
+        }
+
+        console.log(alertasAbaixo30);
+        console.log(alertasAcima40)
+
+        if (graficoRegiao !== null) {
+            graficoRegiao.destroy();
+        }
+
+        graficoRegiao = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels,
+                datasets: [{
+                    label: 'Umidade do Solo',
+                    data,
+                    borderWidth: 2,
+                    borderColor: '#5f422c',
+                    backgroundColor: 'transparent',
+                    pointBackgroundColor: '#5f422c',
+                    pontBorderColor: '#5f422c',
+                    tension: 0.2
+                }, {
+                    label: 'Problema crítico',
+                    data: alertasAbaixo30,
+                    borderWidth: 1,
+                    borderColor: 'red',
+                    backgroundColor: 'transparent',
+                    pointRadius: 0,
+                    tension: 0
+                }, {
+                    label: 'Problema crítico',
+                    data: alertasAcima40,
+                    borderWidth: 1,
+                    borderColor: 'red',
+                    backgroundColor: 'transparent',
+                    pointRadius: 0,
+                    tension: 0
+                }],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        suggestedMin: menorValor - 5,
+                        suggestedMax: maiorValor + 5,
+                        title: {
+                            display: true,
+                            text: 'Umidade (%)',
+                            color: '#5f422c',
+                            font: {
+                                size: 20,
+                                weight: 600
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Data e Hora',
+                            color: '#5f422c',
+                            font: {
+                                size: 20,
+                                weight: 600
+                            }
+                        },
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    }
+
+    function exibirGrafico(i) {
+        let element = document.getElementById(`alertaGraficos${i}`);
+
+        if (element.classList.contains('hide')) {
+            element.classList.remove('hide');
+        } else {
+            element.classList.add('hide');
+        }
+    }
+    function sair() {
+        sessionStorage.CONECTADO = 'desconectado'
+    }
+
+</script>
+<script>
+    if (sessionStorage.ADMIN != 1) {
+        document.getElementById('config').remove();
+    }
+</script>

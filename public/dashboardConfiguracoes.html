@@ -1,156 +1,42 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> Lagotto Dashboard </title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="styles/dashboard.css">
-  <link rel="shortcut icon" href="assets/icon/lagotto-icon.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="shortcut icon" href="assets/icon/lagotto-icon.png" type="image/x-icon">
+    <title>Dashboard</title>
 </head>
-
 <body>
-<div class="sidebar">
-        
-        <div class="nav"> 
-        <a href="dashboardAvisos.html" style="color: wheat;">
-          <div class="box">
-          Avisos <img src="../assets/icons/notification-bing.png" alt="">
-          </div>
-        </a>
-    
-        <a href="dashboardPlantios.html" style="color: wheat;">
-            <div class="box">
-            Plantios <img src="../assets/icons/field.png" alt="">
-            </div>
-        </a>
-
-        <a href="dashboardCalendario.html" style="color: wheat;">
-            <div class="box"> 
-            Calendário <img src="../assets/icons/calendar.png" alt="">
-            </div>
-        </a>
-        <a id="config" href="dashboardConfiguracoes.html" style="color: wheat;">
+    <div class="sidebar">
+        <div class="nav">
             <div class="box_selecionado">
-            Configurações <img src="../assets/icons/setting.png" alt="">
+                Avisos <img src="../assets/icons/notification-bing.png" alt="">
             </div>
-        </a>
-        <a onclick="sair()" href="login_cadastro.html" style="color: wheat;">
-            <div class="box">
-            Sair <img src="../assets/icons/logout.png" alt=""> 
-            </div>
-        </a>
+
+            <a href="dashboardPlantios.html" style="color: wheat;">
+                <div class="box">
+                    Plantios <img src="../assets/icons/field.png" alt="">
+                </div>
+            </a>
+
+            <a href="dashboardCalendario.html" style="color: wheat;">
+                <div class="box">
+                    Calendário <img src="../assets/icons/calendar.png" alt="">
+                </div>
+            </a>
+            <a id="config" href="dashboardConfiguracoes.html" style="color: wheat;">
+                <div class="box">
+                    Configurações <img src="../assets/icons/setting.png" alt="">
+                </div>
+            </a>
+            <a onclick="sair()" href="login_cadastro.html" style="color: wheat;">
+                <div class="box">
+                    Sair <img src="../assets/icons/logout.png" alt="">
+                </div>
+            </a>
         </div>
     </div>
-
-  <div class="cadastrar">
-    <h1>Cadastrar Novos Funcionários</h1>
-    <div class="box-cadastro">
-        <span id="campo" style="color: wheat;">Nome:</span>
-        <input type="text" id="nome_funcionario" placeholder="exemplo@exemplo.com">
-        <span id="campo" style="color: wheat;">Email:</span>
-        <input type="text" id="email_funcionario" placeholder="exemplo@exemplo.com">
-        <div id="avisoEmail" class="avisos"></div>
-        <span id="campo" style="color: wheat;">Senha:</span>
-        <input type="password" id="senha_funcionario" placeholder="********">
-        <span id="campo-senha" style="color: wheat;">Senha novamente:</span>
-        <input type="password" id="senha_novamente" placeholder="********">
-        <span id="campo" style="color: wheat; margin-bottom: -25px;" id="adm2">Adm:</span>
-        <span id="adm">Adms tem a possibilidade de criar novos funcionarios</span>
-        <select id="isAdmin">
-          <option value="0">Não</option>
-          <option value="1">Sim</option>
-        </select>
-        <div id="avisoSenha" class="avisos"></div>
-        <button onclick="cadastrar()">Cadastrar Funcionário</button>
-        <div id="aviso" class="avisos"></div>
-    </div>
-</div>
-<script src="./scripts/sessionStorage.js"></script>
-<script>
-    function cadastrar() {
-      avisoEmail.innerHTML += ``;
-      aviso.innerHTML = ``;
-      const nomeInput = nome_funcionario.value;
-      const emailInput = email_funcionario.value;
-      const senhaInput = senha_funcionario.value;
-      const senhaInputNovamente = senha_novamente.value;
-        const fkEmpresa = sessionStorage.ID_EMPRESA;
-        const adminInput = isAdmin.value;
-        let indiceArroba = emailInput.indexOf('@');
-        let indicePontoCom = emailInput.indexOf('.com');
-        let arrobaAntesPontoCom = indiceArroba < indicePontoCom;
-        let senhaPossivel = false;
-
-        avisoEmail.innerHTML = ``;
-        avisoSenha.innerHTML = ``;
-        
-          if(indiceArroba == -1 || indicePontoCom == -1 || !arrobaAntesPontoCom) {
-              avisoEmail.innerHTML = `Insira um email válido!`;
-              return;
-          }
-          if(senhaInput.length < 8) {
-              avisoSenha.innerHTML += `Sua senha deve ter ao menos 8 caracteres!<br>`;
-              return;
-          }
-          const letraMaiuscula = new RegExp("[A-Z]");
-          const letraMinuscula = new RegExp("[a-z]");
-          const caracterEspecial = new RegExp(/[^a-zA-Z0-9]/);
-          if(!letraMaiuscula.test(senhaInput)) {
-              avisoSenha.innerHTML += `Sua senha deve conter ao menos uma letra maiúscula!<br>`;
-              return;
-          }
-          if(!letraMinuscula.test(senhaInput)) {
-              avisoSenha.innerHTML += `Sua senha deve conter ao menos uma letra minúscula!<br>`;
-              return;
-          }
-          if(!caracterEspecial.test(senhaInput)) {
-              avisoSenha.innerHTML += `Sua senha deve conter ao menos um caracter especial!`;
-              return;
-          }
-          if(senhaInput != senhaInputNovamente) {
-            avisoSenha.innerHTML = `As senhas não coincidem!`;
-          }
-      fetch("/usuarios/cadastrar", {
-      method: "POST", 
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-
-        nomeServer: nomeInput,
-        emailServer: emailInput,
-        senhaServer: senhaInput,
-        fkEmpresaServer: fkEmpresa,
-        ativoServer: 1,
-        isAdminServer: adminInput
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-          console.log('Dados recebidos!')
-              aviso.innerHTML = `Usuário Cadastrado com Sucesso!`;
-
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        
-
-        }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        avisoEmail.innerHTML += `Email Inválido!<br>`;
-      });
-
-    return false;
-    }
-
-  </script>
-  <script>
-      if (sessionStorage.ADMIN != 1){
-        document.getElementById('config').remove();
-    }
-    b_usuario.innerHTML = `Olá ${sessionStorage.NOME_USUARIO}</span>!`;
-</script>
+</body>
+</html>

@@ -2,12 +2,14 @@
 
 * {
     font-family: DM Sans, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     margin: 0;
     font-family: DM Sans, sans-serif;
-    background-color: #ffe7c8;
+    background-color: #1a1717;
     color: #815a48;
 }
 
@@ -24,7 +26,6 @@ body {
 }
 /* DashAvisos */
 
-
 .box_selecionado {
     font-size: 14px;
     display: flex;
@@ -34,7 +35,7 @@ body {
     width: 150px;
     color: white;
     height: 9vh;
-    background: linear-gradient(to right, #2e2828, #634033);
+    background: #3c261d;
     transition: 0.3s ease-in-out;
 }
 
@@ -46,7 +47,7 @@ body {
     border-bottom-right-radius: 40px;
     width: 70px;
     height: 9vh;
-    background: linear-gradient(to right, #20130f, #3c261d);
+    background-color: #20130f;
     transition: 0.3s ease-in-out;
     font-size: 0px;
 
@@ -56,6 +57,116 @@ body {
     width: 150px;
     font-size: 14px;
 }
+
+/* Dashboard */
+.css_dashboardAviso .css_container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 10%;
+    margin-right: 2%;
+}
+
+.css_dashboardAviso .css_container .css_titulo{
+    text-align: center;
+}
+
+.css_dashboardAviso .css_container .css_titulo img{
+    padding-top: 25px;
+    width: 10%;
+}
+
+.css_dashboardAviso .css_container .css_titulo h2{
+    font-size: 50px;
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/* Card Fazendas Monitoradas*/
+.css_dashboardAviso .css_container .css_dashGerais .css_fazendasMonitoradas{
+    color: white;
+    background-color: #000000;
+    padding: 20px;
+    border-radius: 20px;
+    width: 40%;
+    display: flex;
+    
+}
+
+.css_dashboardAviso .css_container .css_dashGerais .css_fazendasMonitoradas .css_etiqueta img{
+    width: 40px;
+}
+
+.css_dashboardAviso .css_container .css_dashGerais .css_fazendasMonitoradas .css_etiqueta{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.css_dashboardAviso .css_container .css_dashGerais .css_fazendasMonitoradas .css_etiqueta h1{
+    font-size: 40px;
+}
+
+.css_dashboardAviso .css_container .css_dashGerais .css_fazendasMonitoradas .css_contador{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    font-size: 60px;
+    padding-right: 20px;
+    width: 20%;
+    line-height: 65px;
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/* Card Plantios em Risco*/
+
+.css_dashboardAviso .css_container .css_dashGerais .css_plantiosRisco{
+    margin-top: 10px;
+    color: white;
+    background-color: #000000;
+    padding: 20px;
+    border-radius: 20px;
+    width: 40%;
+    display: flex;
+    
+}
+
+.css_dashboardAviso .css_container .css_dashGerais .css_plantiosRisco .css_etiqueta img{
+    width: 40px;
+}
+
+.css_dashboardAviso .css_container .css_dashGerais .css_plantiosRisco .css_etiqueta{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.css_dashboardAviso .css_container .css_dashGerais .css_plantiosRisco .css_etiqueta h1{
+    font-size: 45px;
+}
+
+.css_dashboardAviso .css_container .css_dashGerais .css_plantiosRisco .css_etiqueta h2{
+    font-size: 70px;
+}
+
+.css_dashboardAviso .css_container .css_dashGerais .css_plantiosRisco .css_contador{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    font-size: 60px;
+    padding-right: 20px;
+    width: 20%;
+    line-height: 65px;
+}
+
+
+
+
+
+
+
+
+
+
 
 /*  */
 .logo {
