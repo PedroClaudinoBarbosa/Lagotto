@@ -280,6 +280,65 @@ body {
     margin-left: 20px;
     margin-right: 20px;
 }
+.box-alerta {
+    margin-top: 10px;
+    color: #fffffd;
+    background-color: #000000;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    overflow: hidden; /* Impede que ultrapasse os limites */
+    padding: 0 15px;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+.box-alerta h1 {
+    margin: 0;
+    font-size: 24px;
+    white-space: nowrap;
+}
+
+.box-alerta img {
+    width: 35px;
+    height: 35px;
+}
+
+.filtros-pesquisa {
+    margin-left: 600px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    color: white;
+    font-size: 12px;
+    height: 100%;
+    flex-grow: 1;
+}
+
+.filtro-item {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+.filtro-item label {
+    font-size: 15px;
+    margin-bottom: 2px;
+    color: #ccc;
+}
+
+.filtro-item select, .filtro-item input {
+    padding: 4px;
+    font-size: 15px;
+    border-radius: 4px;
+    border: none;
+    width: 100%;
+    background-color: #1a1a1a;
+    color: white;
+    height: 24px;
+}
 
 /* SUPORTE */
 /* .conteiner-suporte{

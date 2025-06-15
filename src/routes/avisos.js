@@ -18,5 +18,8 @@ router.get("/buscarPlantios/:idEmpresa", function(req, res) {
 router.post("/buscarRegiao", function(req, res) {
     avisoController.buscarRegiao(req, res);
 });
+router.get("/listarAlertasPorEmpresa/:idEmpresa", function(req, res){
+    avisoController.listarAlertasPorEmpresa(req, res);
+});
 
 module.exports = router;

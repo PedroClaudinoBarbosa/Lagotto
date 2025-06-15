@@ -38,13 +38,13 @@
     </div>
 
     <div class="css_dashboardAviso">
-        
+
         <div class="css_container">
             <div class="css_titulo">
                 <img src="../assets/logo.png" alt="">
                 <h2>Dashboard Geral</h2>
             </div>
-            
+
             <div class="conteiner">
                 <div class="css_dashGerais">
                     <div class="css_kpiAlertas">
@@ -55,8 +55,8 @@
                             </div>
                             <div class="css_contador" id="div_contadorFazendas"></div>
                         </div>
-                        
-                        
+
+
                         <div class="css_alertas">
                             <div class="css_plantiosRisco">
                                 <div class="css_etiqueta">
@@ -96,8 +96,26 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="box-alerta">
-                    <img src="assets/icons/alert-icon.webp" alt=""><h1>Alertas</h1>
+                    <img src="assets/icons/alert-icon.webp" alt="">
+                    <h1>Alertas</h1>
+                    <div class="filtros-pesquisa">
+                        <div class="filtro-item">
+                            <label for="situacaoPlantio">Situação do Plantio:</label>
+                            <select id="situacaoPlantio" onchange="filtrarPlantios()">
+                                <option value="todos">Mostrar Todos</option>
+                                <option value="risco">Em Risco</option>
+                                <option value="aviso">Em Aviso</option>
+                                <option value="adequado">Adequado</option>
+                            </select>
+                        </div>
+                        <div class="filtro-item">
+                            <label for="pesquisarFazenda">Pesquisar Fazenda:</label>
+                            <input type="text" id="pesquisarFazenda" placeholder="Ex: Fazenda dos Fungos"
+                                onkeyup="filtrarPlantios()">
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -117,7 +135,7 @@
     let dataPlantiosRiscos = [];
     let dataPlantiosAlertas = [];
     let dataPlantiosEstaveis = [];
-    
+
     carregarPagina();
 
     async function carregarPagina() {
@@ -144,7 +162,7 @@
         }
 
         let jsonPlantios = await respostaPlantios.json();
-        
+
         div_contadorFazendas.innerHTML = `<h2>${jsonPlantios[0].qtdFazendas}`;
 
         for (const plantio of jsonPlantios) {
@@ -270,30 +288,67 @@
         let alertasHTML = '';
         console.log(dataPlantiosRiscos)
 
-        for(let i = 0; i < dataPlantiosRiscos.length; i++) {
-            alertasHTML += await montarAlertas(dataPlantiosRiscos[i], 'Em risco');    
+        for (let i = 0; i < dataPlantiosRiscos.length; i++) {
+            alertasHTML += await montarAlertas(dataPlantiosRiscos[i], 'Em risco');
         }
 
-        for(let i = 0; i < dataPlantiosAlertas.length; i++) {
-            alertasHTML += await montarAlertas(dataPlantiosAlertas[i], 'Estado de Alerta');    
+        for (let i = 0; i < dataPlantiosAlertas.length; i++) {
+            alertasHTML += await montarAlertas(dataPlantiosAlertas[i], 'Estado de Alerta');
         }
 
-        for(let i = 0; i < dataPlantiosEstaveis.length; i++) {
-            alertasHTML += await montarAlertas(dataPlantiosEstaveis[i], 'Estável');    
+        for (let i = 0; i < dataPlantiosEstaveis.length; i++) {
+            alertasHTML += await montarAlertas(dataPlantiosEstaveis[i], 'Estável');
+        }
+
+        avisos.innerHTML = alertasHTML;
+    }
+
+    function filtrarPlantios() {
+        const situacao = document.getElementById('situacaoPlantio').value;
+        const busca = document.getElementById('pesquisarFazenda').value.toLowerCase();
+
+        let plantiosFiltrados = [];
+
+        if (situacao === 'todos') {
+            plantiosFiltrados = dataPlantios;
+        } else if (situacao === 'risco') {
+            plantiosFiltrados = dataPlantiosRiscos;
+        } else if (situacao === 'aviso') {
+            plantiosFiltrados = dataPlantiosAlertas;
+        } else if (situacao === 'adequado') {
+            plantiosFiltrados = dataPlantiosEstaveis;
+        }
+
+        if (busca.trim() !== '') {
+            plantiosFiltrados = plantiosFiltrados.filter(p =>
+                p.nomeFazenda.toLowerCase().includes(busca)
+            );
+        }
+
+        montarListaFiltrada(plantiosFiltrados);
+    }
+
+    async function montarListaFiltrada(lista) {
+        let alertasHTML = '';
+
+        for (let i = 0; i < lista.length; i++) {
+            const estado = dataPlantiosRiscos.includes(lista[i]) ? 'Em risco' :
+                dataPlantiosAlertas.includes(lista[i]) ? 'Estado de Alerta' : 'Estável';
+            alertasHTML += await montarAlertas(lista[i], estado);
         }
 
         avisos.innerHTML = alertasHTML;
     }
 
     async function montarAlertas(plantio, estado) {
-        
+
         let imagemSrc;
 
-        if(estado == 'Em risco') {
+        if (estado == 'Em risco') {
             imagemSrc = '../assets/icons/alertav.png.png';
-        } else if(estado == 'Estado de Alerta') {
+        } else if (estado == 'Estado de Alerta') {
             imagemSrc = '../assets/icons/sinoa.png';
-        } else if(estado == 'Estável') {
+        } else if (estado == 'Estável') {
             imagemSrc = '../assets/icons/okv.png';
         }
 
@@ -368,8 +423,23 @@
 
         return alertaHTML;
     }
+    async function carregarAlertas(idEmpresa) {
+        try {
+            const resposta = await fetch(`/alertas/empresa/${idEmpresa}`);
+            const dados = await resposta.json();
 
-    function suporte(){
+            dataPlantiosRiscos = dados.dataPlantiosRiscos;
+            dataPlantiosAlertas = dados.dataPlantiosAlertas;
+            dataPlantiosEstaveis = dados.dataPlantiosEstaveis;
+            dataPlantios = dados.dataPlantios;
+
+            exibirAlertas();
+        } catch (erro) {
+            console.error("Erro ao carregar alertas:", erro);
+        }
+    }
+
+    function suporte() {
         window.open('https://lagotto.atlassian.net/servicedesk/customer/portal/1')
     }
 

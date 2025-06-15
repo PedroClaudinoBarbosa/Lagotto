@@ -14,6 +14,27 @@ function listarDiaSemana(req, res) {
             res.status(500).json({ erro: "Erro ao buscar dia mais comprometido" });
         });
 }
+async function listarAlertasPorEmpresa(req, res) {
+    const idEmpresa = req.params.idEmpresa;
+
+    try {
+        const resultados = await alertaModel.obterAlertasPorEmpresa(idEmpresa);
+
+        const dataPlantiosRiscos = resultados.filter(r => r.situacao === 'Em risco');
+        const dataPlantiosAlertas = resultados.filter(r => r.situacao === 'Estado de Alerta');
+        const dataPlantiosEstaveis = resultados.filter(r => r.situacao === 'Estável');
+
+        res.json({
+            dataPlantiosRiscos,
+            dataPlantiosAlertas,
+            dataPlantiosEstaveis,
+            dataPlantios: resultados
+        });
+    } catch (erro) {
+        console.error("Erro ao buscar alertas:", erro.sqlMessage);
+        res.status(500).json({ erro: erro.sqlMessage });
+    }
+}
 
 
 function listarAvisos(req, res) {
@@ -41,11 +62,11 @@ function buscarRegiao(req, res) {
     });
 }
 
-function exibirGraficoBarra(req, res){
+function exibirGraficoBarra(req, res) {
     const idDadosSensor = req.params.idDadosSensor;
     console.log('id: ' + idDadosSensor);
 
-    avisoModel.exibirGraficoBarra(idDadosSensor).then((resultado) =>{
+    avisoModel.exibirGraficoBarra(idDadosSensor).then((resultado) => {
         res.status(200).json(resultado)
         console.log(resultado)
         console.log(idDadosSensor)
@@ -58,5 +79,6 @@ module.exports = {
     listarAvisos,
     buscarPlantios,
     buscarRegiao,
-    exibirGraficoBarra
+    exibirGraficoBarra,
+    listarAlertasPorEmpresa
 }
