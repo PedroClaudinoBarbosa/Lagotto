@@ -45,33 +45,53 @@
             </div>
 
             <div class="css_dashGerais">
-                <div>
+                <div class="css_kpiAlertas">
                     <div class="css_fazendasMonitoradas">
                         <div class="css_etiqueta">
-                            <img src="../assets/icons/field.png" alt="">
-                            <h1>Plantios Monitorados</h1>
+                            <img src="../assets/icons/fazenda.webp" alt="">
+                            <h1>Fazendas Monitoradas</h1>
                         </div>
                         <div class="css_contador" id="div_contadorFazendas">
                             <h2>2</h2>
                         </div>
                     </div>
-                </div>
 
-                <div>
-                    <div class="css_plantiosRisco">
-                        <div class="css_etiqueta">
-                            <img src="../assets/icons/field.png" alt="">
-                            <h1>Plantios em Risco</h1>
-                            <h2>2</h2>
-                            <h3>Regiões com umidade acima de 40% ou abaixo de 30%</h3>
+
+                    <div class="css_alertas">
+                        <div class="css_plantiosRisco">
+                            <div class="css_etiqueta">
+                                <img src="../assets/icons/alerta.webp" alt="">
+                                <h1>Plantios em Risco</h1>
+                                <h2>2</h2>
+                                <h3>Regiões com umidade acima de 40% ou abaixo de 30%</h3>
+                            </div>
+                        </div>
+                        <div class="css_plantiosRisco">
+                            <div class="css_etiqueta">
+                                <img src="../assets/icons/sino.png" alt="">
+                                <h1>Plantios em Aviso</h1>
+                                <h2>2</h2>
+                                <h3>Regiões com umidade acima de 37% ou abaixo de 33%</h3>
+                            </div>
                         </div>
                     </div>
-                    <div class="css_plantiosRisco">
-                        <div class="css_etiqueta">
-                            <img src="../assets/icons/field.png" alt="">
-                            <h1>Plantios em Risco</h1>
-                            <h2>2</h2>
-                            <h3>Regiões com umidade acima de 40% ou abaixo de 30%</h3>
+                </div>
+                <div class="css_kpiPlantios">
+                    <div class="css_kpiEtiqueta">
+                        <div class="css_kpiPlantio">
+                            <div class="css_etiqueta">
+                                <img src="../assets/icons/fungo.webp" alt="">
+                                <h1>Plantios Monitorados</h1>
+                            </div>
+                            <div class="css_contador" id="div_contadorPlantios">
+                                <h2>2</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="css_graficoPlantio">
+                        <div id="graficoPlantio">
+                            <canvas id="graficoPizza" width="200" height="200"></canvas>
+                            <div id="legendaCustom" style="color: white; margin-top: 20px; margin-left: 80px;"></div>
                         </div>
                     </div>
                 </div>
@@ -82,6 +102,60 @@
 
 </html>
 <script>
+    const risco = Math.floor(Math.random() * 20) + 5;
+    const aviso = Math.floor(Math.random() * 20) + 5;
+    const adequado = 100 - (risco + aviso);
+
+    const labels = ['Plantios em Risco', 'Plantios em Aviso', 'Plantios Adequados'];
+    const descricoes = [
+        'Umidade abaixo de 30% ou acima de 40%',
+        'Umidade entre 30-33% ou 37-40%',
+        'Umidade entre 33% e 37%'
+    ];
+    const cores = ['#ff4d4d', '#ffd11a', '#4dff88'];
+
+    const legendaDiv = document.getElementById('legendaCustom');
+    labels.forEach((label, i) => {
+        const item = document.createElement('div');
+        item.style.marginBottom = '10px';
+        item.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <div style="width: 15px; height: 15px; background-color: ${cores[i]}; margin-right: 8px; border-radius: 3px;"></div>
+                <strong>${label}</strong>
+            </div>
+            <div style="margin-left: 23px;">${descricoes[i]}</div>
+        `;
+        legendaDiv.appendChild(item);
+    });
+
+    const ctx = document.getElementById('graficoPizza').getContext('2d');
+    const graficoPizza = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Situação dos Plantios',
+                data: [risco, aviso, adequado],
+                backgroundColor: cores,
+                borderColor: '#ffffff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: false,
+                    text: 'Distribuição dos Plantios',
+                    color: '#ffffff',
+                    padding: 0
+                }
+            }
+        }
+    });
+
     let dataPlantios = [];
     carregarPagina();
 

@@ -80,30 +80,49 @@ body {
     font-size: 50px;
 }
 
+.css_dashboardAviso .css_container .css_dashGerais{
+    display: flex;
+}
+
+.css_dashboardAviso .css_container .css_dashGerais .css_kpiAlertas{
+    width: 50%;
+    padding-right: 10px;
+}
+
+.css_dashboardAviso .css_container .css_dashGerais .css_kpiGrafico{
+    width: 45%;
+}
+
+
+
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 /* Card Fazendas Monitoradas*/
 .css_dashboardAviso .css_container .css_dashGerais .css_fazendasMonitoradas{
     color: white;
     background-color: #000000;
-    padding: 20px;
+    
     border-radius: 20px;
-    width: 40%;
+    width: 100%;
     display: flex;
     
 }
 
 .css_dashboardAviso .css_container .css_dashGerais .css_fazendasMonitoradas .css_etiqueta img{
+    padding-left: 20px;
+    padding-top: 20px;
     width: 40px;
 }
 
 .css_dashboardAviso .css_container .css_dashGerais .css_fazendasMonitoradas .css_etiqueta{
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 100%;
 }
 
 .css_dashboardAviso .css_container .css_dashGerais .css_fazendasMonitoradas .css_etiqueta h1{
-    font-size: 40px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    font-size: 30px;
 }
 
 .css_dashboardAviso .css_container .css_dashGerais .css_fazendasMonitoradas .css_contador{
@@ -111,9 +130,10 @@ body {
     justify-content: flex-end;
     align-items: flex-end;
     font-size: 60px;
-    padding-right: 20px;
-    width: 20%;
+    width: 100%;
     line-height: 65px;
+    padding-right: 20px;
+    padding-bottom: 10px;
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -125,7 +145,7 @@ body {
     background-color: #000000;
     padding: 20px;
     border-radius: 20px;
-    width: 40%;
+    width: 100%;
     display: flex;
     
 }
@@ -141,11 +161,15 @@ body {
 }
 
 .css_dashboardAviso .css_container .css_dashGerais .css_plantiosRisco .css_etiqueta h1{
-    font-size: 45px;
+    font-size: 35px;
 }
 
 .css_dashboardAviso .css_container .css_dashGerais .css_plantiosRisco .css_etiqueta h2{
-    font-size: 70px;
+    font-size: 90px;
+}
+
+.css_dashboardAviso .css_container .css_dashGerais .css_plantiosRisco .css_etiqueta h3{
+    color: #977474;
 }
 
 .css_dashboardAviso .css_container .css_dashGerais .css_plantiosRisco .css_contador{
@@ -153,20 +177,79 @@ body {
     justify-content: flex-end;
     align-items: flex-end;
     font-size: 60px;
-    padding-right: 20px;
     width: 20%;
     line-height: 65px;
 }
 
+.css_alertas {
+    display: flex;
+    gap: 10px;
+}
 
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/* Card Plantios em Risco*/
 
+.css_kpiPlantios{
+    color: white;
+    background-color: #000000;
+    border-radius: 20px;
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    
+}
 
+.css_kpiPlantios .css_etiqueta img{
+    width: 60px;
+    padding-left: 20px;
+    padding-top: 20px;
+}
 
+.css_kpiPlantios .css_etiqueta{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
 
+.css_kpiPlantios .css_etiqueta h1{
+    font-size: 35px;
+    padding-left: 20px;
+}
 
+.css_kpiPlantios .css_etiqueta h2{
+    font-size: 60px;
+}
 
+.css_kpiPlantios .css_contador{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 60px;
+    width: 20%;
+    padding-right: 20px;
+    padding-top: 20px;
+}
 
+.css_kpiPlantio {
+    display: flex;
+    height: 100%;
+}
 
+.css_graficoPlantio {
+    display: flex;
+    width: 100%;
+    height: 300px;
+    padding-bottom: 20px;
+    justify-content: center;
+}
+
+#graficoPlantio{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin: 0;
+}
 
 /*  */
 .logo {
