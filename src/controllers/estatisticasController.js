@@ -1,16 +1,16 @@
 let estatisticasModel = require('../models/estatisticasModel');
 
-function buscarPlantios(req, res) {
+function buscarFazendas(req, res) {
     let idEmpresa = req.params.idEmpresa;
 
-    estatisticasModel.buscarPlantios(idEmpresa).then((resultado) => {
+    estatisticasModel.buscarFazendas(idEmpresa).then((resultado) => {
         res.status(200).json(resultado);
     });
 }
 
 function dadosSensorQtdDias(req, res) {
     let idPlantio = req.params.idPlantio;
-    let idRegiao = req.params.idPlantio;
+    let idRegiao = req.params.idRegiao;
     let qtdDias = req.params.qtdDias;
 
     estatisticasModel.dadosSensorQtdDias(idPlantio, idRegiao, qtdDias).then((resultado) => {
@@ -19,6 +19,6 @@ function dadosSensorQtdDias(req, res) {
 }
 
 module.exports = {
-    buscarPlantios,
+    buscarFazendas,
     dadosSensorQtdDias
 }

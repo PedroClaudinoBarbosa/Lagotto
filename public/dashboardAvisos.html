@@ -51,9 +51,7 @@
                             <img src="../assets/icons/fazenda.webp" alt="">
                             <h1>Fazendas Monitoradas</h1>
                         </div>
-                        <div class="css_contador" id="div_contadorFazendas">
-                            <h2>2</h2>
-                        </div>
+                        <div class="css_contador" id="div_contadorFazendas"></div>
                     </div>
 
 
@@ -62,7 +60,7 @@
                             <div class="css_etiqueta">
                                 <img src="../assets/icons/alerta.webp" alt="">
                                 <h1>Plantios em Risco</h1>
-                                <h2>2</h2>
+                                <h2 id="kpiQtdPlantiosRisco"></h2>
                                 <h3>Regiões com umidade acima de 40% ou abaixo de 30%</h3>
                             </div>
                         </div>
@@ -70,7 +68,7 @@
                             <div class="css_etiqueta">
                                 <img src="../assets/icons/sino.png" alt="">
                                 <h1>Plantios em Aviso</h1>
-                                <h2>2</h2>
+                                <h2 id="kpiQtdPlantiosAlerta"></h2>
                                 <h3>Regiões com umidade acima de 37% ou abaixo de 33%</h3>
                             </div>
                         </div>
@@ -84,7 +82,7 @@
                                 <h1>Plantios Monitorados</h1>
                             </div>
                             <div class="css_contador" id="div_contadorPlantios">
-                                <h2>2</h2>
+                                <h2 id="kpiQtdPlantiosMonitorados"></h2>
                             </div>
                         </div>
                     </div>
@@ -102,69 +100,17 @@
 
 </html>
 <script>
-    const risco = Math.floor(Math.random() * 20) + 5;
-    const aviso = Math.floor(Math.random() * 20) + 5;
-    const adequado = 100 - (risco + aviso);
-
-    const labels = ['Plantios em Risco', 'Plantios em Aviso', 'Plantios Adequados'];
-    const descricoes = [
-        'Umidade abaixo de 30% ou acima de 40%',
-        'Umidade entre 30-33% ou 37-40%',
-        'Umidade entre 33% e 37%'
-    ];
-    const cores = ['#ff4d4d', '#ffd11a', '#4dff88'];
-
-    const legendaDiv = document.getElementById('legendaCustom');
-    labels.forEach((label, i) => {
-        const item = document.createElement('div');
-        item.style.marginBottom = '10px';
-        item.innerHTML = `
-            <div style="display: flex; align-items: center;">
-                <div style="width: 15px; height: 15px; background-color: ${cores[i]}; margin-right: 8px; border-radius: 3px;"></div>
-                <strong>${label}</strong>
-            </div>
-            <div style="margin-left: 23px;">${descricoes[i]}</div>
-        `;
-        legendaDiv.appendChild(item);
-    });
-
-    const ctx = document.getElementById('graficoPizza').getContext('2d');
-    const graficoPizza = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Situação dos Plantios',
-                data: [risco, aviso, adequado],
-                backgroundColor: cores,
-                borderColor: '#ffffff',
-                borderWidth: 2
-            }]
-        },
-        options: {
-            plugins: {
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: false,
-                    text: 'Distribuição dos Plantios',
-                    color: '#ffffff',
-                    padding: 0
-                }
-            }
-        }
-    });
-
     let dataPlantios = [];
     carregarPagina();
 
     async function carregarPagina() {
-        buscarPlantios();
+        await buscarFazendas();
+
+        estatisticasPlantios();
     }
 
-    async function buscarPlantios() {
-        let respostaPlantios = await fetch(`/estatisticas/buscarPlantios/${sessionStorage.ID_EMPRESA}`, {
+    async function buscarFazendas() {
+        let respostaPlantios = await fetch(`/estatisticas/buscarFazendas/${sessionStorage.ID_EMPRESA}`, {
             method: 'GET',
             headers7: {
                 'Content-Type': 'application/json'
@@ -181,6 +127,8 @@
 
         let jsonPlantios = await respostaPlantios.json();
 
+        div_contadorFazendas.innerHTML = `<h2>${jsonPlantios[0].qtdFazendas}`;
+
         for (const plantio of jsonPlantios) {
             let dataPlantio = [];
 
@@ -192,7 +140,7 @@
                     }
                 });
 
-                if(!respostaRegiao.ok) {
+                if (!respostaRegiao.ok) {
                     respostaRegiao.text().then((erro) => {
                         console.error(erro);
                     });
@@ -206,7 +154,99 @@
 
             dataPlantios.push(dataPlantio);
         }
+
+        console.log(dataPlantios);
     }
 
+    async function estatisticasPlantios() {
+        let qtdPlantios = dataPlantios.length;
+        kpiQtdPlantiosMonitorados.innerHTML = `${qtdPlantios}`;
+
+        let qtdPlantiosRisco = 0;
+        let qtdPlantiosAlerta = 0;
+        let qtdPlantiosEstaveis = 0;
+
+        for (let i = 0; i < qtdPlantios; i++) {
+            let plantio = dataPlantios[i];
+            let qtdRegioesCriticas = 0;
+            let qtdRegioesAlertas = 0;
+            let qtdRegioesEstaveis = 0;
+
+            for (let j = 0; j < plantio.length; j++) {
+                let regiao = plantio[j];
+                let umidadeAtual = regiao[0].umidade;
+
+                if (umidadeAtual > 40 || umidadeAtual < 30) {
+                    qtdRegioesCriticas++;
+                } else if (umidadeAtual >= 38 || umidadeAtual <= 32) {
+                    qtdRegioesAlertas++;
+                } else {
+                    qtdRegioesEstaveis++;
+                }
+            }
+
+            if(qtdRegioesCriticas > 0) {
+                qtdPlantiosRisco++;
+            } else if(qtdRegioesAlertas > 0) {
+                qtdPlantiosAlerta++;
+            } else {
+                qtdPlantiosEstaveis++;
+            }
+        }
+
+        kpiQtdPlantiosRisco.innerHTML = `${qtdPlantiosRisco}`;
+        kpiQtdPlantiosAlerta.innerHTML = `${qtdPlantiosAlerta}`;
+
+        const labels = ['Plantios em Risco', 'Plantios em Aviso', 'Plantios Adequados'];
+        const descricoes = [
+            'Umidade abaixo de 30% ou acima de 40%',
+            'Umidade entre 30-33% ou 37-40%',
+            'Umidade entre 33% e 37%'
+        ];
+        const cores = ['#ff4d4d', '#ffd11a', '#4dff88'];
+
+        const legendaDiv = document.getElementById('legendaCustom');
+        labels.forEach((label, i) => {
+            const item = document.createElement('div');
+            item.style.marginBottom = '10px';
+            item.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <div style="width: 15px; height: 15px; background-color: ${cores[i]}; margin-right: 8px; border-radius: 3px;"></div>
+                <strong>${label}</strong>
+            </div>
+            <div style="margin-left: 23px;">${descricoes[i]}</div>
+        `;
+            legendaDiv.appendChild(item);
+        });
+
+        const ctx = document.getElementById('graficoPizza').getContext('2d');
+        const graficoPizza = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Situação dos Plantios',
+                    data: [qtdPlantiosRisco, qtdPlantiosAlerta, qtdPlantiosEstaveis],
+                    backgroundColor: cores,
+                    borderColor: '#ffffff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: false,
+                        text: 'Distribuição dos Plantios',
+                        color: '#ffffff',
+                        padding: 0
+                    }
+                }
+            }
+        });
+
+    }
 
 </script>

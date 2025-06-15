@@ -1,16 +1,21 @@
 let database = require('../database/config');
 
-function buscarPlantios(idEmpresa) {
-    let instrucaoSql = `
-        SELECT  Plantio.idPlantio,
-                Plantio.nome,
-                Endereco.estadoSigla,
-                COUNT(fkPlantio) as qtdRegioes
-        FROM Plantio
-        INNER JOIN Endereco ON Plantio.fkEndereco = Endereco.idEndereco
+function buscarFazendas(idEmpresa) {
+    let instrucaoSql = `    
+        SELECT  
+            (SELECT COUNT(*)
+            FROM Fazenda
+            WHERE fkEmpresa = '${idEmpresa}') AS qtdFazendas,
+            Fazenda.nome,
+            Plantio.idPlantio,
+            Endereco.estadoSigla,
+            COUNT(fkPlantio) as qtdRegioes
+        FROM Fazenda
+        INNER JOIN Plantio ON Fazenda.idFazenda = Plantio.fkFazenda
+        INNER JOIN Endereco ON Fazenda.fkEndereco = Endereco.idEndereco
         INNER JOIN Regiao ON Plantio.idPlantio = Regiao.fkPlantio
-        WHERE Plantio.fkEmpresa = '${idEmpresa}'
-        GROUP BY Plantio.idPlantio, Plantio.nome, Endereco.estadoSigla;
+        WHERE Fazenda.fkEmpresa = '${idEmpresa}'
+            GROUP BY Fazenda.nome, Plantio.idPlantio, Endereco.estadoSigla;
     `;
 
     return database.executar(instrucaoSql);
@@ -40,9 +45,9 @@ function dadosSensorQtdDias(idPlantio, idRegiao, qtdDias) {
         FROM 
             DadosSensor
         WHERE 
-            DadosSensor.fkPlantio = 1
-            AND DadosSensor.fkRegiao = 1
-            AND DadosSensor.data >= NOW() - INTERVAL 1 DAY
+            DadosSensor.fkPlantio = '${idPlantio}'
+            AND DadosSensor.fkRegiao = '${idRegiao}'
+            AND DadosSensor.data >= NOW() - INTERVAL '${qtdDias}' DAY
             AND DadosSensor.data < NOW()
         ORDER BY 
             DadosSensor.data DESC;
@@ -52,6 +57,6 @@ function dadosSensorQtdDias(idPlantio, idRegiao, qtdDias) {
 }
 
 module.exports = {
-    buscarPlantios,
+    buscarFazendas,
     dadosSensorQtdDias
 }
