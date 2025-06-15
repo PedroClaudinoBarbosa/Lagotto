@@ -11,9 +11,11 @@
 <body>
     <div class="sidebar">
         <div class="nav">
-            <div class="box_selecionado">
-                Avisos <img src="../assets/icons/notification-bing.png" alt="">
-            </div>
+            <a href="dashboardAvisos.html" style="color: wheat;">
+                <div class="box">
+                    Dashboards <img src="../assets/icons/notification-bing.png" alt="">
+                </div>
+            </a>
 
             <a href="dashboardPlantios.html" style="color: wheat;">
                 <div class="box">
@@ -21,13 +23,8 @@
                 </div>
             </a>
 
-            <a href="dashboardCalendario.html" style="color: wheat;">
-                <div class="box">
-                    Calendário <img src="../assets/icons/calendar.png" alt="">
-                </div>
-            </a>
             <a id="config" href="dashboardConfiguracoes.html" style="color: wheat;">
-                <div class="box">
+                <div class="box_selecionado">
                     Configurações <img src="../assets/icons/setting.png" alt="">
                 </div>
             </a>
@@ -38,5 +35,115 @@
             </a>
         </div>
     </div>
+    <div class="cadastrar">
+        <h1>Cadastro de Funcionário</h1>
+        <div class="box-cadastro">
+            <span id="campo">Nome: </span>
+            <input type="text" id="nome_funcionario" placeholder="Nome...">
+            <span id="campo">Email:</span>
+            <input type="text" id="email_funcionario" placeholder="exemplo@exemplo.com">
+            <div id="avisoEmail"></div>
+            <span id="campo">Senha:</span>
+            <input type="password" id="senha_funcionario" placeholder="********">
+            <span id="campo-senha">Confirmar senha:</span>
+            <input type="password" id="senha_novamente" placeholder="********">
+            <span id="campo">ADM:</span>
+            <select id="isAdmin">
+                <option value="0">Não</option>
+                <option value="1">Sim</option>
+            </select>
+            <div id="avisoSenha"></div>
+            <button onclick="cadastrar()">Cadastrar Funcionário</button>
+        </div>
+    </div>
 </body>
 </html>
+<script>
+    function cadastrar(){
+
+        const nomeInput = nome_funcionario.value;
+        const emailInput = email_funcionario.value;
+        const senhaInput = senha_funcionario.value;
+        const senhaNovamente = senha_novamente.value;
+        const admInput = isAdmin.value;
+        const fkEmpresa = sessionStorage.ID_EMPRESA;
+        let indiceArroba = emailInput.indexOf('@');
+        let indicePontoCom = emailInput.indexOf('.com');
+        let arrobaAntesPontoCom = indiceArroba < indicePontoCom;
+        let senhaPossivel = false;
+        
+        avisoEmail.innerHTML = ``;
+        avisoSenha.innerHTML = ``;
+        
+        if(indiceArroba == -1 || indicePontoCom == -1 || !arrobaAntesPontoCom) {
+            avisoEmail.innerHTML = `Insira um email válido!`;
+            return;
+        }
+        if(senhaInput.length < 8) {
+            avisoSenha.innerHTML += `Sua senha deve ter ao menos 8 caracteres!<br>`;
+            return;
+        }
+        const letraMaiuscula = new RegExp("[A-Z]");
+        const letraMinuscula = new RegExp("[a-z]");
+        const caracterEspecial = new RegExp(/[^a-zA-Z0-9]/);
+        if(!letraMaiuscula.test(senhaInput)) {
+            avisoSenha.innerHTML += `Sua senha deve conter ao menos uma letra maiúscula!<br>`;
+            return;
+        }
+        if(!letraMinuscula.test(senhaInput)) {
+            avisoSenha.innerHTML += `Sua senha deve conter ao menos uma letra minúscula!<br>`;
+            return;
+        }
+        if(!caracterEspecial.test(senhaInput)) {
+            avisoSenha.innerHTML += `Sua senha deve conter ao menos um caracter especial!`;
+            return;
+        }
+        if(senhaInput != senhaNovamente) {
+            avisoSenha.innerHTML += `As senhas não coincidem`;
+            return;
+        }
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            }),
+            method: "POST", 
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                
+                nomeServer: nomeInput,
+                emailServer: emailInput,
+                senhaServer: senhaInput,
+                fkEmpresaServer: fkEmpresa,
+                ativoServer: 1,
+                isAdminServer: admInput
+            }),
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+            
+            if (resposta.ok) {
+                console.log('Dados recebidos!')
+            } else {
+                throw "Houve um erro ao tentar realizar o cadastro!";
+            }
+        })
+        .then(function (resposta) {
+          console.log("resposta: ", resposta);
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+        
+        return false;
+    }
+    </script>
