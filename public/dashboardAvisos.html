@@ -94,6 +94,46 @@
                     </div>
                 </div>
             </div>
+            <div id="avisos">
+                <div id="plantioEmRisco">
+                    <h2><img src="../assets/icons/alertav.png.png">Em Risco: Plantio X - Fazenda da Trufas - São Paulo
+                        SP</h2>
+                    <div class="conteudoAlerta">
+                        <div class="regioes">
+                            <div class="regioesTitulo">
+                                <h3>Regiões</h3>
+                            </div>
+                            <div id="quadradosRegioes"></div>
+                            <div class="instrucao">
+                                <span>Clique uma região acima para exibir para exibir mais detalhes abaixo</span>
+                            </div>
+                        </div>
+                        <div id="alertasPlantio">
+                            <div class="alertasTitulo">
+                                <h3>Alertas do Plantio X</h3>
+                            </div>
+                            <div id="alertaRegiao">
+                                <h3>Região X: Umidade elevada às Quartas-Feiras</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="regiaoSelecionada">
+                        <h2>Região X</h2>
+                    </div>
+                    <div class="conteudoRegiaoSelecionada">
+                        <div class="kpiSelecionada">
+                            <div id="quadradoRegiaoSelecionada"></div>
+                            <div id="alertaRegiaoSelecionada">
+                                <img src="./assets/alerta_branco.png">
+                            </div>
+                        </div>
+                        <div id="graficoAlertasRegiao">
+                            <div id="tituloGrafico"></div>
+                            <div id="graficoRegiaoSelecionada"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
@@ -107,6 +147,8 @@
         await buscarFazendas();
 
         estatisticasPlantios();
+
+        listarDiaSemana(sessionStorage.ID_EMPRESA);
     }
 
     async function buscarFazendas() {
@@ -185,9 +227,9 @@
                 }
             }
 
-            if(qtdRegioesCriticas > 0) {
+            if (qtdRegioesCriticas > 0) {
                 qtdPlantiosRisco++;
-            } else if(qtdRegioesAlertas > 0) {
+            } else if (qtdRegioesAlertas > 0) {
                 qtdPlantiosAlerta++;
             } else {
                 qtdPlantiosEstaveis++;
@@ -246,7 +288,6 @@
                 }
             }
         });
-
     }
 
 </script>
