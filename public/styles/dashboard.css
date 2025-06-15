@@ -99,7 +99,7 @@ body {
 /* Card Fazendas Monitoradas*/
 .css_dashboardAviso .css_container .css_dashGerais .css_fazendasMonitoradas{
     color: white;
-    background-color: #000000;
+    background: linear-gradient(to bottom, #3c261d, #0c0706);
     
     border-radius: 20px;
     width: 100%;
@@ -142,7 +142,7 @@ body {
 .css_dashboardAviso .css_container .css_dashGerais .css_plantiosRisco{
     margin-top: 10px;
     color: white;
-    background-color: #000000;
+    background: linear-gradient(to bottom, #3c261d, #0c0706);
     padding: 20px;
     border-radius: 20px;
     width: 100%;
@@ -192,7 +192,7 @@ body {
 
 .css_kpiPlantios{
     color: white;
-    background-color: #000000;
+    background: linear-gradient(to bottom, #3c261d, #0c0706);
     border-radius: 20px;
     width: 60%;
     height: 100%;
@@ -590,7 +590,7 @@ a {
     color: #945b25;
 }
 .cadastrar{
-    background-color: rgb(49, 16, 16);
+    background: linear-gradient(to bottom, #3c261d, #0c0706);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -598,14 +598,15 @@ a {
     border-radius: 20px;
     left: 30vw;
     top: 10vh;
-    height: 105vh;
+    height: 95vh;
     width: 50vw;
     box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.4);
     transition: 0.2s linear;
     color: #FFFFFF;
 }
 .cadastrar h1 {
-    transform: translateY(20px);
+    transform: translateY(60px);
+    margin-bottom: 50px;
     color: white;
 }
 .cadastrar:hover{
