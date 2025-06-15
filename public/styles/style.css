@@ -83,11 +83,10 @@ section .videoFundo {
     flex-direction: column;
     justify-content: center;
     margin-left: 10%;
-    margin-top: 5%;
 }
 .sobreNos {
     position: relative;
-    top: 20vh;
+
 }
 
 .gradiente {

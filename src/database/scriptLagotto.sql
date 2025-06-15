@@ -83,36 +83,33 @@ CONSTRAINT fkDadosRegiao
 -- Inserindo endereços (8 no total: 2 empresas + 4 plantios + 2 funcionários fictícios se quiser depois)
 INSERT INTO Endereco (cep, logradouro, numero, cidade, estadoSigla, coordX, coordY) VALUES
 ('12345-000', 'Rua das Trufas', 100, 'TrufaVille', 'SP', 250, 150),       -- id 1 - Empresa 1
-('23456-000', 'Av. dos Fungos', 200, 'Belo Horizonte', 'MG', 260, 160),   -- id 2 - Empresa 2
-('34567-000', 'Sítio das Árvores', 1, 'São Paulo', 'SP', 190, 90),        -- id 3 - Plantio 1 da Empresa 1
-('45678-000', 'Fazenda do Carvalho', 2, 'Campestre', 'MG', 220, 180),     -- id 4 - Plantio 2 da Empresa 1
-('56789-000', 'Trufalândia Norte', 3, 'Interiorzão', 'PR', 290, 190),     -- id 5 - Plantio 3 da Empresa 1
-('67890-000', 'Trufalândia Sul', 4, 'Interiorzão', 'PR', 300, 200),       -- id 6 - Plantio 4 da Empresa 1
-('01414-000', 'Haddock Lobo', 200, 'Av. Paulista', 'SP', 310, 210);       -- id 7 - Lagotto
+('23456-000', 'Av. dos Fungos', 200, 'Belo Horizonte', 'MG', 260, 160),   -- id 2 - Fazenda 1 da Empresa 1
+('34567-000', 'Sítio das Árvores', 1, 'São Paulo', 'SP', 190, 90),        -- id 3 - Fazenda 2 da Empresa 1
+('45678-000', 'Fazenda do Carvalho', 2, 'Campestre', 'MG', 220, 180),     -- id 4 - Fazenda 3 da Empresa 1
+('01414-000', 'Haddock Lobo', 200, 'Av. Paulista', 'SP', 310, 210);       -- id 5 - Lagotto
 
 SELECT * FROM Endereco;
 -- Inserindo empresas
 INSERT INTO Empresa (nome, cnpj, ativo, fkEndereco) VALUES
-('Trufas Nobres LTDA', '12345678000199', 1, 1),
-('Trufas do Sul SA', '98765432000188', 1, 2);
+('Trufas Nobres LTDA', '12345678000199', 1, 1);
 
 INSERT INTO Empresa (nome, cnpj, ativo, fkEndereco) VALUES
-('Lagotto', '234567213413', 1, 7);
+('Lagotto', '234567213413', 1, 5);
 
 -- Inserindo usuários administradores
 INSERT INTO Funcionario (nome, senha, email, fkEmpresa, ativo, isAdmin) VALUES
 ('Admin Trufas Nobres', 'senha123', 'admin1@gmail.com', 1, 1, 1),
-('Admin Trufas do Sul', 'senha123', 'admin2@gmail.com', 2, 1, 1),
-('Admin Lagotto', 'senha123', 'admin1@lagotto.com', 3, 1, 1);
+('Admin Lagotto', 'senha123', 'admin1@lagotto.com', 2, 1, 1);
 
 -- Inserindo fazendas
 INSERT INTO Fazenda (fkEmpresa, fkEndereco, nome) VALUES
-(1, 1, 'Fazenda Campestre A'), -- id 1
-(1, 2, 'Fazenda Campestre B'); -- id 2
+(1, 2, 'Fazenda Campestre A'), -- id 2
+(1, 3, 'Fazenda Campestre B'),	-- id 3
+(1, 4, 'Fazenda Trufas Negras'); -- id 4
 
 -- Inserindo plantios
 INSERT INTO Plantio (fkFazenda) VALUES
-	(1), (1), (2), (2);
+	(1), (1), (1), (2), (2), (2), (3), (3);
 
 -- Inserindo regiões (A a F para cada plantio)
 -- Usaremos sempre área de captura = 50 m2
@@ -151,7 +148,43 @@ INSERT INTO Regiao (fkPlantio, idRegiao, descricao, areaCapturaM2) VALUES
 (4, 5, 'Região E', 50),
 (4, 6, 'Região F', 50),
 (4, 7, 'Região G', 50),
-(4, 8, 'Região H', 50);
+(4, 8, 'Região H', 50),
+
+(5, 1, 'Região A', 50),
+(5, 2, 'Região B', 50),
+(5, 3, 'Região C', 50),
+(5, 4, 'Região D', 50),
+(5, 5, 'Região E', 50),
+(5, 6, 'Região F', 50),
+(5, 7, 'Região G', 50),
+(5, 8, 'Região H', 50),
+
+(6, 1, 'Região A', 50),
+(6, 2, 'Região B', 50),
+(6, 3, 'Região C', 50),
+(6, 4, 'Região D', 50),
+(6, 5, 'Região E', 50),
+(6, 6, 'Região F', 50),
+(6, 7, 'Região G', 50),
+(6, 8, 'Região H', 50),
+
+(7, 1, 'Região A', 50),
+(7, 2, 'Região B', 50),
+(7, 3, 'Região C', 50),
+(7, 4, 'Região D', 50),
+(7, 5, 'Região E', 50),
+(7, 6, 'Região F', 50),
+(7, 7, 'Região G', 50),
+(7, 8, 'Região H', 50),
+
+(8, 1, 'Região A', 50),
+(8, 2, 'Região B', 50),
+(8, 3, 'Região C', 50),
+(8, 4, 'Região D', 50),
+(8, 5, 'Região E', 50),
+(8, 6, 'Região F', 50),
+(8, 7, 'Região G', 50),
+(8, 8, 'Região H', 50);
 
 DELIMITER $$
 
@@ -169,7 +202,7 @@ BEGIN
     -- Cursor para regiões
     DECLARE cur CURSOR FOR 
         SELECT fkPlantio, idRegiao FROM Regiao 
-        WHERE fkPlantio BETWEEN 1 AND 4;
+        WHERE fkPlantio BETWEEN 1 AND 8;
     
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
 
@@ -190,8 +223,8 @@ BEGIN
                     LEAVE read_loop;
                 END IF;
 
-                -- Gera umidade aleatória entre 25 e 45
-                SET umidade = ROUND(25 + (RAND() * 20), 2);
+                -- Gera umidade aleatória entre 29.8 e 40.3
+                SET umidade = ROUND(29.8 + (RAND() * 10.5), 2);
 
                 -- Insere o dado
                 INSERT INTO DadosSensor (data, umidade, fkPlantio, fkRegiao)
@@ -210,6 +243,9 @@ BEGIN
     END WHILE;
 END $$
 DELIMITER ;
+
+TRUNCATE TABLE DadosSensor;
+ALTER TABLE DadosSensor AUTO_INCREMENT = 1;
 
 -- Executa o procedimento
 CALL gerar_dados_sensor();
