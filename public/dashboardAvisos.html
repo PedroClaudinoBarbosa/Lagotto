@@ -69,7 +69,7 @@
                                 <img src="../assets/icons/sinoa.png" alt="">
                                 <h1>Plantios em Aviso</h1>
                                 <h2 id="kpiQtdPlantiosAlerta"></h2>
-                                <h3>Regiões com umidade acima de 37% ou abaixo de 33%</h3>
+                                <h3>Regiões com umidade acima de 38% ou abaixo de 32%</h3>
                             </div>
                         </div>
                     </div>
@@ -178,7 +178,7 @@
 
                 if (umidadeAtual > 40 || umidadeAtual < 30) {
                     qtdRegioesCriticas++;
-                } else if (umidadeAtual >= 38 || umidadeAtual <= 32) {
+                } else if (umidadeAtual == 40 || umidadeAtual == 30) {
                     qtdRegioesAlertas++;
                 } else {
                     qtdRegioesEstaveis++;
@@ -200,8 +200,8 @@
         const labels = ['Plantios em Risco', 'Plantios em Aviso', 'Plantios Adequados'];
         const descricoes = [
             'Umidade abaixo de 30% ou acima de 40%',
-            'Umidade entre 30-33% ou 37-40%',
-            'Umidade entre 33% e 37%'
+            'Umidade entre 30-32% ou 38-40%',
+            'Umidade entre 32% e 38%'
         ];
         const cores = ['#ff4d4d', '#ffd11a', '#4dff88'];
 
@@ -225,7 +225,7 @@
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Situação dos Plantios',
+                    label: 'Quantidade',
                     data: [qtdPlantiosRisco, qtdPlantiosAlerta, qtdPlantiosEstaveis],
                     backgroundColor: cores,
                     borderColor: '#ffffff',
