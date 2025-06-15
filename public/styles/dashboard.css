@@ -24,6 +24,10 @@ body {
     background-color: #5f422c;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
+
+.sidebar img{
+    width: 26px;
+}
 /* DashAvisos */
 
 .box_selecionado {
@@ -596,22 +600,22 @@ a {
     align-items: center;
     position: relative;
     border-radius: 20px;
-    left: 30vw;
-    top: 10vh;
-    height: 95vh;
-    width: 50vw;
+    left: 40vw;
+    top: 2vh;
+    height: 100%;
+    padding-bottom: 50px;
+
+    width: 30vw;
     box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.4);
     transition: 0.2s linear;
     color: #FFFFFF;
 }
 .cadastrar h1 {
-    transform: translateY(60px);
-    margin-bottom: 50px;
+    margin-top: 35px;
+    font-size: 30px;
     color: white;
 }
-.cadastrar:hover{
-    top:9.5vh
-}
+
 .cadastrar .box-cadastro{
     display: flex;
     flex-direction: column;
@@ -623,7 +627,7 @@ a {
     color: #72594b;
 }
 #campo-senha {
-    margin-right: 150px;
+    margin-right: 100px;
 }
 #campo {
     margin-right: 235px;
@@ -634,7 +638,7 @@ a {
     text-align: center;
     padding: 10px;
     width: 300px;
-    height: 50px;
+    height: 10px;
     border: 0;
     border-radius: 20px;
     box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.4);
@@ -668,7 +672,7 @@ a {
 }
 #isAdmin {
     width: 300px;
-    height: 50px;
+    height: 30px;
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -686,6 +690,11 @@ a {
 
 .titulo p {
     align-self: flex-end;
+    color: white;
+}
+
+#campo {
+    color: wheat;
 }
 
 .avisos {
