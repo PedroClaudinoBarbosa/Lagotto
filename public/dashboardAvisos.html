@@ -268,6 +268,7 @@
 
     async function exibirAlertas() {
         let alertasHTML = '';
+        console.log(dataPlantiosRiscos)
 
         for(let i = 0; i < dataPlantiosRiscos.length; i++) {
             alertasHTML += await montarAlertas(dataPlantiosRiscos[i], 'Em risco');    
@@ -296,6 +297,33 @@
             imagemSrc = '../assets/icons/okv.png';
         }
 
+        let quadradosRegioes = '';
+
+        for(let i = 0; i < plantio.regioes.length; i++) {
+            let regiao = plantio.regioes[i];
+            console.log(regiao);
+
+            let umidadeAtual = regiao[0].umidade;
+
+            let classeCor;
+
+            if(umidadeAtual > 40 || umidadeAtual < 30) {
+               classeCor = 'quadradoVermelho';
+            } else if(umidadeAtual >= 39.8 || umidadeAtual <= 30.2) {
+                classeCor = 'quadradoAmarelo';
+            } else {
+                classeCor = 'quadradoVerde';
+            }
+
+            quadradosRegioes += `
+                <div class="quadradoMapa ${classeCor}">
+                    <h3>${regiao[0].descricao}</h3>
+                    <p>${umidadeAtual}%</p>
+                    <img src="../assets/icons/Union.png" alt="">
+                </div>
+            `;
+        }
+
         let alertaHTML = `
             <div id="alerta">
                 <h2><img src="${imagemSrc}">${estado}: Plantio ${plantio.idPlantio} - ${plantio.nomeFazenda} - ${plantio.cidade} ${plantio.estadoSigla}</h2>
@@ -305,15 +333,7 @@
                             <h3>Regiões</h3>
                         </div>
                         <div id="quadradosRegioes">
-                            <div id="quadradoMapa" class="quadradoVermelho">
-                                <h3>A</h3>
-                                <p>32%</p>
-                                <img src="../assets/icons/Union.png" alt="">
-                            </div>
-                            <div id="quadradoMapa" class="quadradoAmarelo"></div>
-                            <div id="quadradoMapa" class="quadradoVerde"></div>
-                            <div id="quadradoMapa" class="quadradoVerde"></div>
-                            <div id="quadradoMapa" class="quadradoVerde"></div>
+                            ${quadradosRegioes}
                         </div>
                         <div class="instrucao">
                             <span>Clique uma região acima para exibir para exibir mais detalhes abaixo</span>

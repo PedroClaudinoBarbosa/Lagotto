@@ -42,9 +42,13 @@ function dadosSensorQtdDias(idPlantio, idRegiao, qtdDias) {
             ) AS data,
             DadosSensor.umidade,
             DadosSensor.fkPlantio,
-            DadosSensor.fkRegiao
+            DadosSensor.fkRegiao,
+            Regiao.descricao
         FROM 
             DadosSensor
+        INNER JOIN Regiao 
+            ON DadosSensor.fkRegiao = Regiao.idRegiao
+            AND DadosSensor.fkPlantio = Regiao.fkPlantio
         WHERE 
             DadosSensor.fkPlantio = '${idPlantio}'
             AND DadosSensor.fkRegiao = '${idRegiao}'
