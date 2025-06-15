@@ -19,7 +19,8 @@ var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var avisoRouter = require("./src/routes/avisos");
 var plantioRouter =require('./src/routes/plantios');
-var calendarioRouter =require('./src/routes/calendario')
+var calendarioRouter =require('./src/routes/calendario');
+var estatisticasRouter = require('./src/routes/estatisticas');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -31,7 +32,8 @@ app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/avisos", avisoRouter);
 app.use("/plantios", plantioRouter);
-app.use("/calendario", calendarioRouter)
+app.use("/calendario", calendarioRouter);
+app.use("/estatisticas", estatisticasRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`

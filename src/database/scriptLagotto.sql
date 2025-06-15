@@ -75,8 +75,8 @@ CONSTRAINT fkDadosRegiao
 -- Inserindo endereços (8 no total: 2 empresas + 4 plantios + 2 funcionários fictícios se quiser depois)
 INSERT INTO Endereco (cep, logradouro, numero, cidade, estadoSigla, coordX, coordY) VALUES
 ('12345-000', 'Rua das Trufas', 100, 'TrufaVille', 'SP', 250, 150),       -- id 1 - Empresa 1
-('23456-000', 'Av. dos Fungos', 200, 'Belo Horizonte', 'SP', 260, 160),       -- id 2 - Empresa 2
-('34567-000', 'Sítio das Árvores', 1, 'São Paulo', 'SP', 190, 90),       -- id 3 - Plantio 1 da Empresa 1
+('23456-000', 'Av. dos Fungos', 200, 'Belo Horizonte', 'SP', 260, 160),   -- id 2 - Empresa 2
+('34567-000', 'Sítio das Árvores', 1, 'São Paulo', 'SP', 190, 90),        -- id 3 - Plantio 1 da Empresa 1
 ('45678-000', 'Fazenda do Carvalho', 2, 'Campestre', 'MG', 220, 180),     -- id 4 - Plantio 2 da Empresa 1
 ('56789-000', 'Trufalândia Norte', 3, 'Interiorzão', 'PR', 290, 190),     -- id 5 - Plantio 1 da Empresa 2
 ('67890-000', 'Trufalândia Sul', 4, 'Interiorzão', 'PR', 300, 200),       -- id 6 - Plantio 2 da Empresa 2
@@ -190,3 +190,71 @@ WHERE DadosSensor.fkPlantio = 1
 	AND DadosSensor.fkRegiao = 1
 ORDER BY data DESC
 LIMIT 10;
+
+SELECT CURDATE() - 7;
+
+SELECT Plantio.nome,
+	Regiao.idRegiao
+FROM Plantio
+INNER JOIN Regiao ON Plantio.idPlantio = Regiao.fkPlantio;
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS gerar_dados_sensor $$
+CREATE PROCEDURE gerar_dados_sensor()
+BEGIN
+    DECLARE data_atual DATETIME;
+    DECLARE id_plantio INT;
+    DECLARE id_regiao INT;
+    DECLARE i_dia INT;
+    DECLARE i_hora INT;
+    DECLARE umidade DECIMAL(4,2);
+    DECLARE done INT DEFAULT 0;
+    
+    -- Cursor para regiões
+    DECLARE cur CURSOR FOR 
+        SELECT fkPlantio, idRegiao FROM Regiao 
+        WHERE fkPlantio BETWEEN 1 AND 4;
+    
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+    SET i_dia = 0;
+
+    WHILE i_dia < 30 DO
+        SET i_hora = 0;
+
+        WHILE i_hora < 24 DO
+            SET data_atual = DATE_SUB(DATE('2025-06-17'), INTERVAL i_dia DAY) + INTERVAL i_hora HOUR;
+
+            -- Abre o cursor para as regiões
+            OPEN cur;
+            
+            read_loop: LOOP
+                FETCH cur INTO id_plantio, id_regiao;
+                IF done THEN
+                    LEAVE read_loop;
+                END IF;
+
+                -- Gera umidade aleatória entre 25 e 45
+                SET umidade = ROUND(25 + (RAND() * 20), 2);
+
+                -- Insere o dado
+                INSERT INTO DadosSensor (data, umidade, fkPlantio, fkRegiao)
+                VALUES (data_atual, umidade, id_plantio, id_regiao);
+            END LOOP;
+
+            CLOSE cur;
+
+            -- Reset done para o próximo cursor
+            SET done = 0;
+
+            SET i_hora = i_hora + 1;
+        END WHILE;
+
+        SET i_dia = i_dia + 1;
+    END WHILE;
+END $$
+DELIMITER ;
+
+-- Executa o procedimento
+CALL gerar_dados_sensor();
