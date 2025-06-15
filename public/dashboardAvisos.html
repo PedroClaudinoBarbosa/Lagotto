@@ -38,65 +38,72 @@
     </div>
 
     <div class="css_dashboardAviso">
+        
         <div class="css_container">
             <div class="css_titulo">
                 <img src="../assets/logo.png" alt="">
                 <h2>Dashboard Geral</h2>
             </div>
-
-            <div class="css_dashGerais">
-                <div class="css_kpiAlertas">
-                    <div class="css_fazendasMonitoradas">
-                        <div class="css_etiqueta">
-                            <img src="../assets/icons/fazenda.webp" alt="">
-                            <h1>Fazendas Monitoradas</h1>
-                        </div>
-                        <div class="css_contador" id="div_contadorFazendas"></div>
-                    </div>
-
-
-                    <div class="css_alertas">
-                        <div class="css_plantiosRisco">
+            
+            <div class="conteiner">
+                <div class="css_dashGerais">
+                    <div class="css_kpiAlertas">
+                        <div class="css_fazendasMonitoradas">
                             <div class="css_etiqueta">
-                                <img src="../assets/icons/alertav.png.png" alt="">
-                                <h1>Plantios em Risco</h1>
-                                <h2 id="kpiQtdPlantiosRisco"></h2>
-                                <h3>Regiões com umidade acima de 40% ou abaixo de 30%</h3>
+                                <img src="../assets/icons/fazenda.webp" alt="">
+                                <h1>Fazendas Monitoradas</h1>
+                            </div>
+                            <div class="css_contador" id="div_contadorFazendas"></div>
+                        </div>
+                        
+                        
+                        <div class="css_alertas">
+                            <div class="css_plantiosRisco">
+                                <div class="css_etiqueta">
+                                    <img src="../assets/icons/alertav.png.png" alt="">
+                                    <h1>Plantios em Risco</h1>
+                                    <h2 id="kpiQtdPlantiosRisco"></h2>
+                                    <h3>Regiões com umidade acima de 40% ou abaixo de 30%</h3>
+                                </div>
+                            </div>
+                            <div class="css_plantiosRisco">
+                                <div class="css_etiqueta">
+                                    <img src="../assets/icons/sinoa.png" alt="">
+                                    <h1>Plantios em Aviso</h1>
+                                    <h2 id="kpiQtdPlantiosAlerta"></h2>
+                                    <h3>Regiões com umidade acima de 38% ou abaixo de 32%</h3>
+                                </div>
                             </div>
                         </div>
-                        <div class="css_plantiosRisco">
-                            <div class="css_etiqueta">
-                                <img src="../assets/icons/sinoa.png" alt="">
-                                <h1>Plantios em Aviso</h1>
-                                <h2 id="kpiQtdPlantiosAlerta"></h2>
-                                <h3>Regiões com umidade acima de 38% ou abaixo de 32%</h3>
+                    </div>
+                    <div class="css_kpiPlantios">
+                        <div class="css_kpiEtiqueta">
+                            <div class="css_kpiPlantio">
+                                <div class="css_etiqueta">
+                                    <img src="../assets/icons/fungo.webp" alt="">
+                                    <h1>Plantios Monitorados</h1>
+                                </div>
+                                <div class="css_contador" id="div_contadorPlantios">
+                                    <h2 id="kpiQtdPlantiosMonitorados"></h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="css_graficoPlantio">
+                            <div id="graficoPlantio">
+                                <canvas id="graficoPizza" width="200" height="200"></canvas>
+                                <div id="legendaCustom" style="color: white; margin-left: 80px;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="css_kpiPlantios">
-                    <div class="css_kpiEtiqueta">
-                        <div class="css_kpiPlantio">
-                            <div class="css_etiqueta">
-                                <img src="../assets/icons/fungo.webp" alt="">
-                                <h1>Plantios Monitorados</h1>
-                            </div>
-                            <div class="css_contador" id="div_contadorPlantios">
-                                <h2 id="kpiQtdPlantiosMonitorados"></h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="css_graficoPlantio">
-                        <div id="graficoPlantio">
-                            <canvas id="graficoPizza" width="200" height="200"></canvas>
-                            <div id="legendaCustom" style="color: white; margin-left: 80px;"></div>
-                        </div>
-                    </div>
+                <div class="box-alerta">
+                    <img src="assets/icons/alert-icon.webp" alt=""><h1>Alertas</h1>
                 </div>
+
             </div>
             <div id="avisos">
                 <div id="plantioEmRisco">
-                    <h2><img src="../assets/icons/alertav.png.png">Em Risco: Plantio X - Fazenda da Trufas - São Paulo
+                    <h2><img src="assets/icons/alertav.png.png">Em Risco: Plantio X - Fazenda da Trufas - São Paulo
                         SP</h2>
                     <div class="conteudoAlerta">
                         <div class="regioes">
@@ -133,6 +140,11 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="conteiner-suporte" onclick="suporte()">
+            <div class="suporte">
+                <img src="assets/icons/phone-telephone.png" alt="">
             </div>
         </div>
     </div>
@@ -288,6 +300,9 @@
                 }
             }
         });
+    }
+    function suporte(){
+        window.open('https://lagotto.atlassian.net/servicedesk/customer/portal/1')
     }
 
 </script>
