@@ -68,6 +68,28 @@ function buscarRegiao(idPlantio, idRegiao) {
     return database.executar(instrucaoSql);
 }
 
+function obterAlertasPorEmpresa(idEmpresa) {
+    const instrucao = `
+        SELECT 
+            f.nome AS nomeFazenda,
+            p.idPlantio,
+            AVG(ds.umidade) AS mediaUmidade,
+            CASE 
+                WHEN AVG(ds.umidade) < 32 THEN 'Em risco'
+                WHEN AVG(ds.umidade) BETWEEN 32 AND 35 THEN 'Estado de Alerta'
+                ELSE 'Estável'
+            END AS situacao
+        FROM Fazenda f
+        INNER JOIN Plantio p ON f.idFazenda = p.fkFazenda
+        INNER JOIN Regiao r ON p.idPlantio = r.fkPlantio
+        INNER JOIN DadosSensor ds ON r.fkPlantio = ds.fkPlantio AND r.idRegiao = ds.fkRegiao
+        WHERE f.fkEmpresa = ${idEmpresa}
+            AND ds.data >= NOW() - INTERVAL 1 DAY
+        GROUP BY f.nome, p.idPlantio;
+    `;
+    return db.executar(instrucao);
+}
+
 
 
 
@@ -75,5 +97,6 @@ module.exports = {
     listarDiaSemana,
     listarAvisos,
     buscarPlantios,
-    buscarRegiao
+    buscarRegiao,
+    obterAlertasPorEmpresa
 }
