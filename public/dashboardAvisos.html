@@ -103,7 +103,7 @@
                     <div class="filtros-pesquisa">
                         <div class="filtro-item">
                             <label for="situacaoPlantio">Situação do Plantio:</label>
-                            <select id="situacaoPlantio" onchange="filtrarPlantios()">
+                            <select id="situacaoPlantio" onchange="exibirAlertas()">
                                 <option value="todos">Mostrar Todos</option>
                                 <option value="risco">Em Risco</option>
                                 <option value="aviso">Em Aviso</option>
@@ -113,7 +113,7 @@
                         <div class="filtro-item">
                             <label for="pesquisarFazenda">Pesquisar Fazenda:</label>
                             <input type="text" id="pesquisarFazenda" placeholder="Ex: Fazenda dos Fungos"
-                                onkeyup="filtrarPlantios()">
+                                onkeyup="exibirAlertas()">
                         </div>
                     </div>
                 </div>
@@ -285,64 +285,40 @@
     }
 
     async function exibirAlertas() {
-        let alertasHTML = '';
-        console.log(dataPlantiosRiscos)
-
-        for (let i = 0; i < dataPlantiosRiscos.length; i++) {
-            alertasHTML += await montarAlertas(dataPlantiosRiscos[i], 'Em risco');
-        }
-
-        for (let i = 0; i < dataPlantiosAlertas.length; i++) {
-            alertasHTML += await montarAlertas(dataPlantiosAlertas[i], 'Estado de Alerta');
-        }
-
-        for (let i = 0; i < dataPlantiosEstaveis.length; i++) {
-            alertasHTML += await montarAlertas(dataPlantiosEstaveis[i], 'Estável');
-        }
-
-        avisos.innerHTML = alertasHTML;
-    }
-
-    function filtrarPlantios() {
         const situacao = document.getElementById('situacaoPlantio').value;
-        const busca = document.getElementById('pesquisarFazenda').value.toLowerCase();
 
-        let plantiosFiltrados = [];
-
-        if (situacao === 'todos') {
-            plantiosFiltrados = dataPlantios;
-        } else if (situacao === 'risco') {
-            plantiosFiltrados = dataPlantiosRiscos;
-        } else if (situacao === 'aviso') {
-            plantiosFiltrados = dataPlantiosAlertas;
-        } else if (situacao === 'adequado') {
-            plantiosFiltrados = dataPlantiosEstaveis;
-        }
-
-        if (busca.trim() !== '') {
-            plantiosFiltrados = plantiosFiltrados.filter(p =>
-                p.nomeFazenda.toLowerCase().includes(busca)
-            );
-        }
-
-        montarListaFiltrada(plantiosFiltrados);
-    }
-
-    async function montarListaFiltrada(lista) {
         let alertasHTML = '';
 
-        for (let i = 0; i < lista.length; i++) {
-            const estado = dataPlantiosRiscos.includes(lista[i]) ? 'Em risco' :
-                dataPlantiosAlertas.includes(lista[i]) ? 'Estado de Alerta' : 'Estável';
-            alertasHTML += await montarAlertas(lista[i], estado);
+        let situcaoTodos = situacao == 'todos';
+
+        if(situcaoTodos || situacao == 'risco') {
+            for (let i = 0; i < dataPlantiosRiscos.length; i++) {
+                alertasHTML += await montarAlertas(dataPlantiosRiscos[i], 'Em risco');
+            }
+        }
+
+        if(situcaoTodos || situacao == 'aviso') {
+            for (let i = 0; i < dataPlantiosAlertas.length; i++) {
+                alertasHTML += await montarAlertas(dataPlantiosAlertas[i], 'Estado de Alerta');
+            }
+        }
+
+        if(situcaoTodos || situacao == 'adequado') {
+            for (let i = 0; i < dataPlantiosEstaveis.length; i++) {
+                alertasHTML += await montarAlertas(dataPlantiosEstaveis[i], 'Estável');
+            }
         }
 
         avisos.innerHTML = alertasHTML;
     }
 
     async function montarAlertas(plantio, estado) {
-
+        const busca = document.getElementById('pesquisarFazenda').value.toLowerCase();
         let imagemSrc;
+
+        if(!plantio.nomeFazenda.toLowerCase().includes(busca)) {
+            return '';
+        }
 
         if (estado == 'Em risco') {
             imagemSrc = '../assets/icons/alertav.png.png';
@@ -356,7 +332,6 @@
 
         for(let i = 0; i < plantio.regioes.length; i++) {
             let regiao = plantio.regioes[i];
-            console.log(regiao);
 
             let umidadeAtual = regiao[0].umidade;
 
@@ -422,21 +397,6 @@
         `;
 
         return alertaHTML;
-    }
-    async function carregarAlertas(idEmpresa) {
-        try {
-            const resposta = await fetch(`/alertas/empresa/${idEmpresa}`);
-            const dados = await resposta.json();
-
-            dataPlantiosRiscos = dados.dataPlantiosRiscos;
-            dataPlantiosAlertas = dados.dataPlantiosAlertas;
-            dataPlantiosEstaveis = dados.dataPlantiosEstaveis;
-            dataPlantios = dados.dataPlantios;
-
-            exibirAlertas();
-        } catch (erro) {
-            console.error("Erro ao carregar alertas:", erro);
-        }
     }
 
     function suporte() {
