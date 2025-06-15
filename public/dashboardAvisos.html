@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link rel="shortcut icon" href="assets/icon/lagotto-icon.png" type="image/x-icon">
     <title>Dashboard</title>
 </head>
+
 <body>
     <div class="sidebar">
         <div class="nav">
@@ -97,6 +99,7 @@
         </div>
     </div>
 </body>
+
 </html>
 <script>
     const risco = Math.floor(Math.random() * 20) + 5;
@@ -151,6 +154,58 @@
             }
         }
     });
+
+    let dataPlantios = [];
+    carregarPagina();
+
+    async function carregarPagina() {
+        buscarPlantios();
+    }
+
+    async function buscarPlantios() {
+        let respostaPlantios = await fetch(`/estatisticas/buscarPlantios/${sessionStorage.ID_EMPRESA}`, {
+            method: 'GET',
+            headers7: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!respostaPlantios.ok) {
+            respostaPlantios.text().then((erro) => {
+                console.error(erro);
+            });
+
+            return;
+        }
+
+        let jsonPlantios = await respostaPlantios.json();
+
+        for (const plantio of jsonPlantios) {
+            let dataPlantio = [];
+
+            for (let i = 1; i <= plantio.qtdRegioes; i++) {
+                let respostaRegiao = await fetch(`/estatisticas/dadosSensorQtdDias/${plantio.idPlantio}/${i}/1`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if(!respostaRegiao.ok) {
+                    respostaRegiao.text().then((erro) => {
+                        console.error(erro);
+                    });
+
+                    return;
+                }
+
+                let jsonRegiao = await respostaRegiao.json();
+                dataPlantio.push(jsonRegiao);
+            }
+
+            dataPlantios.push(dataPlantio);
+        }
+    }
+
+
 </script>
-
-

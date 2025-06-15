@@ -3,7 +3,6 @@ var router = express.Router();
 
 var calendarioController = require ('../controllers/calendarioController')
 
-
 router.get("/buscarDadosPorData/:idEmpresa", function(req, res) {
     calendarioController.fetchDadosPorData(req, res);
 });
