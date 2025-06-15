@@ -8,6 +8,7 @@ function buscarFazendas(idEmpresa) {
             WHERE fkEmpresa = '${idEmpresa}') AS qtdFazendas,
             Fazenda.nome,
             Plantio.idPlantio,
+            Endereco.cidade,
             Endereco.estadoSigla,
             COUNT(fkPlantio) as qtdRegioes
         FROM Fazenda

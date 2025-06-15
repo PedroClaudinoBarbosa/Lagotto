@@ -94,46 +94,7 @@
                     </div>
                 </div>
             </div>
-            <div id="avisos">
-                <div id="plantioEmRisco">
-                    <h2><img src="../assets/icons/alertav.png.png">Em Risco: Plantio X - Fazenda da Trufas - São Paulo
-                        SP</h2>
-                    <div class="conteudoAlerta">
-                        <div class="regioes">
-                            <div class="regioesTitulo">
-                                <h3>Regiões</h3>
-                            </div>
-                            <div id="quadradosRegioes"></div>
-                            <div class="instrucao">
-                                <span>Clique uma região acima para exibir para exibir mais detalhes abaixo</span>
-                            </div>
-                        </div>
-                        <div id="alertasPlantio">
-                            <div class="alertasTitulo">
-                                <h3>Alertas do Plantio X</h3>
-                            </div>
-                            <div id="alertaRegiao">
-                                <h3>Região X: Umidade elevada às Quartas-Feiras</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="regiaoSelecionada">
-                        <h2>Região X</h2>
-                    </div>
-                    <div class="conteudoRegiaoSelecionada">
-                        <div class="kpiSelecionada">
-                            <div id="quadradoRegiaoSelecionada"></div>
-                            <div id="alertaRegiaoSelecionada">
-                                <img src="./assets/alerta_branco.png">
-                            </div>
-                        </div>
-                        <div id="graficoAlertasRegiao">
-                            <div id="tituloGrafico"></div>
-                            <div id="graficoRegiaoSelecionada"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="avisos"></div>
         </div>
     </div>
 </body>
@@ -141,20 +102,23 @@
 </html>
 <script>
     let dataPlantios = [];
+    let dataPlantiosRiscos = [];
+    let dataPlantiosAlertas = [];
+    let dataPlantiosEstaveis = [];
+    
     carregarPagina();
 
     async function carregarPagina() {
         await buscarFazendas();
 
-        estatisticasPlantios();
-
-        listarDiaSemana(sessionStorage.ID_EMPRESA);
+        await estatisticasPlantios();
+        exibirAlertas();
     }
 
     async function buscarFazendas() {
         let respostaPlantios = await fetch(`/estatisticas/buscarFazendas/${sessionStorage.ID_EMPRESA}`, {
             method: 'GET',
-            headers7: {
+            headers: {
                 'Content-Type': 'application/json'
             }
         });
@@ -168,11 +132,17 @@
         }
 
         let jsonPlantios = await respostaPlantios.json();
-
+        
         div_contadorFazendas.innerHTML = `<h2>${jsonPlantios[0].qtdFazendas}`;
 
         for (const plantio of jsonPlantios) {
-            let dataPlantio = [];
+            let dataPlantio = {
+                'idPlantio': plantio.idPlantio,
+                'nomeFazenda': plantio.nome,
+                'estadoSigla': plantio.estadoSigla,
+                'cidade': plantio.cidade,
+                'regioes': []
+            };
 
             for (let i = 1; i <= plantio.qtdRegioes; i++) {
                 let respostaRegiao = await fetch(`/estatisticas/dadosSensorQtdDias/${plantio.idPlantio}/${i}/1`, {
@@ -191,22 +161,16 @@
                 }
 
                 let jsonRegiao = await respostaRegiao.json();
-                dataPlantio.push(jsonRegiao);
+                dataPlantio.regioes.push(jsonRegiao);
             }
 
             dataPlantios.push(dataPlantio);
         }
-
-        console.log(dataPlantios);
     }
 
     async function estatisticasPlantios() {
         let qtdPlantios = dataPlantios.length;
         kpiQtdPlantiosMonitorados.innerHTML = `${qtdPlantios}`;
-
-        let qtdPlantiosRisco = 0;
-        let qtdPlantiosAlerta = 0;
-        let qtdPlantiosEstaveis = 0;
 
         for (let i = 0; i < qtdPlantios; i++) {
             let plantio = dataPlantios[i];
@@ -214,13 +178,13 @@
             let qtdRegioesAlertas = 0;
             let qtdRegioesEstaveis = 0;
 
-            for (let j = 0; j < plantio.length; j++) {
-                let regiao = plantio[j];
+            for (let j = 0; j < plantio.regioes.length; j++) {
+                let regiao = plantio.regioes[j];
                 let umidadeAtual = regiao[0].umidade;
 
                 if (umidadeAtual > 40 || umidadeAtual < 30) {
                     qtdRegioesCriticas++;
-                } else if (umidadeAtual == 40 || umidadeAtual == 30) {
+                } else if (umidadeAtual >= 39.8 || umidadeAtual <= 30.2) {
                     qtdRegioesAlertas++;
                 } else {
                     qtdRegioesEstaveis++;
@@ -228,16 +192,16 @@
             }
 
             if (qtdRegioesCriticas > 0) {
-                qtdPlantiosRisco++;
+                dataPlantiosRiscos.push(plantio);
             } else if (qtdRegioesAlertas > 0) {
-                qtdPlantiosAlerta++;
+                dataPlantiosAlertas.push(plantio);
             } else {
-                qtdPlantiosEstaveis++;
+                dataPlantiosEstaveis.push(plantio);
             }
         }
 
-        kpiQtdPlantiosRisco.innerHTML = `${qtdPlantiosRisco}`;
-        kpiQtdPlantiosAlerta.innerHTML = `${qtdPlantiosAlerta}`;
+        kpiQtdPlantiosRisco.innerHTML = `${dataPlantiosRiscos.length}`;
+        kpiQtdPlantiosAlerta.innerHTML = `${dataPlantiosAlertas.length}`;
 
         const labels = ['Plantios em Risco', 'Plantios em Aviso', 'Plantios Adequados'];
         const descricoes = [
@@ -268,7 +232,7 @@
                 labels: labels,
                 datasets: [{
                     label: 'Quantidade',
-                    data: [qtdPlantiosRisco, qtdPlantiosAlerta, qtdPlantiosEstaveis],
+                    data: [dataPlantiosRiscos.length, dataPlantiosAlertas.length, dataPlantiosEstaveis.length],
                     backgroundColor: cores,
                     borderColor: '#ffffff',
                     borderWidth: 2
@@ -288,6 +252,79 @@
                 }
             }
         });
+    }
+
+    async function exibirAlertas() {
+        let alertasHTML = '';
+
+        for(let i = 0; i < dataPlantiosRiscos.length; i++) {
+            alertasHTML += await montarAlertas(dataPlantiosRiscos[i], 'Em risco');    
+        }
+
+        for(let i = 0; i < dataPlantiosAlertas.length; i++) {
+            alertasHTML += await montarAlertas(dataPlantiosAlertas[i], 'Estado de Alerta');    
+        }
+
+        for(let i = 0; i < dataPlantiosEstaveis.length; i++) {
+            alertasHTML += await montarAlertas(dataPlantiosEstaveis[i], 'Estável');    
+        }
+
+        avisos.innerHTML = alertasHTML;
+    }
+
+    async function montarAlertas(plantio, estado) {
+        
+        let imagemSrc;
+
+        if(estado == 'Em risco') {
+            imagemSrc = '../assets/icons/alertav.png.png';
+        } else if(estado == 'Estado de Alerta') {
+            imagemSrc = '../assets/icons/sinoa.png';
+        } else if(estado == 'Estável') {
+            imagemSrc = '../assets/icons/okv.png';
+        }
+
+        let alertaHTML = `
+            <div id="alerta">
+                <h2><img src="${imagemSrc}">${estado}: Plantio ${plantio.idPlantio} - ${plantio.nomeFazenda} - ${plantio.cidade} ${plantio.estadoSigla}</h2>
+                <div class="conteudoAlerta">
+                    <div class="regioes">
+                        <div class="regioesTitulo">
+                            <h3>Regiões</h3>
+                        </div>
+                        <div id="quadradosRegioes"></div>
+                        <div class="instrucao">
+                            <span>Clique uma região acima para exibir para exibir mais detalhes abaixo</span>
+                        </div>
+                    </div>
+                    <div id="alertasPlantio">
+                        <div class="alertasTitulo">
+                            <h3>Alertas do Plantio ${plantio.idPlantio}</h3>
+                        </div>
+                        <div id="alertaRegiao">
+                            <h3>Região X: Umidade elevada às Quartas-Feiras</h3>
+                        </div>
+                    </div>
+                </div>
+                <div id="regiaoSelecionada">
+                    <h2>Região X</h2>
+                </div>
+                <div class="conteudoRegiaoSelecionada">
+                    <div class="kpiSelecionada">
+                        <div id="quadradoRegiaoSelecionada"></div>
+                        <div id="alertaRegiaoSelecionada">
+                            <img src="./assets/alerta_branco.png">
+                        </div>
+                    </div>
+                    <div id="graficoAlertasRegiao">
+                        <div id="tituloGrafico"></div>
+                        <div id="graficoRegiaoSelecionada"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        return alertaHTML;
     }
 
 </script>

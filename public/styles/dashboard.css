@@ -717,11 +717,11 @@ a {
     background: linear-gradient(to bottom, #3c261d, #20130f);
     height: max-content;
     width: 100%;
-
+    flex-direction: column;
     margin-top: 10px;
 }
 
-#plantioEmRisco {
+#alerta {
     margin: 5px;
     width: 100%;
     height: max-content;
@@ -729,7 +729,7 @@ a {
     border-radius: 2px;
 }
 
-#plantioEmRisco img {
+#alerta img {
     width: 30px;
     height: 30px;
 
@@ -738,7 +738,7 @@ a {
     margin-top: 5px;
 }
 
-#plantioEmRisco h2{
+#alerta h2{
     background-color: #000000;
     font-size: 30px;
     font-weight: 450;
