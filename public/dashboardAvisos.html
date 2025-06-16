@@ -360,7 +360,7 @@
 
             let regiao = plantio.regioes[i];
 
-            let umidadeAtual = regiao[0].umidade;
+            let umidadeAtual = regiao[23].umidade;
 
             let classeCor;
 
@@ -441,8 +441,8 @@
                 <div class="kpiSelecionada">
                     <div id="quadradoRegiaoSelecionada" class="${classeCor}">
                         <img src="../assets/icons/Union.png" alt="">
-                        <span>${regiao[0].descricao}</span>
-                        <h1>${Math.round(Number(regiao[0].umidade))} %</h1>  
+                        <span>${regiao[23].descricao}</span>
+                        <h1>${Math.round(Number(regiao[23].umidade))} %</h1>  
                         <p>Umidade do Solo Atual</p> 
                     </div>
                     <div id="alertaRegiaoSelecionada">
