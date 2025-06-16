@@ -12,7 +12,7 @@
     <div class="sidebar">
         <div class="nav">
             <a href="dashboardAvisos.html" style="color: wheat;">
-                <div class="box">
+                <div id="dash" class="box">
                     Dashboards <img src="../assets/icons/notification-bing.png" alt="">
                 </div>
             </a>
@@ -29,7 +29,7 @@
                 </div>
             </a>
             <a onclick="sair()" href="login_cadastro.html" style="color: wheat;">
-                <div class="box">
+                <div id="sair" class="box">
                     Sair <img src="../assets/icons/logout.png" alt="">
                 </div>
             </a>
@@ -108,17 +108,6 @@
             return;
         }
         fetch("/usuarios/cadastrar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
-                nomeServer: nomeVar,
-                emailServer: emailVar,
-                senhaServer: senhaVar
-            }),
             method: "POST", 
             headers: {
                 "Content-Type": "application/json",
