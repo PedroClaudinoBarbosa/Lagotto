@@ -11,4 +11,8 @@ router.get("/dadosSensorQtdDias/:idPlantio/:idRegiao/:qtdDias", function(req, re
     estatisticasController.dadosSensorQtdDias(req, res);
 });
 
+router.get("/umidadesDiaSemanaPassados/:idPlantio/:idRegiao/:diaSemana", function(req, res) {
+    estatisticasController.umidadesDiaSemanaPassados(req, res);
+});
+
 module.exports = router;

@@ -61,7 +61,43 @@ function dadosSensorQtdDias(idPlantio, idRegiao, qtdDias) {
     return database.executar(instrucaoSql)
 }
 
+function umidadesDiaSemanaPassados(idPlantio, idRegiao, diaSemana) {
+    let instrucaoSql = `
+        SELECT 
+            fkPlantio,
+            fkRegiao,
+            MAX(umidade) AS maiorUmidade,
+            MIN(umidade) AS menorUmidade,
+            DATE(data) AS data,
+            CASE DAYOFWEEK(DadosSensor.data)
+                WHEN 1 THEN 'Domingo'
+                WHEN 2 THEN 'Segunda'
+                WHEN 3 THEN 'Terça'
+                WHEN 4 THEN 'Quarta'
+                WHEN 5 THEN 'Quinta'
+                WHEN 6 THEN 'Sexta'
+                WHEN 7 THEN 'Sábado'
+            END AS diaSemana
+        FROM DadosSensor
+        WHERE 
+            DAYOFWEEK(data) = '${diaSemana}'
+            AND fkPlantio = '${idPlantio}'
+            AND fkRegiao = '${idRegiao}'
+            AND data < NOW()
+        GROUP BY 
+            fkPlantio, 
+            fkRegiao, 
+            DATE(data),
+            diaSemana
+        ORDER BY 
+            DATE(data);
+    `;
+
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarFazendas,
-    dadosSensorQtdDias
+    dadosSensorQtdDias,
+    umidadesDiaSemanaPassados
 }

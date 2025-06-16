@@ -18,7 +18,18 @@ function dadosSensorQtdDias(req, res) {
     });
 }
 
+function umidadesDiaSemanaPassados(req, res) {
+    let idPlantio = req.params.idPlantio;
+    let idRegiao = req.params.idRegiao;
+    let diaSemana = req.params.diaSemana;
+
+    estatisticasModel.umidadesDiaSemanaPassados(idPlantio, idRegiao, diaSemana).then((resultado) => {
+        res.status(200).json(resultado);
+    });
+}
+
 module.exports = {
     buscarFazendas,
-    dadosSensorQtdDias
+    dadosSensorQtdDias,
+    umidadesDiaSemanaPassados
 }
