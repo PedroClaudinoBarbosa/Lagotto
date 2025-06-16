@@ -136,6 +136,9 @@
     let dataPlantiosAlertas = [];
     let dataPlantiosEstaveis = [];
 
+    let listaExibicao;
+    let graficosPlantios = [];
+
     carregarPagina();
 
     async function carregarPagina() {
@@ -289,6 +292,8 @@
 
         let alertasHTML = '';
 
+        listaExibicao = [];
+
         let situcaoTodos = situacao == 'todos';
         let dataExibir;
 
@@ -322,8 +327,8 @@
 
         avisos.innerHTML = alertasHTML;
  
-        for(let i = 0; i < dataExibir.length; i++) {
-            let plantio = dataExibir[i];
+        for(let i = 0; i < listaExibicao.length; i++) {
+            let plantio = listaExibicao[i];
             
             carregarEstatisticasRegiao(plantio.idPlantio, 1);         
         }
@@ -338,6 +343,8 @@
             return '';
         }
 
+        listaExibicao.push(plantio);
+
         if (estado == 'Em risco') {
             imagemSrc = '../assets/icons/alertav.png.png';
         } else if (estado == 'Estado de Alerta') {
@@ -349,6 +356,7 @@
         let quadradosRegioes = '';
 
         for(let i = 0; i < plantio.regioes.length; i++) {
+
             let regiao = plantio.regioes[i];
 
             let umidadeAtual = regiao[0].umidade;
@@ -431,7 +439,8 @@
         regiaoConteudo.innerHTML = `
                 <div class="kpiSelecionada">
                     <div id="quadradoRegiaoSelecionada" class="${classeCor}">
-                        ${boxRegiaoClicada}    
+                        <h2>${regiao[0].descricao}</h2>
+                        <h1>${regiao[0].umidade} %</h1>   
                     </div>
                     <div id="alertaRegiaoSelecionada">
                         <img src="./assets/alerta_branco.png">
