@@ -375,7 +375,7 @@
             quadradosRegioes += `
                 <div id="regiao${regiao[0].fkRegiao}" class="quadradoMapa ${classeCor}" onclick="carregarEstatisticasRegiao(${regiao[0].fkPlantio}, ${regiao[0].fkRegiao})">
                     <h3>${regiao[0].descricao}</h3>
-                    <p>${umidadeAtual}%</p>
+                    <p>${Math.round(Number(umidadeAtual))}%</p>
                     <img src="../assets/icons/Union.png" alt="">
                 </div>
             `;
@@ -405,7 +405,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="regiaoSelecionada${plantio.idPlantio}">
+                <div id="regiaoSelecionada${plantio.idPlantio}" class="regiaoSelecionada">
                     
                 </div>
                 <div class="conteudoRegiaoSelecionada" id="conteudoRegiaoSelecionada${plantio.idPlantio}"></div>
@@ -433,7 +433,7 @@
 
         let regiaoSelecionado = document.getElementById(`regiaoSelecionada${idPlantio}`);
         regiaoSelecionado.innerHTML = `
-            <h2>${regiao[0].descricao}</h2>
+            <h2>Dados ${regiao[0].descricao}</h2>
         `;
 
         let regiaoConteudo = document.getElementById(`conteudoRegiaoSelecionada${idPlantio}`);
@@ -442,7 +442,7 @@
                     <div id="quadradoRegiaoSelecionada" class="${classeCor}">
                         <img src="../assets/icons/Union.png" alt="">
                         <span>${regiao[0].descricao}</span>
-                        <h1>${regiao[0].umidade} %</h1>  
+                        <h1>${Math.round(Number(regiao[0].umidade))} %</h1>  
                         <p>Umidade do Solo Atual</p> 
                     </div>
                     <div id="alertaRegiaoSelecionada">
@@ -552,10 +552,6 @@
                                 weight: 600
                             }
                         },
-                        ticks: {
-                            maxRotation: 45,
-                            minRotation: 45
-                        }
                     }
                 },
                 plugins: {

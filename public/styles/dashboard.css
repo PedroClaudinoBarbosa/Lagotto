@@ -854,8 +854,6 @@ a {
     height: 30px;
 
     margin-right: 5px;
-    margin-left: 20px;
-    margin-right: 40px;
     margin-top: 5px;
     margin-bottom: -5px;
 }
@@ -867,6 +865,11 @@ a {
     color: white;
 
     margin-bottom: 15px;
+}
+
+.alerta h2 img{
+        margin-left: 20px;
+    margin-right: 40px;
 }
 
 .conteudoAlerta {
@@ -919,9 +922,10 @@ a {
 }
 
 #quadradoMapa img {
-    height: 25px;
-    width: 25px;
+    width: 20px;
+    height: auto;
 }
+
 .quadradoVermelho {
     background-color: #ff5757;
     opacity: 0.4;
@@ -989,22 +993,11 @@ a {
     font-size: 25px;
 }
 
-#regiaoSelecionada {
-
+.regiaoSelecionada {
+    padding-left: 80px;
     background-color: #000000;
-
-    width: 100%;
-    height: max-content;
-
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-
 }
 
-#regiaoSelecionada h2 {
-    margin-left: 750px;
-}
 
 .conteudoRegiaoSelecionada {
     display: flex;
@@ -1012,10 +1005,8 @@ a {
 }
 
 #graficoAlertasRegiao {
-    width: 45%;
-    padding-left: 15%;
-
-
+    width: 55%;
+    margin-left: 5%;
 }
 
 .kpiSelecionada {
@@ -1025,10 +1016,12 @@ a {
 
 #quadradoRegiaoSelecionada {
     width: 400px;
-    height: 250px;
+    height: 220px;
     margin-left: 80px;
     border-radius: 10px;
     opacity: 1;
+    padding: 10px;
+    padding-left: 20px;
 }
 
 #quadradoRegiaoSelecionada img {
@@ -1042,16 +1035,16 @@ a {
     justify-self: center;
     align-self: center;
     color: white;
-    font-size: 45px;
+    font-size: 35px;
     margin-top: 10px;
 }
 
 #quadradoRegiaoSelecionada h1 {
     display: flex;
-    justify-self: center;
+    justify-self: flex-start;
     align-self: center;
     color: white;
-    font-size: 55px;
+    font-size: 45px;
     font-weight: 600;
 }
 
@@ -1059,10 +1052,9 @@ a {
     display: flex;
     justify-self: flex-start;
     align-self: flex-end;
-    font-size: 27px;
+    font-size: 20px;
     font-weight: 600;
     margin-top: 15px;
-    margin-left: 13px;
 }
 
 #alertaRegiaoSelecionada {
@@ -1088,3 +1080,4 @@ a {
 
     color: white;
 }
+
