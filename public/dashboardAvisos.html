@@ -297,25 +297,25 @@
         let situcaoTodos = situacao == 'todos';
         let dataExibir;
 
-        if(situcaoTodos || situacao == 'risco') {
+        if (situcaoTodos || situacao == 'risco') {
             for (let i = 0; i < dataPlantiosRiscos.length; i++) {
                 alertasHTML += await montarAlertas(dataPlantiosRiscos[i], 'Em risco');
             }
         }
 
-        if(situcaoTodos || situacao == 'aviso') {
+        if (situcaoTodos || situacao == 'aviso') {
             for (let i = 0; i < dataPlantiosAlertas.length; i++) {
                 alertasHTML += await montarAlertas(dataPlantiosAlertas[i], 'Estado de Alerta');
             }
         }
 
-        if(situcaoTodos || situacao == 'adequado') {
+        if (situcaoTodos || situacao == 'adequado') {
             for (let i = 0; i < dataPlantiosEstaveis.length; i++) {
                 alertasHTML += await montarAlertas(dataPlantiosEstaveis[i], 'Estável');
             }
         }
 
-        if(situcaoTodos) {
+        if (situcaoTodos) {
             dataExibir = dataPlantios;
         } else if (situacao == 'risco') {
             dataExibir = dataPlantiosRiscos;
@@ -326,11 +326,11 @@
         }
 
         avisos.innerHTML = alertasHTML;
- 
-        for(let i = 0; i < listaExibicao.length; i++) {
+
+        for (let i = 0; i < listaExibicao.length; i++) {
             let plantio = listaExibicao[i];
-            
-            carregarEstatisticasRegiao(plantio.idPlantio, 1);         
+
+            carregarEstatisticasRegiao(plantio.idPlantio, 1);
         }
     }
 
@@ -339,7 +339,7 @@
         const busca = document.getElementById('pesquisarFazenda').value.toLowerCase();
         let imagemSrc;
 
-        if(!plantio.nomeFazenda.toLowerCase().includes(busca)) {
+        if (!plantio.nomeFazenda.toLowerCase().includes(busca)) {
             return '';
         }
 
@@ -356,7 +356,7 @@
 
         let quadradosRegioes = '';
 
-        for(let i = 0; i < plantio.regioes.length; i++) {
+        for (let i = 0; i < plantio.regioes.length; i++) {
 
             let regiao = plantio.regioes[i];
 
@@ -364,14 +364,14 @@
 
             let classeCor;
 
-            if(umidadeAtual > 40 || umidadeAtual < 30) {
-               classeCor = 'quadradoVermelho';
-            } else if(umidadeAtual >= 39.8 || umidadeAtual <= 30.2) {
+            if (umidadeAtual > 40 || umidadeAtual < 30) {
+                classeCor = 'quadradoVermelho';
+            } else if (umidadeAtual >= 39.8 || umidadeAtual <= 30.2) {
                 classeCor = 'quadradoAmarelo';
             } else {
                 classeCor = 'quadradoVerde';
             }
-            
+
             quadradosRegioes += `
                 <div id="regiao${regiao[0].fkRegiao}" class="quadradoMapa ${classeCor}" onclick="carregarEstatisticasRegiao(${regiao[0].fkPlantio}, ${regiao[0].fkRegiao})">
                     <h3>${regiao[0].descricao}</h3>
@@ -419,10 +419,10 @@
         let plantioRegioes = document.getElementById(`quadradoRegioes${idPlantio}`);
         let boxRegiaoClicada;
 
-        for(const regiao of plantioRegioes.children) {
+        for (const regiao of plantioRegioes.children) {
             regiao.classList.remove('selecionado');
 
-            if(regiao.id == `regiao${idRegiao}`) {
+            if (regiao.id == `regiao${idRegiao}`) {
                 regiao.classList.add('selecionado');
                 boxRegiaoClicada = regiao.innerHTML;
                 classeCor = regiao.classList[1];
@@ -460,7 +460,7 @@
         let data = [];
         let labels = [];
 
-        for(let i = 0; i < regiao.length; i++) {
+        for (let i = 0; i < regiao.length; i++) {
             data.push(regiao[i].umidade);
 
             let dataHora = regiao[i].data;
@@ -484,7 +484,7 @@
         let maiorValor = 32;
         let menorValor = 40;
 
-        for(let i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             let umidade = data[i].umidade;
             alertasAcima40.push(40);
             alertasAbaixo30.push(30);
@@ -515,8 +515,7 @@
                     backgroundColor: 'transparent',
                     pointRadius: 0,
                     tension: 0
-                } 
-                ,{
+                }, {
                     label: 'Umidade Muito Baixa',
                     data: alertasAbaixo30,
                     borderWidth: 1,
@@ -532,10 +531,13 @@
                         beginAtZero: false,
                         suggestedMin: menorValor - 5,
                         suggestedMax: maiorValor + 5,
+                        ticks: {
+                            color: '#ffffff' // números do eixo Y em branco
+                        },
                         title: {
                             display: true,
                             text: 'Umidade (%)',
-                            color: '#ebc77f',
+                            color: '#ebc77f', // título do eixo Y na cor original
                             font: {
                                 size: 20,
                                 weight: 600
@@ -543,25 +545,31 @@
                         }
                     },
                     x: {
+                        ticks: {
+                            color: '#ffffff' // rótulos do eixo X em branco
+                        },
                         title: {
                             display: true,
                             text: 'Data e Hora',
-                            color: '#ebc77f',
+                            color: '#ebc77f', // título do eixo X na cor original
                             font: {
                                 size: 20,
                                 weight: 600
                             }
-                        },
+                        }
                     }
                 },
                 plugins: {
                     legend: {
-                        label: 'Nível Critíco',
-                        display: true
+                        labels: {
+                            color: '#ffffff' // cor do texto da legenda em branco
+                        }
                     }
                 }
             }
         });
+
+
     }
 
     function suporte() {
