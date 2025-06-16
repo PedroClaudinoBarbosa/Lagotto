@@ -886,8 +886,19 @@ a {
     margin-bottom: 15px;
 }
 
+.titulosDados {
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    background-color: #110a08;
+    border-radius: 5px;
+    height: 40px;
+    margin-top: 0;
+    width: 34.5%;
+    text-align: center;
+}
+
 .alerta h2 img{
-        margin-left: 20px;
+    margin-left: 20px;
     margin-right: 40px;
 }
 
@@ -913,7 +924,7 @@ a {
 
 .regioesTitulo h3 {
     color: white;
-    font-weight: 400;
+    font-weight: 900;
     font-size: 30px;
 }
 
@@ -1014,7 +1025,7 @@ a {
 
 .regiaoSelecionada {
     padding-left: 80px;
-    background-color: #000000;
+    background-color: #2a1d1d;
 }
 
 
@@ -1041,6 +1052,7 @@ a {
     opacity: 1;
     padding: 10px;
     padding-left: 20px;
+    margin-top: 10px;
 }
 
 #quadradoRegiaoSelecionada img {
