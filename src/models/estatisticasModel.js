@@ -28,7 +28,7 @@ function dadosSensorQtdDias(idPlantio, idRegiao, qtdDias) {
             DadosSensor.idDadosSensor,
             CONCAT(
                 DATE_FORMAT(DadosSensor.data, '%d/%m/%Y - %H:%i:%s'),
-                ' (',
+                '#(',
                 CASE DAYOFWEEK(DadosSensor.data)
                     WHEN 1 THEN 'Domingo'
                     WHEN 2 THEN 'Segunda'

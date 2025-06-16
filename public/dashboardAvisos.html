@@ -18,11 +18,11 @@
                 Dashboards <img src="../assets/icons/notification-bing.png" alt="">
             </div>
 
-            <a href="dashboardPlantios.html" style="color: wheat;">
+            <!-- <a href="dashboardPlantios.html" style="color: wheat;">
                 <div class="box">
                     Plantios <img src="../assets/icons/field.png" alt="">
                 </div>
-            </a>
+            </a> -->
 
             <a id="config" href="dashboardConfiguracoes.html" style="color: wheat;">
                 <div class="box">
@@ -344,6 +344,7 @@
         }
 
         listaExibicao.push(plantio);
+        graficosPlantios[plantio.idPlantio - 1] = null;
 
         if (estado == 'Em risco') {
             imagemSrc = '../assets/icons/alertav.png.png';
@@ -450,9 +451,118 @@
                 </div>
                 <div id="graficoAlertasRegiao">
                     <div id="tituloGrafico"></div>
-                    <div id="graficoRegiaoSelecionada"></div>
+                    <div class="canvas">
+                        <canvas id="graficoPlantio${idPlantio}"</canvas>
+                    </div>
                 </div>
         `;
+
+        let data = [];
+        let labels = [];
+
+        for(let i = 0; i < regiao.length; i++) {
+            data.push(regiao[i].umidade);
+
+            let dataHora = regiao[i].data;
+            let datahoraValores = dataHora.split("#");
+            labels.push(datahoraValores[0]);
+        }
+
+        gerarGraficoUmidade(idPlantio, data, labels);
+    }
+
+    function gerarGraficoUmidade(idPlantio, data, labels) {
+        let ctx = document.getElementById(`graficoPlantio${idPlantio}`);
+
+        if (graficosPlantios[idPlantio - 1] !== null) {
+            graficosPlantios[idPlantio - 1].destroy();
+        }
+
+        let alertasAcima40 = [];
+        let alertasAbaixo30 = [];
+
+        let maiorValor = 32;
+        let menorValor = 40;
+
+        for(let i = 0; i < data.length; i++) {
+            let umidade = data[i].umidade;
+            alertasAcima40.push(40);
+            alertasAbaixo30.push(30);
+
+            maiorValor = umidade > maiorValor ? umidade : maiorValor;
+            menorValor = umidade < menorValor ? umidade : menorValor;
+        }
+
+        graficosPlantios[idPlantio - 1] = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels,
+                datasets: [{
+                    label: 'Umidade do Solo',
+                    data,
+                    borderWidth: 2,
+                    borderColor: '#5f422c',
+                    backgroundColor: 'transparent',
+                    pointBackgroundColor: '#5f422c',
+                    pontBorderColor: '#5f422c',
+                    tension: 0.2
+                }, {
+                    label: 'Problema crítico',
+                    data: alertasAbaixo30,
+                    borderWidth: 1,
+                    borderColor: 'red',
+                    backgroundColor: 'transparent',
+                    pointRadius: 0,
+                    tension: 0
+                }, {
+                    label: 'Problema crítico',
+                    data: alertasAcima40,
+                    borderWidth: 1,
+                    borderColor: 'red',
+                    backgroundColor: 'transparent',
+                    pointRadius: 0,
+                    tension: 0
+                }],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        suggestedMin: menorValor - 5,
+                        suggestedMax: maiorValor + 5,
+                        title: {
+                            display: true,
+                            text: 'Umidade (%)',
+                            color: '#5f422c',
+                            font: {
+                                size: 20,
+                                weight: 600
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Data e Hora',
+                            color: '#5f422c',
+                            font: {
+                                size: 20,
+                                weight: 600
+                            }
+                        },
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
     }
 
     function suporte() {
