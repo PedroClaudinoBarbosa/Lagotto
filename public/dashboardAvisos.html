@@ -290,6 +290,7 @@
         let alertasHTML = '';
 
         let situcaoTodos = situacao == 'todos';
+        let dataExibir;
 
         if(situcaoTodos || situacao == 'risco') {
             for (let i = 0; i < dataPlantiosRiscos.length; i++) {
@@ -309,10 +310,27 @@
             }
         }
 
+        if(situcaoTodos) {
+            dataExibir = dataPlantios;
+        } else if (situacao == 'risco') {
+            dataExibir = dataPlantiosRiscos;
+        } else if (situacao == 'aviso') {
+            dataExibir = dataPlantiosAlertas;
+        } else if (situacao == 'adequado') {
+            dataExibir = dataPlantiosEstaveis;
+        }
+
         avisos.innerHTML = alertasHTML;
+ 
+        for(let i = 0; i < dataExibir.length; i++) {
+            let plantio = dataExibir[i];
+            
+            carregarEstatisticasRegiao(plantio.idPlantio, 1);         
+        }
     }
 
     async function montarAlertas(plantio, estado) {
+
         const busca = document.getElementById('pesquisarFazenda').value.toLowerCase();
         let imagemSrc;
 
@@ -344,9 +362,9 @@
             } else {
                 classeCor = 'quadradoVerde';
             }
-
+            
             quadradosRegioes += `
-                <div class="quadradoMapa ${classeCor}">
+                <div id="regiao${regiao[0].fkRegiao}" class="quadradoMapa ${classeCor}" onclick="carregarEstatisticasRegiao(${regiao[0].fkPlantio}, ${regiao[0].fkRegiao})">
                     <h3>${regiao[0].descricao}</h3>
                     <p>${umidadeAtual}%</p>
                     <img src="../assets/icons/Union.png" alt="">
@@ -355,14 +373,14 @@
         }
 
         let alertaHTML = `
-            <div id="alerta">
+            <div class="alerta" id="plantio${plantio.idPlantio}">
                 <h2><img src="${imagemSrc}">${estado}: Plantio ${plantio.idPlantio} - ${plantio.nomeFazenda} - ${plantio.cidade} ${plantio.estadoSigla}</h2>
                 <div class="conteudoAlerta">
                     <div class="regioes">
                         <div class="regioesTitulo">
                             <h3>Regiões</h3>
                         </div>
-                        <div id="quadradosRegioes">
+                        <div class="quadradosRegioes" id="quadradoRegioes${plantio.idPlantio}">
                             ${quadradosRegioes}
                         </div>
                         <div class="instrucao">
@@ -378,25 +396,52 @@
                         </div>
                     </div>
                 </div>
-                <div id="regiaoSelecionada">
-                    <h2>Região X</h2>
+                <div id="regiaoSelecionada${plantio.idPlantio}">
+                    
                 </div>
-                <div class="conteudoRegiaoSelecionada">
-                    <div class="kpiSelecionada">
-                        <div id="quadradoRegiaoSelecionada"></div>
-                        <div id="alertaRegiaoSelecionada">
-                            <img src="./assets/alerta_branco.png">
-                        </div>
-                    </div>
-                    <div id="graficoAlertasRegiao">
-                        <div id="tituloGrafico"></div>
-                        <div id="graficoRegiaoSelecionada"></div>
-                    </div>
-                </div>
+                <div class="conteudoRegiaoSelecionada" id="conteudoRegiaoSelecionada${plantio.idPlantio}"></div>
             </div>
         `;
 
         return alertaHTML;
+    }
+
+    function carregarEstatisticasRegiao(idPlantio, idRegiao) {
+        let plantioRegioes = document.getElementById(`quadradoRegioes${idPlantio}`);
+        let boxRegiaoClicada;
+
+        for(const regiao of plantioRegioes.children) {
+            regiao.classList.remove('selecionado');
+
+            if(regiao.id == `regiao${idRegiao}`) {
+                regiao.classList.add('selecionado');
+                boxRegiaoClicada = regiao.innerHTML;
+                classeCor = regiao.classList[1];
+            }
+        }
+
+        let regiao = dataPlantios[idPlantio - 1].regioes[idRegiao - 1];
+
+        let regiaoSelecionado = document.getElementById(`regiaoSelecionada${idPlantio}`);
+        regiaoSelecionado.innerHTML = `
+            <h2>${regiao[0].descricao}</h2>
+        `;
+
+        let regiaoConteudo = document.getElementById(`conteudoRegiaoSelecionada${idPlantio}`);
+        regiaoConteudo.innerHTML = `
+                <div class="kpiSelecionada">
+                    <div id="quadradoRegiaoSelecionada" class="${classeCor}">
+                        ${boxRegiaoClicada}    
+                    </div>
+                    <div id="alertaRegiaoSelecionada">
+                        <img src="./assets/alerta_branco.png">
+                    </div>
+                </div>
+                <div id="graficoAlertasRegiao">
+                    <div id="tituloGrafico"></div>
+                    <div id="graficoRegiaoSelecionada"></div>
+                </div>
+        `;
     }
 
     function suporte() {

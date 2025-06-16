@@ -571,11 +571,6 @@ a {
     width: 100%;
 }
 
-.cabecalho, .alerta {
-    display: flex;
-    justify-content: center;
-}
-
 .cabecalho div {
     background-color: #5f422c;
     color: #FFFFFF;
@@ -583,17 +578,6 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.alerta div {
-    color: #ffffff;
-    background-color: #3c261d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-    border-top: 0px;
-    font-weight: 800px;
 }
 
 .situacao {
@@ -846,7 +830,7 @@ a {
     gap: 10px;
 }
 
-#alerta {
+.alerta {
     margin: 5px;
     width: 100%;
     height: max-content;
@@ -854,7 +838,7 @@ a {
     border-radius: 2px;
 }
 
-#alerta img {
+.alerta img {
     width: 30px;
     height: 30px;
 
@@ -863,7 +847,7 @@ a {
     margin-top: 5px;
 }
 
-#alerta h2{
+.alerta h2{
     background-color: #000000;
     font-size: 30px;
     font-weight: 450;
@@ -895,13 +879,14 @@ a {
     font-size: 30px;
 }
 
-#quadradosRegioes {
+.quadradosRegioes {
     display: flex;
     flex-wrap: wrap;
     width: 640px;
     height: 340px;
     margin-top: 20px;
     margin-left: 80px;
+    cursor: pointer;
 }
 
 .quadradoMapa {
@@ -926,17 +911,25 @@ a {
 }
 .quadradoVermelho {
     background-color: #ff5757;
-    order: 0;
+    opacity: 0.4;
 }
 
 .quadradoAmarelo {
     background-color: #ffd11a;
-    order: 1;
+    opacity: 0.4;
 }
 
 .quadradoVerde {
-    background-color: #7ed957;
-    order: 2;
+    background-color: #7fd959;
+    opacity: 0.4;
+}
+
+.hide {
+    display: none;
+}
+
+.selecionado {
+    opacity: 1;
 }
 
 .instrucao {
@@ -1010,11 +1003,9 @@ a {
 #quadradoRegiaoSelecionada {
     width: 400px;
     height: 250px;
-
     margin-left: 80px;
     border-radius: 10px;
-
-    background-color: red;
+    opacity: 1;
 }
 
 #alertaRegiaoSelecionada {
