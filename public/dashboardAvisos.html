@@ -434,7 +434,9 @@
 
         let regiaoSelecionado = document.getElementById(`regiaoSelecionada${idPlantio}`);
         regiaoSelecionado.innerHTML = `
-            <h2>Dados ${regiao[0].descricao}</h2>
+            <div class="titulosDados">
+            <h5><img src="../assets/icons/linegraph.webp" alt=""> Dados ${regiao[0].descricao}</h5>
+            </div>
         `;
 
         let regiaoConteudo = document.getElementById(`conteudoRegiaoSelecionada${idPlantio}`);
