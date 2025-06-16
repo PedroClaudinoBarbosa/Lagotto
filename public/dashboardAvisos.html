@@ -145,7 +145,9 @@
         await buscarFazendas();
 
         await estatisticasPlantios();
-        exibirAlertas();
+        await exibirAlertas();
+
+        avisosUmidadesDiaSemanaPassados();
     }
 
     async function buscarFazendas() {
@@ -400,8 +402,8 @@
                         <div class="alertasTitulo">
                             <h3>Alertas do Plantio ${plantio.idPlantio}</h3>
                         </div>
-                        <div class="alertaRegiao">
-                            <h3>Região X: Umidade elevada às Quartas-Feiras</h3>
+                        <div class="alertaRegiao" id="alertaRegiao${plantio.idPlantio}">
+                            <h4>Carregando...</h4>
                         </div>
                     
                     </div>
@@ -473,6 +475,65 @@
         }
 
         gerarGraficoUmidade(idPlantio, data, labels);
+    }
+
+    async function avisosUmidadesDiaSemanaPassados() {
+        for(let i = 0; i < listaExibicao.length; i++) {
+            let plantio = listaExibicao[i];
+
+            let alertasHTML = ``;
+            
+            for(let j = 0; j < plantio.regioes.length; j++) {
+                let regiao = plantio.regioes[j];
+
+                let alertaRegiao = '';
+
+                for(let k = 1; k <= 7; k++) {
+                    let respostaUmidadeDiasPassados = await fetch(`/estatisticas/umidadesDiaSemanaPassados/${plantio.idPlantio}/${regiao[0].fkRegiao}/${k}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application-json'
+                        }
+                    });
+
+                    if(!respostaUmidadeDiasPassados.ok) {
+                        respostaUmidadeDiasPassados.text().then((erro) => {
+                            console.error(erro);
+                        });
+
+                        return;
+                    }
+
+                    let jsonUmidadeDiasPassados = await respostaUmidadeDiasPassados.json();
+
+                    let diasUmidadeRuim = [];
+
+                    jsonUmidadeDiasPassados.forEach((diaPassado) => {
+                        if(diaPassado.maiorUmidade > 40 || diaPassado.menorUmidade < 30) {
+                            diasUmidadeRuim.push(1);
+                        }
+                    });                    
+
+                    let prefixo = 'às';
+                    if(k == 1 || k == 7) {
+                        prefixo = 'aos';
+                    }
+
+                    if(diasUmidadeRuim.length > 4) {
+                        alertaRegiao = `<h3>${jsonUmidadeDiasPassados[0].descricao} apresenta anormalidades recorrentes ${prefixo} ${jsonUmidadeDiasPassados[0].diaSemana}</h3>`
+                    }
+                } 
+
+                alertasHTML += alertaRegiao;
+            }
+
+            let alertaRegiao = document.getElementById(`alertaRegiao${plantio.idPlantio}`);
+            if(alertasHTML != '') {
+                alertaRegiao.innerHTML = alertasHTML;
+            } else {
+                alertaRegiao.innerHTML = `<h4>Este plantio não apresenta nenhuma anormalidade recorrente</h4>`;
+            }
+        }
     }
 
     function gerarGraficoUmidade(idPlantio, data, labels) {
@@ -572,8 +633,6 @@
                 }
             }
         });
-
-
     }
 
     function suporte() {

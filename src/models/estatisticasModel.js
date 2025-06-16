@@ -64,29 +64,32 @@ function dadosSensorQtdDias(idPlantio, idRegiao, qtdDias) {
 function umidadesDiaSemanaPassados(idPlantio, idRegiao, diaSemana) {
     let instrucaoSql = `
         SELECT 
-            fkPlantio,
-            fkRegiao,
+            Regiao.descricao,
+            DadosSensor.fkPlantio,
+            DadosSensor.fkRegiao,
             MAX(umidade) AS maiorUmidade,
             MIN(umidade) AS menorUmidade,
             DATE(data) AS data,
             CASE DAYOFWEEK(DadosSensor.data)
-                WHEN 1 THEN 'Domingo'
-                WHEN 2 THEN 'Segunda'
-                WHEN 3 THEN 'Terça'
-                WHEN 4 THEN 'Quarta'
-                WHEN 5 THEN 'Quinta'
-                WHEN 6 THEN 'Sexta'
-                WHEN 7 THEN 'Sábado'
+                WHEN 1 THEN 'Domingos'
+                WHEN 2 THEN 'Segundas-Feiras'
+                WHEN 3 THEN 'Terças-Feiras'
+                WHEN 4 THEN 'Quarta-Feiras'
+                WHEN 5 THEN 'Quinta-Feiras'
+                WHEN 6 THEN 'Sexta-Feiras'
+                WHEN 7 THEN 'Sábados'
             END AS diaSemana
         FROM DadosSensor
+        INNER JOIN Regiao ON DadosSensor.fkRegiao = Regiao.idRegiao
+            AND Regiao.fkPlantio = DadosSensor.fkPlantio
         WHERE 
             DAYOFWEEK(data) = '${diaSemana}'
-            AND fkPlantio = '${idPlantio}'
-            AND fkRegiao = '${idRegiao}'
+            AND DadosSensor.fkPlantio = '${idPlantio}'
+            AND DadosSensor.fkRegiao = '${idRegiao}'
             AND data < NOW()
         GROUP BY 
-            fkPlantio, 
-            fkRegiao, 
+            DadosSensor.fkPlantio, 
+            DadosSensor.fkRegiao, 
             DATE(data),
             diaSemana
         ORDER BY 
