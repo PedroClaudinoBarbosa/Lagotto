@@ -213,7 +213,7 @@
 
             for (let j = 0; j < plantio.regioes.length; j++) {
                 let regiao = plantio.regioes[j];
-                let umidadeAtual = regiao[0].umidade;
+                let umidadeAtual = regiao[23].umidade;
 
                 if (umidadeAtual > 40 || umidadeAtual < 30) {
                     qtdRegioesCriticas++;
@@ -375,7 +375,7 @@
             quadradosRegioes += `
                 <div id="regiao${regiao[0].fkRegiao}" class="quadradoMapa ${classeCor}" onclick="carregarEstatisticasRegiao(${regiao[0].fkPlantio}, ${regiao[0].fkRegiao})">
                     <h3>${regiao[0].descricao}</h3>
-                    <p>${Math.round(Number(umidadeAtual))}%</p>
+                    <p>${umidadeAtual}%</p>
                     <img src="../assets/icons/Union.png" alt="">
                 </div>
             `;
@@ -442,7 +442,7 @@
                     <div id="quadradoRegiaoSelecionada" class="${classeCor}">
                         <img src="../assets/icons/Union.png" alt="">
                         <span>${regiao[23].descricao}</span>
-                        <h1>${Math.round(Number(regiao[23].umidade))} %</h1>  
+                        <h1>${(regiao[23].umidade)} %</h1>  
                         <p>Umidade do Solo Atual</p> 
                     </div>
                     <div id="alertaRegiaoSelecionada">
@@ -464,8 +464,9 @@
             data.push(regiao[i].umidade);
 
             let dataHora = regiao[i].data;
-            let datahoraValores = dataHora.split("#");
-            labels.push(datahoraValores[0]);
+            let dataHoraValores = dataHora.split("#");
+            let hora = dataHoraValores[0].split('- ')
+            labels.push(hora[1]);
         }
 
         gerarGraficoUmidade(idPlantio, data, labels);
@@ -481,7 +482,7 @@
         let alertasAcima40 = [];
         let alertasAbaixo30 = [];
 
-        let maiorValor = 32;
+        let maiorValor = 30;
         let menorValor = 40;
 
         for(let i = 0; i < data.length; i++) {
