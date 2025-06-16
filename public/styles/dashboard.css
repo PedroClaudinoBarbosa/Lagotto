@@ -946,9 +946,12 @@ a {
 }
 
 .instrucao {
+    display: flex;
+    justify-self: center;
+    align-self: center;
     color: #977474;
     margin-top: 10px;
-    margin-left: 15px;
+    margin-bottom: 15px;
 }
 
 .alertasPlantio {
@@ -1028,6 +1031,40 @@ a {
     opacity: 1;
 }
 
+#quadradoRegiaoSelecionada img {
+    height: 35px;
+    width: 30px;
+    margin-top: 10px;
+}
+
+#quadradoRegiaoSelecionada span {
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    color: white;
+    font-size: 45px;
+    margin-top: 10px;
+}
+
+#quadradoRegiaoSelecionada h1 {
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    color: white;
+    font-size: 55px;
+    font-weight: 600;
+}
+
+#quadradoRegiaoSelecionada p {
+    display: flex;
+    justify-self: flex-start;
+    align-self: flex-end;
+    font-size: 27px;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-left: 13px;
+}
+
 #alertaRegiaoSelecionada {
     display: flex;
     flex-direction: row;
@@ -1043,6 +1080,7 @@ a {
 
     margin-left: 65px;
     margin-right: 10px;
+    margin-bottom: 20px;
 }
 
 #alertaRegiaoSelecionada span {
