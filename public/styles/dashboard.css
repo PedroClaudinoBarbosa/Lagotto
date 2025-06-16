@@ -1008,6 +1008,13 @@ a {
     flex-direction: row;
 }
 
+#graficoAlertasRegiao {
+    width: 45%;
+    padding-left: 15%;
+
+
+}
+
 .kpiSelecionada {
     display: flex;
     flex-direction: column;

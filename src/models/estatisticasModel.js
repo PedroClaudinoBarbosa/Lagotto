@@ -55,7 +55,7 @@ function dadosSensorQtdDias(idPlantio, idRegiao, qtdDias) {
             AND DadosSensor.data >= NOW() - INTERVAL '${qtdDias}' DAY
             AND DadosSensor.data < NOW()
         ORDER BY 
-            DadosSensor.data DESC;
+            DadosSensor.data;
     `;
 
     return database.executar(instrucaoSql)

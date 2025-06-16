@@ -499,24 +499,26 @@
                     label: 'Umidade do Solo',
                     data,
                     borderWidth: 2,
-                    borderColor: '#5f422c',
+                    borderColor: 'wheat',
                     backgroundColor: 'transparent',
                     pointBackgroundColor: '#5f422c',
                     pontBorderColor: '#5f422c',
                     tension: 0.2
-                }, {
-                    label: 'Problema crítico',
-                    data: alertasAbaixo30,
+                },
+                {
+                    label: 'Umidade Muito Alta',
+                    data: alertasAcima40,
                     borderWidth: 1,
                     borderColor: 'red',
                     backgroundColor: 'transparent',
                     pointRadius: 0,
                     tension: 0
-                }, {
-                    label: 'Problema crítico',
-                    data: alertasAcima40,
+                } 
+                ,{
+                    label: 'Umidade Muito Baixa',
+                    data: alertasAbaixo30,
                     borderWidth: 1,
-                    borderColor: 'red',
+                    borderColor: '#e819ff',
                     backgroundColor: 'transparent',
                     pointRadius: 0,
                     tension: 0
@@ -531,7 +533,7 @@
                         title: {
                             display: true,
                             text: 'Umidade (%)',
-                            color: '#5f422c',
+                            color: '#ebc77f',
                             font: {
                                 size: 20,
                                 weight: 600
@@ -542,7 +544,7 @@
                         title: {
                             display: true,
                             text: 'Data e Hora',
-                            color: '#5f422c',
+                            color: '#ebc77f',
                             font: {
                                 size: 20,
                                 weight: 600
@@ -556,7 +558,8 @@
                 },
                 plugins: {
                     legend: {
-                        display: false
+                        label: 'Nível Critíco',
+                        display: true
                     }
                 }
             }
