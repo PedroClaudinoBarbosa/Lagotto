@@ -1209,3 +1209,37 @@ a {
     color: white;
 }
 
+.popup-container {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.hide {
+    display: none;
+}
+
+.canvasGraficoAlertas {
+    width: 600px;
+    height: 400px;
+}
+
+.popup {
+    width: fit-content;
+    height: fit-content;
+    padding: 30px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    background-color: #5f422c;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}

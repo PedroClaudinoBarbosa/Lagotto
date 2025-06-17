@@ -409,12 +409,15 @@
                             <img src="../assets/icons/loading.webp" alt="">
                             <h4>Carregando...</h4>
                         </div>
-                        <div id="graficoAlertasRegiao">
-                            <div id="tituloGraficoAlertas${plantio.idPlantio}"></div>
-                            <div class="canvas">
-                                <canvas id="graficoAlertas${plantio.idPlantio}"</canvas>
+                        <div id="graficoAlertasRegiao${plantio.idPlantio}" class="popup-container hide">
+                            <div class="popup">
+                                <img class="fecharPopUp" src="https://icons.iconarchive.com/icons/iconsmind/outline/512/Close-Window-icon.png" onclick="fecharPopUp(${plantio.idPlantio})">
+                                <div id="tituloGraficoAlertas${plantio.idPlantio}"></div>
+                                <div class="canvas">
+                                    <canvas id="graficoAlertas${plantio.idPlantio}" class="canvasGraficoAlertas"></canvas>
+                                </div>
+                            </div>
                         </div>
-                </div>
                     </div>
                 </div>
                 <div id="regiaoSelecionada${plantio.idPlantio}" class="regiaoSelecionada"></div>
@@ -510,10 +513,18 @@
             prefixo = 'dos últimos';
         }
 
+        let popup = document.getElementById(`graficoAlertasRegiao${idPlantio}`);
+        popup.classList.remove('hide');
+
         let titulo = document.getElementById(`tituloGraficoAlertas${idPlantio}`);
         titulo.innerHTML = `Maior e menor umidade ${prefixo} quatro ${jsonUmidadeDiasPassados[0].diaSemana} na ${jsonUmidadeDiasPassados[0].descricao}`; 
 
         graficosAvisos[idPlantio - 1] = new Chart(ctx, config);
+    }
+
+    function fecharPopUp(idPlantio) {
+        let popup = document.getElementById(`graficoAlertasRegiao${idPlantio}`);
+        popup.classList.add('hide');
     }
 
     function scrollCarousel(direcao, idCarousel) {
