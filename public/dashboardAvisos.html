@@ -349,7 +349,7 @@
 
         let alertaHTML = `
             <div class="alerta" id="plantio${plantio.idPlantio}">
-                <h2><img id="icone-${plantio.idPlantio}"  src="../assets/icons/olhoaberto.webp" onclick="exibirConteudoPlantio(${plantio.idPlantio}); alternarImagem(${plantio.idPlantio});"><img src="${imagemSrc}">${estado}: Plantio ${plantio.idPlantio} - ${plantio.nomeFazenda} - ${plantio.cidade} ${plantio.estadoSigla}</h2>
+                <h2><img class="apontando" id="icone-${plantio.idPlantio}"  src="../assets/icons/olhoaberto.webp" onclick="exibirConteudoPlantio(${plantio.idPlantio}); alternarImagem(${plantio.idPlantio});"><img src="${imagemSrc}">${estado}: Plantio ${plantio.idPlantio} - ${plantio.nomeFazenda} - ${plantio.cidade} ${plantio.estadoSigla}</h2>
                 
                 <div id="conteudoPlantio${plantio.idPlantio}" class="hide">
                     <div class="conteudoAlerta">
@@ -376,8 +376,8 @@
                             </div>
                             <div id="graficoAlertasRegiao${plantio.idPlantio}" class="popup-container hide">
                                 <div class="popup">
-                                    <img class="fecharPopUp" src="https://icons.iconarchive.com/icons/iconsmind/outline/512/Close-Window-icon.png" onclick="fecharPopUp(${plantio.idPlantio})">
-                                    <div id="tituloGraficoAlertas${plantio.idPlantio}"></div>
+                                    <img class="fecharPopUp" src="https://i.imgur.com/AwpgKHe.png" onclick="fecharPopUp(${plantio.idPlantio})">
+                                    <div class="popupTitulo" id="tituloGraficoAlertas${plantio.idPlantio}"></div>
                                     <div class="canvas">
                                         <canvas id="graficoAlertas${plantio.idPlantio}" class="canvasGraficoAlertas"></canvas>
                                     </div>
@@ -481,16 +481,16 @@
             datasets: [
                 {
                     label: 'Maior Umidade',
-                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1,
+                    backgroundColor: 'transparent',
+                    borderColor: 'red',
+                    borderWidth: 2,
                     data: maiorUmidade
                 },
                 {
                     label: 'Menor Umidade',
-                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1,
+                    backgroundColor: 'transparent',
+                    borderColor: 'violet',
+                    borderWidth: 2,
                     data: menorUmidade
                 }
             ]

@@ -1223,6 +1223,10 @@ a {
     z-index: 1000;
 }
 
+.popupTitulo {
+    color: white !important;
+}
+
 .hide {
     display: none;
 }
@@ -1239,7 +1243,7 @@ a {
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    background-color: #5f422c;
+    background: linear-gradient(to bottom, #25150e, #0c0706);
     align-items: center;
     justify-content: center;
     gap: 20px;
@@ -1267,4 +1271,20 @@ a {
     height: 100%;
     justify-content: center;
     align-items: center;
+}
+
+.apontando {
+    cursor: pointer;
+}
+
+.fecharPopUp{
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.fecharPopUp:hover{
+    width: 40px;
+    height: 40px;
+    background-color: red;
+    border-radius: 200px;
 }
