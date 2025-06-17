@@ -155,12 +155,20 @@
         setInterval(atualizarPagina, 10000)
     }
 
-        async function atualizarPagina() {
+    async function atualizarPagina() {
         await buscarFazendas();
         
         await estatisticasPlantios();
         
         await exibirAlertas('atualizacao');
+
+        for (let i = 0; i < listaExibicao.length; i++) {
+            let plantio = listaExibicao[i];
+            await montarMapaRegioes(plantio);
+
+            let regiao = regiaoSelecionada[plantio.idPlantio - 1] || 1;
+            carregarEstatisticasRegiao(plantio.idPlantio, regiao);
+        }
     }
 
     async function buscarFazendas() {
@@ -349,11 +357,13 @@
             avisos.innerHTML = alertasHTML;
         }
 
+        
         for (let i = 0; i < listaExibicao.length; i++) {
             let plantio = listaExibicao[i];
             await montarMapaRegioes(listaExibicao[i]);
 
-            carregarEstatisticasRegiao(plantio.idPlantio, 1);
+            let regiao = regiaoSelecionada[plantio.idPlantio - 1] || 1;
+            carregarEstatisticasRegiao(plantio.idPlantio, regiao);
         }
 
         if(carregamento == 'criacao') {
@@ -438,7 +448,7 @@
 
             let regiao = plantio.regioes[i];
 
-            let umidadeAtual = regiao[23].umidade;
+            let umidadeAtual = regiao[regiao.length - 1].umidade;
 
             let classeCor;
 
@@ -620,6 +630,7 @@
         regiaoSelecionada[idPlantio - 1] = idRegiao;
 
         let plantioRegioes = document.getElementById(`quadradoRegioes${idPlantio}`);
+        console.log(plantioRegioes);
         let boxRegiaoClicada;
 
         for (const regiao of plantioRegioes.children) {
@@ -646,8 +657,8 @@
                 <div class="kpiSelecionada">
                     <div id="quadradoRegiaoSelecionada" class="${classeCor}">
                         <img src="../assets/icons/Union.png" alt="">
-                        <span>${regiao[23].descricao}</span>
-                        <h1>${(regiao[23].umidade)} %</h1>  
+                        <span>${regiao[regiao.length - 1].descricao}</span>
+                        <h1>${(regiao[regiao.length - 1].umidade)} %</h1>  
                         <p>Umidade do Solo Atual</p> 
                     </div>
                     <div id="alertaRegiaoSelecionada">
@@ -655,7 +666,9 @@
                     </div>
                 </div>
                 <div id="graficoAlertasRegiao">
-                    <div id="tituloGrafico"></div>
+                    <div id="tituloGrafico">
+                        <h1> Umidade das últimas 24 horas</h1>
+                    </div>
                     <div class="canvas">
                         <canvas id="graficoPlantio${idPlantio}"</canvas>
                     </div>
@@ -689,7 +702,7 @@
                 let alertaRegiao = '';
 
                 for (let k = 1; k <= 7; k++) {
-                    let respostaUmidadeDiasPassados = await fetch(`/estatisticas/umidadesDiaSemanaPassados/${plantio.idPlantio}/${regiao[0].fkRegiao}/${k}`, {
+                    let respostaUmidadeDiasPassados = await fetch(`/estatisticas/umidadesDiaSemanaPassados/${plantio.idPlantio}/${regiao[0].fkRegiao}/${k}`, {  
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application-json'
@@ -811,12 +824,12 @@
                         suggestedMin: menorValor - 5,
                         suggestedMax: maiorValor + 5,
                         ticks: {
-                            color: '#ffffff' // números do eixo Y em branco
+                            color: '#ffffff'
                         },
                         title: {
                             display: true,
                             text: 'Umidade (%)',
-                            color: '#ebc77f', // título do eixo Y na cor original
+                            color: '#ebc77f',
                             font: {
                                 size: 20,
                                 weight: 600
@@ -825,12 +838,12 @@
                     },
                     x: {
                         ticks: {
-                            color: '#ffffff' // rótulos do eixo X em branco
+                            color: '#ffffff'
                         },
                         title: {
                             display: true,
                             text: 'Data e Hora',
-                            color: '#ebc77f', // título do eixo X na cor original
+                            color: '#ebc77f',
                             font: {
                                 size: 20,
                                 weight: 600
@@ -841,7 +854,7 @@
                 plugins: {
                     legend: {
                         labels: {
-                            color: '#ffffff' // cor do texto da legenda em branco
+                            color: '#ffffff'
                         }
                     }
                 }
