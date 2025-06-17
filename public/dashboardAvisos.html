@@ -349,8 +349,8 @@
 
         let alertaHTML = `
             <div class="alerta" id="plantio${plantio.idPlantio}">
-                <h2><img src="${imagemSrc}">${estado}: Plantio ${plantio.idPlantio} - ${plantio.nomeFazenda} - ${plantio.cidade} ${plantio.estadoSigla}</h2>
-                <img src="https://static-00.iconduck.com/assets.00/chevron-down-small-icon-512x310-cnfpi936.png" onclick="exibirConteudoPlantio(${plantio.idPlantio})">
+                <h2><img id="icone-${plantio.idPlantio}"  src="../assets/icons/olhoaberto.webp" onclick="exibirConteudoPlantio(${plantio.idPlantio}); alternarImagem(${plantio.idPlantio});"><img src="${imagemSrc}">${estado}: Plantio ${plantio.idPlantio} - ${plantio.nomeFazenda} - ${plantio.cidade} ${plantio.estadoSigla}</h2>
+                
                 <div id="conteudoPlantio${plantio.idPlantio}" class="hide">
                     <div class="conteudoAlerta">
                         <div class="regioes">
@@ -431,6 +431,7 @@
     }
 
     function exibirConteudoPlantio(idPlantio) {
+
         let conteudoPlantioClassList = document.getElementById(`conteudoPlantio${idPlantio}`).classList;
         
         if(conteudoPlantioClassList.contains('hide')) {
@@ -820,4 +821,15 @@
         window.open('https://lagotto.atlassian.net/servicedesk/customer/portal/1')
     }
 
+    function alternarImagem(id) {
+        const imagem = document.getElementById(`icone-${id}`);
+        const olhoAberto = "../assets/icons/olhoaberto.webp";
+        const olhoFechado = "../assets/icons/olhofechado.webp";
+
+        if (imagem.src.includes("olhoaberto")) {
+            imagem.src = olhoFechado;
+        } else {
+            imagem.src = olhoAberto;
+        }
+    }
 </script>
