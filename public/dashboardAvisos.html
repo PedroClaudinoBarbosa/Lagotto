@@ -98,8 +98,8 @@
                 </div>
 
                 <div class="box-alerta">
-                    <img src="assets/icons/alert-icon.webp" alt="">
-                    <h1>Alertas</h1>
+                    <img src="assets/icons/fungo.webp" alt="">
+                    <h1>Plantios</h1>
                     <div class="filtros-pesquisa">
                         <div class="filtro-item">
                             <label for="situacaoPlantio">Situação do Plantio:</label>
@@ -382,7 +382,7 @@
 
         let alertaHTML = `
             <div class="alerta" id="plantio${plantio.idPlantio}">
-                <h2><img class="apontando" id="icone-${plantio.idPlantio}"  src="../assets/icons/olhoaberto.webp" onclick="exibirConteudoPlantio(${plantio.idPlantio}); alternarImagem(${plantio.idPlantio});"><img src="${imagemSrc}">${estado}: Plantio ${plantio.idPlantio} - ${plantio.nomeFazenda} - ${plantio.cidade} ${plantio.estadoSigla}</h2>
+                <h2><img class="apontando" id="icone-${plantio.idPlantio}"  src="../assets/icons/olhoaberto.webp" onclick="exibirConteudoPlantio(${plantio.idPlantio}); alternarImagem(${plantio.idPlantio});"><img src="${imagemSrc}"> Plantio ${plantio.idPlantio} - ${plantio.nomeFazenda} - ${plantio.cidade} ${plantio.estadoSigla}</h2>
                 
                 <div id="conteudoPlantio${plantio.idPlantio}" class="hide">
                     <div class="conteudoAlerta">
@@ -732,7 +732,7 @@
                     }
 
                     if (quatroSemanasConsecutivas) {
-                        alertaRegiao = `<h3 onclick="gerarGraficosAlertas(${jsonUmidadeDiasPassados[0].fkPlantio}, ${jsonUmidadeDiasPassados[0].fkRegiao}, ${k})">${jsonUmidadeDiasPassados[0].descricao} apresenta anormalidades recorrentes ${prefixo} ${jsonUmidadeDiasPassados[0].diaSemana}</h3>`
+                        alertaRegiao = `<h3 onclick="gerarGraficosAlertas(${jsonUmidadeDiasPassados[0].fkPlantio}, ${jsonUmidadeDiasPassados[0].fkRegiao}, ${k})">${jsonUmidadeDiasPassados[0].descricao} apresenta anormalidades aos ${jsonUmidadeDiasPassados[0].diaSemana}</h3>`
                     }
                 }
 
