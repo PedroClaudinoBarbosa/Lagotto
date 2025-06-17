@@ -418,6 +418,57 @@
         return alertaHTML;
     }
 
+    function scrollCarousel(direcao, idCarousel) {
+        const carousel = document.getElementById(idCarousel);
+        if (!carousel) return;
+
+        const cards = carousel.querySelectorAll('.alerta-card');
+        if (cards.length === 0) return;
+
+        const tamanhoCard = cards[0].offsetWidth + 16;
+        const totalCards = cards.length;
+
+        let posicaoAtual = parseInt(carousel.getAttribute('data-posicao')) || 0;
+        posicaoAtual = (posicaoAtual + direcao + totalCards) % totalCards;
+
+        carousel.setAttribute('data-posicao', posicaoAtual);
+
+        const scrollPara = posicaoAtual * tamanhoCard;
+
+        carousel.scrollTo({
+            left: scrollPara,
+            behavior: 'smooth'
+        });
+    }
+
+    function atribuirCarrossel(alertasHTML, idPlantio){
+
+        console.log(alertasHTML)
+        let alertaRegiao = document.getElementById(`alertaRegiao${idPlantio}`)
+
+        let cards = ""
+
+        for (let i = 0; i < alertasHTML.length; i++){
+            cards += `<div class ="alerta-card">
+                            ${alertasHTML[i]} 
+                        </div>`
+        }
+        alertaRegiao.innerHTML = `
+            <section class="section-alertas-carrossel">
+                        <h2>Alertas por Região</h2>
+                        <br>
+                    <div class="zcarousel-container">
+                <button class="arrow arrow-left" onclick="scrollCarousel(-1, 'carousel${idPlantio}')">‹</button>
+
+                    <div class="carousel" id="carousel${idPlantio}">
+                        ${cards}
+                    </div>
+                <button class="arrow arrow-right" onclick="scrollCarousel(1, 'carousel${idPlantio}')">›</button>
+                    </div>
+            </section>
+        `
+    }
+
     function carregarEstatisticasRegiao(idPlantio, idRegiao) {
         let plantioRegioes = document.getElementById(`quadradoRegioes${idPlantio}`);
         let boxRegiaoClicada;
@@ -481,7 +532,7 @@
         for(let i = 0; i < listaExibicao.length; i++) {
             let plantio = listaExibicao[i];
 
-            let alertasHTML = ``;
+            let alertasHTML = [];
             
             for(let j = 0; j < plantio.regioes.length; j++) {
                 let regiao = plantio.regioes[j];
@@ -534,12 +585,14 @@
                     }
                 } 
 
-                alertasHTML += alertaRegiao;
+                if(alertaRegiao != ""){
+                    alertasHTML.push(alertaRegiao);
+                }
             }
 
             let alertaRegiao = document.getElementById(`alertaRegiao${plantio.idPlantio}`);
             if(alertasHTML != '') {
-                alertaRegiao.innerHTML = alertasHTML;
+                atribuirCarrossel(alertasHTML, plantio.idPlantio);
             } else {
                 alertaRegiao.innerHTML = `<h4>Este plantio não apresenta nenhuma anormalidade recorrente</h4>`;
             }
