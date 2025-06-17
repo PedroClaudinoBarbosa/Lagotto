@@ -406,6 +406,7 @@
 
                         </div>
                         <div class="alertaRegiao" id="alertaRegiao${plantio.idPlantio}">
+                            <img src="../assets/icons/loading.webp" alt="">
                             <h4>Carregando...</h4>
                         </div>
                         <div id="graficoAlertasRegiao">
@@ -549,12 +550,10 @@
         alertaRegiao.innerHTML = `
             <section class="section-alertas-carrossel">
                     <div class="zcarousel-container">
-                <button class="arrow arrow-left" onclick="scrollCarousel(-1, 'carousel${idPlantio}')">‹</button>
 
                     <div class="carousel" id="carousel${idPlantio}">
                         ${cards}
                     </div>
-                <button class="arrow arrow-right" onclick="scrollCarousel(1, 'carousel${idPlantio}')">›</button>
                     </div>
             </section>
         `
