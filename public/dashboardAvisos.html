@@ -296,7 +296,6 @@
         listaExibicao = [];
 
         let situcaoTodos = situacao == 'todos';
-        let dataExibir;
 
         if (situcaoTodos || situacao == 'risco') {
             for (let i = 0; i < dataPlantiosRiscos.length; i++) {
@@ -316,20 +315,11 @@
             }
         }
 
-        if (situcaoTodos) {
-            dataExibir = dataPlantios;
-        } else if (situacao == 'risco') {
-            dataExibir = dataPlantiosRiscos;
-        } else if (situacao == 'aviso') {
-            dataExibir = dataPlantiosAlertas;
-        } else if (situacao == 'adequado') {
-            dataExibir = dataPlantiosEstaveis;
-        }
-
         avisos.innerHTML = alertasHTML;
 
         for (let i = 0; i < listaExibicao.length; i++) {
             let plantio = listaExibicao[i];
+            await montarMapaRegioes(listaExibicao[i]);
 
             carregarEstatisticasRegiao(plantio.idPlantio, 1);
         }
@@ -357,33 +347,6 @@
             imagemSrc = '../assets/icons/okv.png';
         }
 
-        let quadradosRegioes = '';
-
-        for (let i = 0; i < plantio.regioes.length; i++) {
-
-            let regiao = plantio.regioes[i];
-
-            let umidadeAtual = regiao[23].umidade;
-
-            let classeCor;
-
-            if (umidadeAtual > 40 || umidadeAtual < 30) {
-                classeCor = 'quadradoVermelho';
-            } else if (umidadeAtual >= 39.8 || umidadeAtual <= 30.2) {
-                classeCor = 'quadradoAmarelo';
-            } else {
-                classeCor = 'quadradoVerde';
-            }
-
-            quadradosRegioes += `
-                <div id="regiao${regiao[0].fkRegiao}" class="quadradoMapa ${classeCor}" onclick="carregarEstatisticasRegiao(${regiao[0].fkPlantio}, ${regiao[0].fkRegiao})">
-                    <h3>${regiao[0].descricao}</h3>
-                    <p>${umidadeAtual}%</p>
-                    <img src="../assets/icons/Union.png" alt="">
-                </div>
-            `;
-        }
-
         let alertaHTML = `
             <div class="alerta" id="plantio${plantio.idPlantio}">
                 <h2><img src="${imagemSrc}">${estado}: Plantio ${plantio.idPlantio} - ${plantio.nomeFazenda} - ${plantio.cidade} ${plantio.estadoSigla}</h2>
@@ -395,7 +358,7 @@
                                 <h3>Regiões</h3>
                             </div>
                             <div class="quadradosRegioes" id="quadradoRegioes${plantio.idPlantio}">
-                                ${quadradosRegioes}
+                                
                             </div>
                             <div class="instrucao">
                                 <span>Clique uma região acima para exibir para exibir mais detalhes abaixo</span>
@@ -431,6 +394,40 @@
         graficosAvisos[plantio.idPlantio - 1] = null;
 
         return alertaHTML;
+    }
+
+    function montarMapaRegioes(plantio) {
+        let divQuadradoRegioes = document.getElementById(`quadradoRegioes${plantio.idPlantio}`);
+
+        let quadradosRegioes = '';
+
+        for (let i = 0; i < plantio.regioes.length; i++) {
+
+            let regiao = plantio.regioes[i];
+
+            let umidadeAtual = regiao[23].umidade;
+
+            let classeCor;
+
+            if (umidadeAtual > 40 || umidadeAtual < 30) {
+                classeCor = 'quadradoVermelho';
+            } else if (umidadeAtual >= 39.8 || umidadeAtual <= 30.2) {
+                classeCor = 'quadradoAmarelo';
+            } else {
+                classeCor = 'quadradoVerde';
+            }
+
+            quadradosRegioes += `
+                <div id="regiao${regiao[0].fkRegiao}" class="quadradoMapa ${classeCor}" onclick="carregarEstatisticasRegiao(${regiao[0].fkPlantio}, ${regiao[0].fkRegiao})">
+                    <h3>${regiao[0].descricao}</h3>
+                    <p>${umidadeAtual}%</p>
+                    <img src="../assets/icons/Union.png" alt="">
+                </div>
+            `;
+
+        }
+
+        divQuadradoRegioes.innerHTML = quadradosRegioes
     }
 
     function exibirConteudoPlantio(idPlantio) {
