@@ -63,7 +63,7 @@
                                     <img src="../assets/icons/alertav.png.png" alt="">
                                     <h1>Plantios em Risco</h1>
                                     <h2 id="kpiQtdPlantiosRisco"></h2>
-                                    <h3>Regiões com umidade acima de 40% ou abaixo de 30%</h3>
+                                    <h3>Ao menos uma região com umidade acima de 40% ou abaixo de 30%</h3>
                                 </div>
                             </div>
                             <div class="css_plantiosRisco">
@@ -71,7 +71,7 @@
                                     <img src="../assets/icons/sinoa.png" alt="">
                                     <h1>Plantios em Aviso</h1>
                                     <h2 id="kpiQtdPlantiosAlerta"></h2>
-                                    <h3>Regiões com umidade acima de 38% ou abaixo de 32%</h3>
+                                    <h3>Ao menos uma região com umidade acima de 38% ou abaixo de 32%</h3>
                                 </div>
                             </div>
                         </div>
@@ -131,10 +131,14 @@
 
 </html>
 <script>
+    let graficoPizza = null;
+
     let dataPlantios = [];
     let dataPlantiosRiscos = [];
     let dataPlantiosAlertas = [];
     let dataPlantiosEstaveis = [];
+
+    let regiaoSelecionada = [];
 
     let listaExibicao;
     let graficosPlantios = [];
@@ -146,10 +150,22 @@
         await buscarFazendas();
 
         await estatisticasPlantios();
-        await exibirAlertas();
+        await exibirAlertas('criacao');
+
+        setInterval(atualizarPagina, 10000)
+    }
+
+        async function atualizarPagina() {
+        await buscarFazendas();
+        
+        await estatisticasPlantios();
+        
+        await exibirAlertas('atualizacao');
     }
 
     async function buscarFazendas() {
+        dataPlantios = [];
+
         let respostaPlantios = await fetch(`/estatisticas/buscarFazendas/${sessionStorage.ID_EMPRESA}`, {
             method: 'GET',
             headers: {
@@ -203,6 +219,10 @@
     }
 
     async function estatisticasPlantios() {
+        dataPlantiosRiscos = [];
+        dataPlantiosAlertas = [];
+        dataPlantiosEstaveis = [];
+
         let qtdPlantios = dataPlantios.length;
         kpiQtdPlantiosMonitorados.innerHTML = `${qtdPlantios}`;
 
@@ -245,6 +265,7 @@
         ];
         const cores = ['#ff4d4d', '#ffd11a', '#4dff88'];
 
+        let legendaHTML = '';
         const legendaDiv = document.getElementById('legendaCustom');
         labels.forEach((label, i) => {
             const item = document.createElement('div');
@@ -256,11 +277,17 @@
             </div>
             <div style="margin-left: 23px;">${descricoes[i]}</div>
         `;
-            legendaDiv.appendChild(item);
+            legendaHTML += item.innerHTML;
         });
 
+        legendaDiv.innerHTML = legendaHTML;
+
+        if (graficoPizza !== null) {
+            graficoPizza.destroy();
+        }
+
         const ctx = document.getElementById('graficoPizza').getContext('2d');
-        const graficoPizza = new Chart(ctx, {
+        graficoPizza = new Chart(ctx, {
             type: 'pie',
             data: {
                 labels: labels,
@@ -288,7 +315,7 @@
         });
     }
 
-    async function exibirAlertas() {
+    async function exibirAlertas(carregamento) {
         const situacao = document.getElementById('situacaoPlantio').value;
 
         let alertasHTML = '';
@@ -300,22 +327,27 @@
         if (situcaoTodos || situacao == 'risco') {
             for (let i = 0; i < dataPlantiosRiscos.length; i++) {
                 alertasHTML += await montarAlertas(dataPlantiosRiscos[i], 'Em risco');
+                listaExibicao.push(dataPlantiosRiscos[i]);
             }
         }
 
         if (situcaoTodos || situacao == 'aviso') {
             for (let i = 0; i < dataPlantiosAlertas.length; i++) {
                 alertasHTML += await montarAlertas(dataPlantiosAlertas[i], 'Estado de Alerta');
+                listaExibicao.push(dataPlantiosAlertas[i]);
             }
         }
 
         if (situcaoTodos || situacao == 'adequado') {
             for (let i = 0; i < dataPlantiosEstaveis.length; i++) {
                 alertasHTML += await montarAlertas(dataPlantiosEstaveis[i], 'Estável');
+                listaExibicao.push(dataPlantiosEstaveis[i]);
             }
         }
 
-        avisos.innerHTML = alertasHTML;
+        if(carregamento == 'criacao') {
+            avisos.innerHTML = alertasHTML;
+        }
 
         for (let i = 0; i < listaExibicao.length; i++) {
             let plantio = listaExibicao[i];
@@ -324,7 +356,9 @@
             carregarEstatisticasRegiao(plantio.idPlantio, 1);
         }
 
-        avisosUmidadesDiaSemanaPassados();
+        if(carregamento == 'criacao') {
+            avisosUmidadesDiaSemanaPassados();
+        }
     }
 
     async function montarAlertas(plantio, estado) {
@@ -336,7 +370,6 @@
             return '';
         }
 
-        listaExibicao.push(plantio);
         graficosPlantios[plantio.idPlantio - 1] = null;
 
         if (estado == 'Em risco') {
@@ -374,7 +407,7 @@
                                 <img src="../assets/icons/loading.webp" alt="">
                                 <h4>Carregando...</h4>
                             </div>
-                            <div id="graficoAlertasRegiao${plantio.idPlantio}" class="popup-container hide">
+                            <div id="graficoAlertasRegiao${plantio.idPlantio}" class="popup-container hide" onclick="fecharPopUp(${plantio.idPlantio})">
                                 <div class="popup">
                                     <img class="fecharPopUp" src="https://i.imgur.com/AwpgKHe.png" onclick="fecharPopUp(${plantio.idPlantio})">
                                     <div class="popupTitulo" id="tituloGraficoAlertas${plantio.idPlantio}"></div>
@@ -424,10 +457,9 @@
                     <img src="../assets/icons/Union.png" alt="">
                 </div>
             `;
-
         }
 
-        divQuadradoRegioes.innerHTML = quadradosRegioes
+        divQuadradoRegioes.innerHTML = quadradosRegioes;
     }
 
     function exibirConteudoPlantio(idPlantio) {
@@ -562,8 +594,6 @@
     }
 
     function atribuirCarrossel(alertasHTML, idPlantio) {
-
-        console.log(alertasHTML)
         let alertaRegiao = document.getElementById(`alertaRegiao${idPlantio}`)
 
         let cards = ""
@@ -587,13 +617,15 @@
     }
 
     function carregarEstatisticasRegiao(idPlantio, idRegiao) {
+        regiaoSelecionada[idPlantio - 1] = idRegiao;
+
         let plantioRegioes = document.getElementById(`quadradoRegioes${idPlantio}`);
         let boxRegiaoClicada;
 
         for (const regiao of plantioRegioes.children) {
             regiao.classList.remove('selecionado');
 
-            if (regiao.id == `regiao${idRegiao}`) {
+            if (regiao.id == `regiao${regiaoSelecionada[idPlantio - 1]}`) {
                 regiao.classList.add('selecionado');
                 boxRegiaoClicada = regiao.innerHTML;
                 classeCor = regiao.classList[1];
