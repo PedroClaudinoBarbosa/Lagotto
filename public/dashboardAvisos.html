@@ -387,47 +387,60 @@
         let alertaHTML = `
             <div class="alerta" id="plantio${plantio.idPlantio}">
                 <h2><img src="${imagemSrc}">${estado}: Plantio ${plantio.idPlantio} - ${plantio.nomeFazenda} - ${plantio.cidade} ${plantio.estadoSigla}</h2>
-                <div class="conteudoAlerta">
-                    <div class="regioes">
-                        <div class="regioesTitulo">
-                            <h3>Regiões</h3>
+                <img src="https://static-00.iconduck.com/assets.00/chevron-down-small-icon-512x310-cnfpi936.png" onclick="exibirConteudoPlantio(${plantio.idPlantio})">
+                <div id="conteudoPlantio${plantio.idPlantio}" class="hide">
+                    <div class="conteudoAlerta">
+                        <div class="regioes">
+                            <div class="regioesTitulo">
+                                <h3>Regiões</h3>
+                            </div>
+                            <div class="quadradosRegioes" id="quadradoRegioes${plantio.idPlantio}">
+                                ${quadradosRegioes}
+                            </div>
+                            <div class="instrucao">
+                                <span>Clique uma região acima para exibir para exibir mais detalhes abaixo</span>
+                            </div>
                         </div>
-                        <div class="quadradosRegioes" id="quadradoRegioes${plantio.idPlantio}">
-                            ${quadradosRegioes}
-                        </div>
-                        <div class="instrucao">
-                            <span>Clique uma região acima para exibir para exibir mais detalhes abaixo</span>
-                        </div>
-                    </div>
-                    <div id="alertasPlantio">
-                        <div class="alertasTitulo">
-                            <h3>Alertas do Plantio ${plantio.idPlantio}</h3>
-                            <h4>Anormalidades recorrentes ocorrem quando um plantio apresentar problemas na umidade por 4 semanas seguidas.</h4>
+                        <div id="alertasPlantio">
+                            <div class="alertasTitulo">
+                                <h3>Alertas do Plantio ${plantio.idPlantio}</h3>
+                                <h4>Anormalidades recorrentes ocorrem quando um plantio apresentar problemas na umidade por 4 semanas seguidas.</h4>
 
-                        </div>
-                        <div class="alertaRegiao" id="alertaRegiao${plantio.idPlantio}">
-                            <img src="../assets/icons/loading.webp" alt="">
-                            <h4>Carregando...</h4>
-                        </div>
-                        <div id="graficoAlertasRegiao${plantio.idPlantio}" class="popup-container hide">
-                            <div class="popup">
-                                <img class="fecharPopUp" src="https://icons.iconarchive.com/icons/iconsmind/outline/512/Close-Window-icon.png" onclick="fecharPopUp(${plantio.idPlantio})">
-                                <div id="tituloGraficoAlertas${plantio.idPlantio}"></div>
-                                <div class="canvas">
-                                    <canvas id="graficoAlertas${plantio.idPlantio}" class="canvasGraficoAlertas"></canvas>
+                            </div>
+                            <div class="alertaRegiao" id="alertaRegiao${plantio.idPlantio}">
+                                <img src="../assets/icons/loading.webp" alt="">
+                                <h4>Carregando...</h4>
+                            </div>
+                            <div id="graficoAlertasRegiao${plantio.idPlantio}" class="popup-container hide">
+                                <div class="popup">
+                                    <img class="fecharPopUp" src="https://icons.iconarchive.com/icons/iconsmind/outline/512/Close-Window-icon.png" onclick="fecharPopUp(${plantio.idPlantio})">
+                                    <div id="tituloGraficoAlertas${plantio.idPlantio}"></div>
+                                    <div class="canvas">
+                                        <canvas id="graficoAlertas${plantio.idPlantio}" class="canvasGraficoAlertas"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div id="regiaoSelecionada${plantio.idPlantio}" class="regiaoSelecionada"></div>
+                    <div class="conteudoRegiaoSelecionada" id="conteudoRegiaoSelecionada${plantio.idPlantio}"></div>
                 </div>
-                <div id="regiaoSelecionada${plantio.idPlantio}" class="regiaoSelecionada"></div>
-                <div class="conteudoRegiaoSelecionada" id="conteudoRegiaoSelecionada${plantio.idPlantio}"></div>
             </div>
         `;
 
         graficosAvisos[plantio.idPlantio - 1] = null;
 
         return alertaHTML;
+    }
+
+    function exibirConteudoPlantio(idPlantio) {
+        let conteudoPlantioClassList = document.getElementById(`conteudoPlantio${idPlantio}`).classList;
+        
+        if(conteudoPlantioClassList.contains('hide')) {
+            conteudoPlantioClassList.remove('hide');
+        } else {
+            conteudoPlantioClassList.add('hide');
+        }
     }
 
     async function gerarGraficosAlertas(idPlantio, idRegiao, diaSemana) {
@@ -517,7 +530,7 @@
         popup.classList.remove('hide');
 
         let titulo = document.getElementById(`tituloGraficoAlertas${idPlantio}`);
-        titulo.innerHTML = `Maior e menor umidade ${prefixo} quatro ${jsonUmidadeDiasPassados[0].diaSemana} na ${jsonUmidadeDiasPassados[0].descricao}`; 
+        titulo.innerHTML = `Plantio ${jsonUmidadeDiasPassados[0].fkPlantio}: Maior e menor umidade ${prefixo} quatro ${jsonUmidadeDiasPassados[0].diaSemana} na ${jsonUmidadeDiasPassados[0].descricao}`; 
 
         graficosAvisos[idPlantio - 1] = new Chart(ctx, config);
     }
