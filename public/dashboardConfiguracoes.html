@@ -56,6 +56,7 @@
             <button onclick="cadastrar()">Cadastrar Funcionário</button>
         </div>
     </div>
+    <div id="alerta"><p id="texto_alerta"></p></div>
     <div class="conteiner-suporte" onclick="suporte()">
         <div class="suporte">
             <img src="assets/icons/phone-telephone.png" alt="">
@@ -137,6 +138,11 @@
         .catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
         });
+        texto_alerta.innerHTML = 'Cadastro realizado com sucesso!'
+        alerta.style.opacity = "1"
+        setTimeout(function () {
+            alerta.style.opacity = '0'
+        }, 4000);
         
         return false;
     }
