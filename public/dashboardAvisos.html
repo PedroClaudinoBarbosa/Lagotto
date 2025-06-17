@@ -103,7 +103,7 @@
                     <div class="filtros-pesquisa">
                         <div class="filtro-item">
                             <label for="situacaoPlantio">Situação do Plantio:</label>
-                            <select id="situacaoPlantio" onchange="exibirAlertas()">
+                            <select id="situacaoPlantio" onchange="exibirAlertas('criacao')">
                                 <option value="todos">Mostrar Todos</option>
                                 <option value="risco">Em Risco</option>
                                 <option value="aviso">Em Aviso</option>
@@ -113,7 +113,7 @@
                         <div class="filtro-item">
                             <label for="pesquisarFazenda">Pesquisar Fazenda:</label>
                             <input type="text" id="pesquisarFazenda" placeholder="Ex: Fazenda dos Fungos"
-                                onkeyup="exibirAlertas()">
+                                onkeyup="exibirAlertas('criacao')">
                         </div>
                     </div>
                 </div>
@@ -377,7 +377,7 @@
         let imagemSrc;
 
         if (!plantio.nomeFazenda.toLowerCase().includes(busca)) {
-            return '';
+            return null;
         }
 
         graficosPlantios[plantio.idPlantio - 1] = null;
@@ -513,7 +513,8 @@
 
         for (let i = jsonUmidadeDiasPassados.length - 1; i > jsonUmidadeDiasPassados.length - 5; i--) {
             let diaPassado = jsonUmidadeDiasPassados[i];
-            labels.push(diaPassado.data);
+            let data = diaPassado.data.split('T');
+            labels.push(data[0]);
             maiorUmidade.push(diaPassado.maiorUmidade);
             menorUmidade.push(diaPassado.menorUmidade);
         }
@@ -623,14 +624,14 @@
                     </div>
                     </div>
             </section>
-        `
+        `;
     }
 
     function carregarEstatisticasRegiao(idPlantio, idRegiao) {
         regiaoSelecionada[idPlantio - 1] = idRegiao;
 
         let plantioRegioes = document.getElementById(`quadradoRegioes${idPlantio}`);
-        console.log(plantioRegioes);
+
         let boxRegiaoClicada;
 
         for (const regiao of plantioRegioes.children) {
