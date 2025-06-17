@@ -505,8 +505,13 @@
             }
         };
 
+        let prefixo = 'das últimas';
+        if(diaSemana == 1 || diaSemana == 7) {
+            prefixo = 'dos últimos';
+        }
+
         let titulo = document.getElementById(`tituloGraficoAlertas${idPlantio}`);
-        titulo.innerHTML = `Maior e menor umidade dos últimos quatro ${jsonUmidadeDiasPassados[0].diaSemana} na ${jsonUmidadeDiasPassados[0].descricao}`; 
+        titulo.innerHTML = `Maior e menor umidade ${prefixo} quatro ${jsonUmidadeDiasPassados[0].diaSemana} na ${jsonUmidadeDiasPassados[0].descricao}`; 
 
         graficosAvisos[idPlantio - 1] = new Chart(ctx, config);
     }
