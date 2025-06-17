@@ -138,6 +138,7 @@
 
     let listaExibicao;
     let graficosPlantios = [];
+    let graficosAvisos = [];
 
     carregarPagina();
 
@@ -146,8 +147,6 @@
 
         await estatisticasPlantios();
         await exibirAlertas();
-
-        avisosUmidadesDiaSemanaPassados();
     }
 
     async function buscarFazendas() {
@@ -334,6 +333,8 @@
 
             carregarEstatisticasRegiao(plantio.idPlantio, 1);
         }
+
+        avisosUmidadesDiaSemanaPassados();
     }
 
     async function montarAlertas(plantio, estado) {
@@ -407,17 +408,106 @@
                         <div class="alertaRegiao" id="alertaRegiao${plantio.idPlantio}">
                             <h4>Carregando...</h4>
                         </div>
-                    
+                        <div id="graficoAlertasRegiao">
+                            <div id="tituloGraficoAlertas${plantio.idPlantio}"></div>
+                            <div class="canvas">
+                                <canvas id="graficoAlertas${plantio.idPlantio}"</canvas>
+                        </div>
+                </div>
                     </div>
                 </div>
-                <div id="regiaoSelecionada${plantio.idPlantio}" class="regiaoSelecionada">
-                    
-                </div>
+                <div id="regiaoSelecionada${plantio.idPlantio}" class="regiaoSelecionada"></div>
                 <div class="conteudoRegiaoSelecionada" id="conteudoRegiaoSelecionada${plantio.idPlantio}"></div>
             </div>
         `;
 
+        graficosAvisos[plantio.idPlantio - 1] = null;
+
         return alertaHTML;
+    }
+
+    async function gerarGraficosAlertas(idPlantio, idRegiao, diaSemana) {
+        let respostaUmidadeDiasPassados = await fetch(`/estatisticas/umidadesDiaSemanaPassados/${idPlantio}/${idRegiao}/${diaSemana}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application-json'
+            }
+        });
+
+        if (!respostaUmidadeDiasPassados.ok) {
+            respostaUmidadeDiasPassados.text().then((erro) => {
+                console.error(erro);
+            });
+
+            return;
+        }
+
+        let jsonUmidadeDiasPassados = await respostaUmidadeDiasPassados.json();
+
+        let ctx = document.getElementById(`graficoAlertas${idPlantio}`);
+
+        if (graficosAvisos[idPlantio - 1] !== null) {
+            graficosAvisos[idPlantio - 1].destroy();
+        }
+
+        let maiorUmidade = [];
+        let menorUmidade = [];
+        let labels = [];
+
+        for (let i = jsonUmidadeDiasPassados.length - 1; i > jsonUmidadeDiasPassados.length - 5; i--) {
+            let diaPassado = jsonUmidadeDiasPassados[i];
+            labels.push(diaPassado.data);
+            maiorUmidade.push(diaPassado.maiorUmidade);
+            menorUmidade.push(diaPassado.menorUmidade);
+        }
+
+        let data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Maior Umidade',
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1,
+                    data: maiorUmidade
+                },
+                {
+                    label: 'Menor Umidade',
+                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1,
+                    data: menorUmidade
+                }
+            ]
+        };
+
+        let config = {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Umidade (%)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Datas'
+                        }
+                    }
+                }
+            }
+        };
+
+        let titulo = document.getElementById(`tituloGraficoAlertas${idPlantio}`);
+        titulo.innerHTML = `Maior e menor umidade dos últimos quatro ${jsonUmidadeDiasPassados[0].diaSemana} na ${jsonUmidadeDiasPassados[0].descricao}`; 
+
+        graficosAvisos[idPlantio - 1] = new Chart(ctx, config);
     }
 
     function scrollCarousel(direcao, idCarousel) {
@@ -443,14 +533,14 @@
         });
     }
 
-    function atribuirCarrossel(alertasHTML, idPlantio){
+    function atribuirCarrossel(alertasHTML, idPlantio) {
 
         console.log(alertasHTML)
         let alertaRegiao = document.getElementById(`alertaRegiao${idPlantio}`)
 
         let cards = ""
 
-        for (let i = 0; i < alertasHTML.length; i++){
+        for (let i = 0; i < alertasHTML.length; i++) {
             cards += `<div class ="alerta-card">
                             <img src="../assets/icons/lupa.webp " alt="">
                             ${alertasHTML[i]} 
@@ -530,17 +620,17 @@
     }
 
     async function avisosUmidadesDiaSemanaPassados() {
-        for(let i = 0; i < listaExibicao.length; i++) {
+        for (let i = 0; i < listaExibicao.length; i++) {
             let plantio = listaExibicao[i];
 
             let alertasHTML = [];
-            
-            for(let j = 0; j < plantio.regioes.length; j++) {
+
+            for (let j = 0; j < plantio.regioes.length; j++) {
                 let regiao = plantio.regioes[j];
 
                 let alertaRegiao = '';
 
-                for(let k = 1; k <= 7; k++) {
+                for (let k = 1; k <= 7; k++) {
                     let respostaUmidadeDiasPassados = await fetch(`/estatisticas/umidadesDiaSemanaPassados/${plantio.idPlantio}/${regiao[0].fkRegiao}/${k}`, {
                         method: 'GET',
                         headers: {
@@ -548,7 +638,7 @@
                         }
                     });
 
-                    if(!respostaUmidadeDiasPassados.ok) {
+                    if (!respostaUmidadeDiasPassados.ok) {
                         respostaUmidadeDiasPassados.text().then((erro) => {
                             console.error(erro);
                         });
@@ -560,39 +650,41 @@
 
                     let diasUmidadeRuim = [];
 
-                    jsonUmidadeDiasPassados.forEach((diaPassado) => {
-                        if(diaPassado.maiorUmidade > 40 || diaPassado.menorUmidade < 30) {
+                    for (let l = jsonUmidadeDiasPassados.length - 1; l > 0; l--) {
+                        let diaPassado = jsonUmidadeDiasPassados[l];
+
+                        if (diaPassado.maiorUmidade > 40 || diaPassado.menorUmidade < 30) {
                             diasUmidadeRuim.push(1);
                         } else {
                             diasUmidadeRuim.push(0);
                         }
-                    });                    
+                    }
 
                     let prefixo = 'às';
-                    if(k == 1 || k == 7) {
+                    if (k == 1 || k == 7) {
                         prefixo = 'aos';
                     }
 
                     let quatroSemanasConsecutivas = true;
 
-                    for(let m = 0; m < 10; m++) {
-                        if(diasUmidadeRuim[m] == 0) {
+                    for (let m = 0; m < 10; m++) {
+                        if (diasUmidadeRuim[m] == 0) {
                             quatroSemanasConsecutivas = false;
                         }
                     }
 
-                    if(quatroSemanasConsecutivas) {
-                        alertaRegiao = `<h3>${jsonUmidadeDiasPassados[0].descricao} apresenta anormalidades recorrentes ${prefixo} ${jsonUmidadeDiasPassados[0].diaSemana}</h3>`
+                    if (quatroSemanasConsecutivas) {
+                        alertaRegiao = `<h3 onclick="gerarGraficosAlertas(${jsonUmidadeDiasPassados[0].fkPlantio}, ${jsonUmidadeDiasPassados[0].fkRegiao}, ${k})">${jsonUmidadeDiasPassados[0].descricao} apresenta anormalidades recorrentes ${prefixo} ${jsonUmidadeDiasPassados[0].diaSemana}</h3>`
                     }
-                } 
+                }
 
-                if(alertaRegiao != ""){
+                if (alertaRegiao != "") {
                     alertasHTML.push(alertaRegiao);
                 }
             }
 
             let alertaRegiao = document.getElementById(`alertaRegiao${plantio.idPlantio}`);
-            if(alertasHTML != '') {
+            if (alertasHTML != '') {
                 atribuirCarrossel(alertasHTML, plantio.idPlantio);
             } else {
                 alertaRegiao.innerHTML = `<h4>Este plantio não apresenta nenhuma anormalidade recorrente</h4>`;
