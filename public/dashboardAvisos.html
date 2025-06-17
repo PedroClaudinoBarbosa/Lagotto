@@ -401,6 +401,8 @@
                     <div id="alertasPlantio">
                         <div class="alertasTitulo">
                             <h3>Alertas do Plantio ${plantio.idPlantio}</h3>
+                            <h4>Anormalidades recorrentes ocorrem quando um plantio apresentar problemas na umidade por 4 semanas seguidas.</h4>
+
                         </div>
                         <div class="alertaRegiao" id="alertaRegiao${plantio.idPlantio}">
                             <h4>Carregando...</h4>
@@ -450,13 +452,12 @@
 
         for (let i = 0; i < alertasHTML.length; i++){
             cards += `<div class ="alerta-card">
+                            <img src="../assets/icons/lupa.webp " alt="">
                             ${alertasHTML[i]} 
                         </div>`
         }
         alertaRegiao.innerHTML = `
             <section class="section-alertas-carrossel">
-                        <h2>Alertas por Região</h2>
-                        <br>
                     <div class="zcarousel-container">
                 <button class="arrow arrow-left" onclick="scrollCarousel(-1, 'carousel${idPlantio}')">‹</button>
 
