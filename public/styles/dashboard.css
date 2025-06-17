@@ -854,10 +854,11 @@ a {
 }
 .cadastrar .box-cadastro span{
     margin-top: 40px;
-    color: #72594b;
+
 }
 #campo-senha {
-    margin-right: 100px;
+    margin-right: 160px;
+    color: wheat;
 }
 #campo {
     margin-right: 235px;
@@ -1242,4 +1243,28 @@ a {
     align-items: center;
     justify-content: center;
     gap: 20px;
+}
+#alerta{
+    position: relative;
+    opacity: 0;
+    justify-content: center;
+    align-items: center;
+    top: -80vh;
+    left: 73vw;
+    border-radius: 20px;
+    background: linear-gradient(to bottom, #3c261d, #0c0706);
+    color: wheat;
+    width: 300px;
+    height: 100px;
+    text-align: center;
+    transition: 0.5s ease-in-out;
+}
+#texto_alerta {
+    display: flex;
+    font-size: 18px;
+    color: wheat;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
 }
