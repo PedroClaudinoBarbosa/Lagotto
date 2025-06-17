@@ -563,6 +563,8 @@
                     jsonUmidadeDiasPassados.forEach((diaPassado) => {
                         if(diaPassado.maiorUmidade > 40 || diaPassado.menorUmidade < 30) {
                             diasUmidadeRuim.push(1);
+                        } else {
+                            diasUmidadeRuim.push(0);
                         }
                     });                    
 
@@ -571,7 +573,15 @@
                         prefixo = 'aos';
                     }
 
-                    if(diasUmidadeRuim.length > 4) {
+                    let quatroSemanasConsecutivas = true;
+
+                    for(let m = 0; m < 10; m++) {
+                        if(diasUmidadeRuim[m] == 0) {
+                            quatroSemanasConsecutivas = false;
+                        }
+                    }
+
+                    if(quatroSemanasConsecutivas) {
                         alertaRegiao = `<h3>${jsonUmidadeDiasPassados[0].descricao} apresenta anormalidades recorrentes ${prefixo} ${jsonUmidadeDiasPassados[0].diaSemana}</h3>`
                     }
                 } 
