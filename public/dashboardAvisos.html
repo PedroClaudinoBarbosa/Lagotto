@@ -904,4 +904,11 @@
             imagem.src = olhoAberto;
         }
     }
+
+    if (sessionStorage.ADMIN === "0") {
+        const configLink = document.getElementById("config");
+        if (configLink) {
+            configLink.remove();
+        }
+    }
 </script>
