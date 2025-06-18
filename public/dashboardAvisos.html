@@ -332,12 +332,15 @@
 
         let situcaoTodos = situacao == 'todos';
 
+        let imagens = [];
+
         if (situcaoTodos || situacao == 'risco') {
             for (let i = 0; i < dataPlantiosRiscos.length; i++) {
                 let html = await montarAlertas(dataPlantiosRiscos[i], 'Em risco');
                 if(!!html) {
                     listaExibicao.push(dataPlantiosRiscos[i]);
-                    alertasHTML += html;
+                    alertasHTML += html[0];
+                    imagens[dataPlantiosRiscos[i].idPlantio - 1] = html[1];
                 }
             }
         }
@@ -347,7 +350,8 @@
                 let html = await montarAlertas(dataPlantiosAlertas[i], 'Estado de Alerta');
                 if(!!html) {
                     listaExibicao.push(dataPlantiosAlertas[i]);
-                    alertasHTML += html;
+                    alertasHTML += html[0];
+                    imagens[dataPlantiosAlertas[i].idPlantio - 1] = html[1];
                 }
             }
         }
@@ -357,7 +361,8 @@
                 let html = await montarAlertas(dataPlantiosEstaveis[i], 'Estável');
                 if(!!html) {
                     listaExibicao.push(dataPlantiosEstaveis[i]);
-                    alertasHTML += html;
+                    alertasHTML += html[0];
+                    imagens[dataPlantiosEstaveis[i].idPlantio - 1] = html[1];
                 }
             }
         }
@@ -366,7 +371,12 @@
             avisos.innerHTML = alertasHTML;
         }
 
-        
+        for(let i = 0; i < imagens.length; i++) {
+            let imagem = document.getElementById(`imagem${i + 1}`);
+
+            imagem.src = imagens[i];
+        }
+
         for (let i = 0; i < listaExibicao.length; i++) {
             let plantio = listaExibicao[i];
             await montarMapaRegioes(listaExibicao[i]);
@@ -401,7 +411,7 @@
 
         let alertaHTML = `
             <div class="alerta" id="plantio${plantio.idPlantio}">
-                <h2><img class="apontando" id="icone-${plantio.idPlantio}"  src="../assets/icons/olhoaberto.webp" onclick="exibirConteudoPlantio(${plantio.idPlantio}); alternarImagem(${plantio.idPlantio});"><img src="${imagemSrc}"> Plantio ${plantio.idPlantio} - ${plantio.nomeFazenda} - ${plantio.cidade} ${plantio.estadoSigla}</h2>
+                <h2><img class="apontando" id="icone-${plantio.idPlantio}"  src="../assets/icons/olhoaberto.webp" onclick="exibirConteudoPlantio(${plantio.idPlantio}); alternarImagem(${plantio.idPlantio});"><img id="imagem${plantio.idPlantio}" src="${imagemSrc}"> Plantio ${plantio.idPlantio} - ${plantio.nomeFazenda} - ${plantio.cidade} ${plantio.estadoSigla}</h2>
                 
                 <div id="conteudoPlantio${plantio.idPlantio}" class="hide">
                     <div class="conteudoAlerta">
@@ -445,7 +455,7 @@
 
         graficosAvisos[plantio.idPlantio - 1] = null;
 
-        return alertaHTML;
+        return [alertaHTML, imagemSrc];
     }
 
     function montarMapaRegioes(plantio) {
