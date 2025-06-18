@@ -242,7 +242,7 @@
 
             for (let j = 0; j < plantio.regioes.length; j++) {
                 let regiao = plantio.regioes[j];
-                let umidadeAtual = regiao[23].umidade;
+                let umidadeAtual = regiao[regiao.length - 1].umidade;
 
                 if (umidadeAtual > 40 || umidadeAtual < 30) {
                     qtdRegioesCriticas++;
@@ -334,22 +334,31 @@
 
         if (situcaoTodos || situacao == 'risco') {
             for (let i = 0; i < dataPlantiosRiscos.length; i++) {
-                alertasHTML += await montarAlertas(dataPlantiosRiscos[i], 'Em risco');
-                listaExibicao.push(dataPlantiosRiscos[i]);
+                let html = await montarAlertas(dataPlantiosRiscos[i], 'Em risco');
+                if(html != null) {
+                    listaExibicao.push(dataPlantiosRiscos[i]);
+                    alertasHTML += html;
+                }
             }
         }
 
         if (situcaoTodos || situacao == 'aviso') {
             for (let i = 0; i < dataPlantiosAlertas.length; i++) {
-                alertasHTML += await montarAlertas(dataPlantiosAlertas[i], 'Estado de Alerta');
-                listaExibicao.push(dataPlantiosAlertas[i]);
+                let html = await montarAlertas(dataPlantiosAlertas[i], 'Estado de Alerta');
+                if(html != null) {
+                    listaExibicao.push(dataPlantiosAlertas[i]);
+                    alertasHTML += html;
+                }
             }
         }
 
         if (situcaoTodos || situacao == 'adequado') {
             for (let i = 0; i < dataPlantiosEstaveis.length; i++) {
-                alertasHTML += await montarAlertas(dataPlantiosEstaveis[i], 'Estável');
-                listaExibicao.push(dataPlantiosEstaveis[i]);
+                let html = await montarAlertas(dataPlantiosEstaveis[i], 'Estável');
+                if(html != null) {
+                    listaExibicao.push(dataPlantiosEstaveis[i]);
+                    alertasHTML += html;
+                }
             }
         }
 
