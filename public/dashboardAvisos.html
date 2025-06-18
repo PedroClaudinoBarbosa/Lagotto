@@ -335,7 +335,7 @@
         if (situcaoTodos || situacao == 'risco') {
             for (let i = 0; i < dataPlantiosRiscos.length; i++) {
                 let html = await montarAlertas(dataPlantiosRiscos[i], 'Em risco');
-                if(html != null) {
+                if(!!html) {
                     listaExibicao.push(dataPlantiosRiscos[i]);
                     alertasHTML += html;
                 }
@@ -345,7 +345,7 @@
         if (situcaoTodos || situacao == 'aviso') {
             for (let i = 0; i < dataPlantiosAlertas.length; i++) {
                 let html = await montarAlertas(dataPlantiosAlertas[i], 'Estado de Alerta');
-                if(html != null) {
+                if(!!html) {
                     listaExibicao.push(dataPlantiosAlertas[i]);
                     alertasHTML += html;
                 }
@@ -355,7 +355,7 @@
         if (situcaoTodos || situacao == 'adequado') {
             for (let i = 0; i < dataPlantiosEstaveis.length; i++) {
                 let html = await montarAlertas(dataPlantiosEstaveis[i], 'Estável');
-                if(html != null) {
+                if(!!html) {
                     listaExibicao.push(dataPlantiosEstaveis[i]);
                     alertasHTML += html;
                 }
@@ -698,6 +698,11 @@
             let hora = dataHoraValores[0].split('- ')
             labels.push(hora[1]);
         }
+        
+        if (data.length > 24) {
+            data = data.slice(-24);
+            labels = labels.slice(-24);
+        }   
 
         gerarGraficoUmidade(idPlantio, data, labels);
     }
