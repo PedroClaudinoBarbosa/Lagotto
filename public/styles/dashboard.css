@@ -986,7 +986,7 @@ a {
     border-radius: 5px;
     height: 40px;
     margin-top: 0;
-    width: 34.5%;
+    width: 50%;
     text-align: center;
 }
 
@@ -1287,4 +1287,11 @@ a {
     height: 30px;
     background-color: red;
     border-radius: 200px;
+}
+
+
+h6{
+    font-size: 30px;
+    text-align: center;
+    color: wheat;
 }

@@ -265,7 +265,7 @@
         kpiQtdPlantiosRisco.innerHTML = `${dataPlantiosRiscos.length}`;
         kpiQtdPlantiosAlerta.innerHTML = `${dataPlantiosAlertas.length}`;
 
-        const labels = ['Plantios em Risco', 'Plantios em Aviso', 'Plantios Adequados'];
+        const labels = ['Plantios com regiões em Risco', 'Plantios com regiões em Aviso', 'Plantios com regiões Adequadas'];
         const descricoes = [
             'Umidade abaixo de 30% ou acima de 40%',
             'Umidade entre 30-32% ou 38-40%',
@@ -667,7 +667,7 @@
                 </div>
                 <div id="graficoAlertasRegiao">
                     <div id="tituloGrafico">
-                        <h1> Umidade das últimas 24 horas</h1>
+                        <h6> Umidade das últimas 24 horas</h6>
                     </div>
                     <div class="canvas">
                         <canvas id="graficoPlantio${idPlantio}"</canvas>
