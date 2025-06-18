@@ -157,9 +157,9 @@
 
     async function atualizarPagina() {
         await buscarFazendas();
-        
+
         await estatisticasPlantios();
-        
+
         await exibirAlertas('atualizacao');
 
         for (let i = 0; i < listaExibicao.length; i++) {
@@ -367,16 +367,11 @@
             }
         }
 
-        if(carregamento == 'criacao') {
+        if (carregamento == 'criacao') {
             avisos.innerHTML = alertasHTML;
         }
 
-        for(let i = 0; i < imagens.length; i++) {
-            let imagem = document.getElementById(`imagem${i + 1}`);
-
-            imagem.src = imagens[i];
-        }
-
+        
         for (let i = 0; i < listaExibicao.length; i++) {
             let plantio = listaExibicao[i];
             await montarMapaRegioes(listaExibicao[i]);
@@ -385,7 +380,7 @@
             carregarEstatisticasRegiao(plantio.idPlantio, regiao);
         }
 
-        if(carregamento == 'criacao') {
+        if (carregamento == 'criacao') {
             avisosUmidadesDiaSemanaPassados();
         }
     }
@@ -496,8 +491,8 @@
     function exibirConteudoPlantio(idPlantio) {
 
         let conteudoPlantioClassList = document.getElementById(`conteudoPlantio${idPlantio}`).classList;
-        
-        if(conteudoPlantioClassList.contains('hide')) {
+
+        if (conteudoPlantioClassList.contains('hide')) {
             conteudoPlantioClassList.remove('hide');
         } else {
             conteudoPlantioClassList.add('hide');
@@ -584,7 +579,7 @@
         };
 
         let prefixo = 'das últimas';
-        if(diaSemana == 1 || diaSemana == 7) {
+        if (diaSemana == 1 || diaSemana == 7) {
             prefixo = 'dos últimos';
         }
 
@@ -592,7 +587,7 @@
         popup.classList.remove('hide');
 
         let titulo = document.getElementById(`tituloGraficoAlertas${idPlantio}`);
-        titulo.innerHTML = `Plantio ${jsonUmidadeDiasPassados[0].fkPlantio}: Maior e menor umidade ${prefixo} quatro ${jsonUmidadeDiasPassados[0].diaSemana} na ${jsonUmidadeDiasPassados[0].descricao}`; 
+        titulo.innerHTML = `Plantio ${jsonUmidadeDiasPassados[0].fkPlantio}: Maior e menor umidade ${prefixo} quatro ${jsonUmidadeDiasPassados[0].diaSemana} na ${jsonUmidadeDiasPassados[0].descricao}`;
 
         graficosAvisos[idPlantio - 1] = new Chart(ctx, config);
     }
@@ -684,7 +679,8 @@
                         <p>Umidade do Solo Atual</p> 
                     </div>
                     <div id="alertaRegiaoSelecionada">
-                        <img src="./assets/alerta_branco.png">
+                        
+                        
                     </div>
                 </div>
                 <div id="graficoAlertasRegiao">
@@ -696,6 +692,41 @@
                     </div>
                 </div>
         `;
+
+
+
+        alertaRegiaoSelecionada = document.getElementById('alertaRegiaoSelecionada');
+
+        if (regiao[regiao.length - 1].umidade < 30 || regiao[regiao.length - 1].umidade > 40) {
+            alertaRegiaoSelecionada.innerHTML = `
+        <div class="conteudoalertaRegiao">
+            <h2 style="color: red; background-color: rgba(0, 0, 0, 0.1);">
+                A umidade da região está fora do limite ideal
+            </h2>
+            <img src="./assets/alerta_branco.png">
+        </div>`;
+        } else if ((regiao[regiao.length - 1].umidade > 30 && regiao[regiao.length - 1].umidade <= 31) || (regiao[regiao.length - 1].umidade >= 39 && regiao[regiao.length - 1].umidade < 40)) {
+            alertaRegiaoSelecionada.innerHTML = `
+        <div class="conteudoalertaRegiao">
+            <h2 style="color: yellow; background-color: rgba(0, 0, 0, 0.1);">
+                A umidade da região está entrando em alerta
+            </h2>
+            <img src="./assets/alerta_branco.png">
+        </div>`;
+        } else {
+            alertaRegiaoSelecionada.innerHTML = `
+        <div class="conteudoalertaRegiao">
+            <h2 style="color: green; background-color: rgba(0, 0, 0, 0.1);">
+                Está tudo bem com esta região
+            </h2>
+        </div>`;
+        }
+
+
+        n
+
+
+
 
         let data = [];
         let labels = [];
@@ -729,7 +760,7 @@
                 let alertaRegiao = '';
 
                 for (let k = 1; k <= 7; k++) {
-                    let respostaUmidadeDiasPassados = await fetch(`/estatisticas/umidadesDiaSemanaPassados/${plantio.idPlantio}/${regiao[0].fkRegiao}/${k}`, {  
+                    let respostaUmidadeDiasPassados = await fetch(`/estatisticas/umidadesDiaSemanaPassados/${plantio.idPlantio}/${regiao[0].fkRegiao}/${k}`, {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application-json'

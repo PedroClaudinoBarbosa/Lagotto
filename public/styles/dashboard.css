@@ -1137,8 +1137,9 @@ a {
 }
 
 .kpiSelecionada {
-    display: flex;
+        display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 #quadradoRegiaoSelecionada {
@@ -1187,27 +1188,43 @@ a {
 }
 
 #alertaRegiaoSelecionada {
-    display: flex;
+          display: flex
+;
     flex-direction: row;
     margin-top: 20px;
-    margin-left: 20px;
+    margin-left: 0px;
+    width: 500px;
+    padding: 0;
+    justify-content: center;
 
-    width: 300px;
+}
+#alertaRegiaoSelecionada h2{
+    align-self: center;
+    justify-self: center;
+    font-weight: 300;
 }
 
 #alertaRegiaoSelecionada img {
     width: 50px;
     height: 50px;
 
-    margin-left: 65px;
+    /* margin-left: 65px;
     margin-right: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 20px; */
 }
 
 #alertaRegiaoSelecionada span {
     font-size: 20px;
 
     color: white;
+}
+
+.conteudoalertaRegiao{
+        display: flex;
+    flex-direction: row;
+    margin-left: 74px;
+
+
 }
 
 .popup-container {
